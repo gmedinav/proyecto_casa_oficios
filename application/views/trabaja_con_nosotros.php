@@ -729,9 +729,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     {
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
-                                                                            if(isset($mdaData[0])== true)
+                                                                            if(empty($mdaData[0])== false)
                                                                             {
-                                                                                echo "\t\t\t\t\t<option value='".$mdaData['1']."-".$mdaData[0]."'>".$mdaData[0]."</option>\n";
+                                                                                echo "\t\t\t\t\t<option value='".$mdaData[1]."-".$mdaData[0]."'>".$mdaData[0]."</option>\n";
                                                                             }
                                                                         }
                                                                     }
@@ -759,7 +759,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     {
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
-                                                                            echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData[0]." - ".$mdaData[1]."</option>\n";
+                                                                            if(empty($mdaData[0])== false){
+                                                                                
+                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData[0]."</option>\n";
+                                                                            }
+                                                                            
                                                                             //echo $mdaKey . ": " . $mdaData["value"];
                                                                         }
                                                                     }

@@ -74,10 +74,9 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->load->model('tipo_experiencia_model');
         $data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();              
 
-        //$data['array_telefonos']="";
-        //Verificar si agregar correctamente
         $data['array_telefonos']=array();
         
+        echo "cargado de modelo y previo aray()<br>";
         if($this->input->post('btnAccionTelefono') == "Agregar")
         {
             $this->form_validation->set_rules('txtTelefono', '"Teléfono"', 'required|callback_validar_telefono_check');
@@ -88,8 +87,11 @@ class Trabaja_con_nosotros extends CI_Controller {
 
             if ($this->form_validation->run() == FALSE) 
             {
-                //$data['guardado']=FALSE;
-                $data['array_telefonos'] = $this->listarTelefono();
+
+                if(empty($this->listarTelefono())==false){                    
+                    $data['array_telefonos'] = $this->listarTelefono();
+                }
+                                
                 $this->load->view('trabaja_con_nosotros',$data);   
                 return;
             }else{
@@ -98,6 +100,10 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $proveedor_fono = $this->input->post('cboProveedorTelf');
                
                 $data['array_telefonos'] = $this->agregarItemTelefono($telefono,$proveedor_fono);
+
+                if(empty($this->listarTelefono())==false){                    
+                    $data['array_telefonos'] = $this->listarTelefono();
+                }                
             }
             
         }else{
@@ -124,17 +130,16 @@ class Trabaja_con_nosotros extends CI_Controller {
                     if(empty($this->existeItemTelefono($telefono))==false)
                     {
                         $indice=$this->existeItemTelefono($telefono);                    
-                        $data['array_telefonos'] = $this->borrarItemTelefono($indice);
+                        $this->borrarItemTelefono($indice);
+                        if(empty($this->listarTelefono())==false){
+                            $data['array_telefonos'] = $this->listarTelefono();  
+                        }
                     }                  
                 }                
                 
             }
 
-
         }
-
-
-
 
 
         $this->load->library('form_validation');
@@ -143,7 +148,6 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->form_validation->set_rules('txtApeMa', '"Apellidos Materno"', 'required|trim|callback_alpha_dash_space');
 
         $this->form_validation->set_rules('txtNroDocumento', '"Número de Documento"', 'required|is_natural_no_zero');                        
-        //$this->form_validation->set_rules('txtTelefono', '"Teléfono"', 'required|is_natural_no_zero');
         $this->form_validation->set_rules('txtFecNaci', '"Fecha Nacimiento"', 'required|callback_valid_date');
 
         $this->form_validation->set_rules('fileReciboResidencia', '"Recibo de Servicios"', 'required|callback_cargar_archivo');
@@ -183,7 +187,7 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->load->view('trabaja_con_nosotros',$data);   
 
         } else {
-            //$data['guardado']=TRUE;     
+            $data['guardado']=TRUE;     
             $this->load->model('solicitud_trabajo_model');
 
             //$this->Solicitud_trabajo_model->insertar_Solicitud_Trabajo();  
@@ -270,9 +274,10 @@ class Trabaja_con_nosotros extends CI_Controller {
                 if(substr($telefono,0,1)=="9")
                 {
                     //echo "es celular y empieza con 9 // Y esto detecto como primer caracter: ".substr($telefono,0,1);
+                    //echo "validatExistenciaTelefono_check: ".$this->validatExistenciaTelefono_check($telefono) ;
                     if($this->validatExistenciaTelefono_check($telefono) == TRUE)
                     {
-                        
+                        //echo "caso celular// validatExistenciaTelefono_check: ".$this->validatExistenciaTelefono_check($telefono)."<br>" ;
                         $this->form_validation->set_message('validación de Télefono', 'El teléfono %s ya está referido.');
                         return FALSE;                        
                     }else{                        
@@ -290,7 +295,9 @@ class Trabaja_con_nosotros extends CI_Controller {
                 {
                     if(substr($telefono,0,1)<>"9")
                     {
-                        //echo "Es telefono de 7 digitos.";                        
+                        //echo "Es telefono de 7 digitos.";   
+                        //echo "caso casa// validatExistenciaTelefono_check: ".$this->validatExistenciaTelefono_check($telefono)."<br>" ;
+                        
                         if($this->validatExistenciaTelefono_check($telefono) == TRUE)
                         {
                             $this->form_validation->set_message('validación de Télefono', 'El teléfono %s ya está referido.');
@@ -347,29 +354,17 @@ class Trabaja_con_nosotros extends CI_Controller {
     
     function agregarItemTelefono($telefono,$proveedor_fono)
     {
-        
-//      $lista_telefonos = array();
-//      
-//      $lista_telefonos[][0] = $telefono;
-//      $lista_telefonos[][1] = $proveedor_fono;    
-//      
-//      $this->session->set_userdata('lista_telefonos[][0]',$telefono)  
-        
-//      $this->session->set_userdata('lista_telefonos[][0]',$telefono)  ;
-//      $this->session->set_userdata('lista_telefonos[][1]',$proveedor_fono)  ;
-      
-//      return $this->session->userdata('lista_telefonos');    
-        
+               
       $_SESSION['lista_telefonos'][][0] = $telefono;
       $_SESSION['lista_telefonos'][][1] = $proveedor_fono;         
 //      return $_SESSION['lista_telefonos'];    
 
-      $arreglo=array();
-      if(empty($this->session->userdata('lista_telefonos'))==false){
-               $arreglo=$this->session->userdata('lista_telefonos');                
-      }
-      
-      return $arreglo;    
+//      $arreglo=array();
+//      if(empty($this->session->userdata('lista_telefonos'))==false){
+//               $arreglo=$this->session->userdata('lista_telefonos');                
+//      }      
+//      return $arreglo;   
+      return true;//$this->listarTelefono();
     }
     
     function listarTelefono()
@@ -391,70 +386,69 @@ class Trabaja_con_nosotros extends CI_Controller {
         //foreach($_SESSION['lista_telefonos'] as $item_telefono=>$value_telefono)
         $arreglo = array();
         
-        if(empty($this->session->userdata('lista_telefonos'))==false){
-            $arreglo = $this->session->userdata('lista_telefonos');
+        if(empty($this->listarTelefono())==false){
+            $arreglo = $this->listarTelefono();
             
             foreach($arreglo as $item_telefono=>$value_telefono)
-            {            
-                if($telefono == $value_telefono[0])
-                {
-                    return $item_telefono;
-                }             
+            {        
+                if(empty($value_telefono[0])==false){
+                    
+                    if($telefono == $value_telefono[0])
+                    {
+                        return $item_telefono;
+                    }                        
+                    
+                }
+                            
             }                        
         }
         return -1;  
-        
-        
+                
     }
     
     
     function validatExistenciaTelefono_check($telefono){
   
-        $arreglo=array();
-        
-        if(empty($this->session->userdata('lista_telefonos'))==false){
+        $arreglo=array();        
+        if(empty($this->listarTelefono())==false){
             
-            $arreglo=$this->session->userdata('lista_telefonos');
+            $arreglo=$this->listarTelefono();
             foreach($arreglo as $item_telefono=>$value_telefono)
-           {            
-               if($telefono == $value_telefono[0])
-               {
-                   return TRUE;
-               }             
-           }           
+           {        
+               if(empty($value_telefono[0])==false){
+                   
+                    if($telefono == $value_telefono[0])
+                    {
+                        //echo "validatExistenciaTelefono_check  bucle/value_telefono[0]".$value_telefono[0]."<br>";
+                        return TRUE;
+                    }                      
+                }
+           
+           }             
+           
         }
 
-        return FALSE;          
-        
-        
+        return FALSE;      
         
     }    
     
     //Borrar telefono del temporal
     function borrarItemTelefono($x){
-
-//        $lista_telefonos[$x];
-//        $this->session->unset_userdata($lista_telefonos[$x]);
-//      
+     
         if(empty($_SESSION['lista_telefonos'][$x])==false){ 
             unset($_SESSION['lista_telefonos'][$x]);        
-            array_values($_SESSION['lista_telefonos'][$x]);
-        }    
+            //array_values($_SESSION['lista_telefonos'][$x]);
+            return true;
             
-//      
-        $arreglo=array();
-        if(empty($this->session->userdata('lista_telefonos'))==false){
-            $arreglo=$this->session->userdata('lista_telefonos');           
-        }
-                
-        return $arreglo;
+        }    
+
+        return false;
 
     }    
 
     function resetListaTelefono(){
         $this->session->sess_destroy();
         return $this->session->userdata('lista_telefonos');
-        //return $_SESSION['lista_telefonos'];
     }    
 
 }

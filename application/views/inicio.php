@@ -230,20 +230,45 @@
                         </p>
 
 <!-- Select Basic -->
+
+<!--inicio form-->
+<?php //echo form_open('formulario/procesar'); ?>
+<?php echo form_open_multipart('inicio_plantilla/formulario'); ?>
+<!-- Form Name -->
+<?php if($guardado==TRUE){ ?>
+
+<!-- Success message -->
+<!--div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</!--div-->
+
+
+<div class="alert alert-success">
+  <strong>Guardado: </strong> <i class="glyphicon glyphicon-thumbs-up"></i>
+  Gracias por escribirnos. Nos contactataremos pronto con Ud.
+</div>
+
+<?php } ?>
+
    
 <div class="form-group" >
 
     <div class="col-md-11 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-       <select name="state" class="form-control selectpicker"> 
-
-           <option>Prueba1</option>
-           <option>Prueba2</option>
+       <select  name="cboOficios" ID="cboOficios" Class="form-control selectpicker"> 
+            <option value="0">Necesito un...</option>
+            <?php foreach ($oficios as $key => $value) { 
+                    if(set_value('cboOficios')==$value['COD_OFICIO']){
+                        echo "\t\t\t\t\t<option value='".$value['COD_OFICIO']."' selected>".$value['DES_OFICIO']."</option>\n";
+                    }else{
+                        echo "\t\t\t\t\t<option value='".$value['COD_OFICIO']."'>".$value['DES_OFICIO']."</option>\n";
+                    }
+              } 
+            ?>   
 
     </select>
 
   </div>
+  <?php echo form_error('cboOficios', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>      
 </div>
 </div>
 
@@ -256,8 +281,9 @@
   <div class="col-md-11 inputGroupContainer">
   <div class="input-group">
   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  <input  name="first_name" placeholder="Contacto" class="form-control"  type="text"/>
-    </div>
+    <input  name="contacto" placeholder="Contacto" class="form-control" value="<?php echo set_value('contacto'); ?>"  type="text">
+   </div>
+   <?php echo form_error('contacto', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>        
   </div>
 
 </div>
@@ -267,10 +293,11 @@
 <div class="form-group" style="padding-top:25px   "> 
 
     <div class="col-md-11 inputGroupContainer">
-    <div class="input-group">
+      <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-        <input name="phone" placeholder="Teléfono" class="form-control" type="text"/>
+        <input name="telefono" placeholder="Teléfono" class="form-control"  value="<?php echo set_value('telefono'); ?>" type="text"> 
       </div>
+        <?php echo form_error('telefono', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
   </div>
 </div>
 
@@ -280,9 +307,9 @@
     <div class="col-md-11 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-
-        <input name="email" placeholder="Correo Electrónico" class="form-control"  type="text"/>
+        <input name="email" placeholder="Correo Electrónico" class="form-control" value="<?php echo set_value('email'); ?>"  type="text"> 
      </div>
+     <?php echo form_error('email', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>     
   </div>
 </div>
 
@@ -295,8 +322,9 @@
     <div class="col-md-11 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-           <input name="address" placeholder="Dirección" class="form-control" type="text"/>
+           <input name="direccion" placeholder="Dirección" value="<?php echo set_value('direccion'); ?>" class="form-control" type="text">
      </div>
+     <?php echo form_error('direccion', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
   </div>
 </div>
 
@@ -310,12 +338,20 @@
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 
-        <select name="cboDistrito" class="form-control selectpicker">
-            <option>Distrito 1</option>
-            <option>Distrito 2</option>
-  
+            <select name="cboDistrito" ID="cboDistrito" Class="form-control selectpicker">
+            <option value="000000000">Distrito</option>
+            <?php foreach ($distritos as $key => $value) { 
 
-        </select></div>
+                    if(set_value('cboDistrito')==$value['cod_ubigeo']){
+                        echo "\t\t\t\t\t<option value='".$value['cod_ubigeo']."' selected>".$value['des_ubigeo']."</option>\n";
+                    }else{                            
+                        echo "\t\t\t\t\t<option value='".$value['cod_ubigeo']."'>".$value['des_ubigeo']."</option>\n";
+                    }
+            } 
+            ?>                        
+            </select>
+    </div>
+    <?php echo form_error('cboDistrito', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>       
 </div>
 </div>
 
@@ -328,12 +364,13 @@
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
        <!--<input type="text" />-->
-        <textarea rows="3" class="form-control" placeholder="What's up?" required=required></textarea>
+        <textarea class="form-control" name="descripcionUrgencia" placeholder="Describenos de urgencia"><?php echo set_value('descripcionUrgencia'); ?></textarea>
 
         	<!--<textarea class="form-control"  name="comment">
         </textarea>-->
 
-  </div>
+    </div>
+  <?php echo form_error('descripcionUrgencia', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>      
   </div>
 </div>
 
@@ -345,11 +382,10 @@
     <div class="col-md-11 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-        <input  name="file" placeholder="Fotos" class="form-control" type="file"/>
+        <input  name="foto" value="<?php echo set_value('foto'); ?>" placeholder="Fotos" class="form-control" type="file">
 
-
-     
     </div>
+    <?php echo form_error('foto', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>      
   </div>
 </div>
 
@@ -357,23 +393,20 @@
 <!--div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</!--div-->
 
 <!-- Button -->
-<div class="form-group" style="padding-top:35px;padding-left:28em" > 
+<div class="form-group"  > 
+    
     <div class="col-md-11 inputGroupContainer" >
-        <p>
-            <button type="button" class="btn btn-primary btn-lg">Enviar</button>
-          
-
-      
-
-        </p></div>
+        <p align="center">
+            <button type="submit"  class="btn btn-block btn-primary btn-lg">
+            <span class="glyphicon glyphicon-send"></span>
+                Enviar
+            </button>
+        </p>
+    </div>
+    
 </div>
 
-                    <div class="form-group" style="padding-top:45px">
 
-                        <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div>
-
-
-                    </div>
 
 
 
