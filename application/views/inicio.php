@@ -24,8 +24,7 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
     <link rel="shortcut icon" href="<?php echo base_url("assets/images/favicon.ico"); ?>" />
-
-
+    
 </head>
 
 
@@ -241,10 +240,43 @@
 <!--div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</!--div-->
 
 
-<div class="alert alert-success">
+<!--div class="alert alert-success">
   <strong>Guardado: </strong> <i class="glyphicon glyphicon-thumbs-up"></i>
   Gracias por escribirnos. Nos contactataremos pronto con Ud.
+</div-->
+<script>$('#myModal').modal('show');</script>
+
+ <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">
+                    <b>Mensaje de Confirmación</b>
+                </h4>
+            </div>
+            <div class="modal-body modal-sm">
+                Gracias por escribirnos. Nos contactataremos pronto con Ud.
+            </div>
+            <div class="modal-footer modal-sm">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
+<!-- /.modal -->  
+
+<button type="button" style="display: none;" id="btnShowPopup" class="btn btn-primary btn-lg"
+    data-toggle="modal" data-target="#myModal">
+    Launch demo modal
+</button>    
+
+
+
+
 
 <?php } ?>
 
@@ -765,7 +797,6 @@
 
 
     </form>
-
 
 </body>
 </html>

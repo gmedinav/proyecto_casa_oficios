@@ -9,7 +9,7 @@ class Solicitud_trabajo_model extends CI_Model {
 
                $this->load->database();
                $setencia="INSERT INTO tb_solicitud_trabajo"
-                       . '(id_oficio,nombres_apellidos,email,telefono,direccion,descripcion, id_ubigeo,foto)'
+                       . '(COD_OFICIO, NOMBRE, EMAIL, TELEFONO, DIRECCION, DESCRIPCION, COD_UBIGEO, FOTO)'
                        . ' values'
                        . "($cboOficios,'$nombre_apellidos','$email','$telefono','$direccion','$descripcionUrgencia', '$cboDistrito','$foto');";
                //echo $setencia;
