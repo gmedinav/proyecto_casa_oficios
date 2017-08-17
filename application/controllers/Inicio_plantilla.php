@@ -52,6 +52,8 @@ class Inicio_plantilla extends CI_Controller {
             $this->load->model('ubigeo_model');
             $data['distritos']= $this->ubigeo_model->listDistritosLima();   
             
+            
+            
             $this->load->model('oficio_model');
             $data['oficios']= $this->oficio_model->listOficios();               
             

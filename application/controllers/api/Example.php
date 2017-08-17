@@ -41,6 +41,7 @@ class Example extends REST_Controller {
         ];
 
         $id = $this->get('id');
+        $name = $this->get('name');
 
         // If the id parameter doesn't exist return all the users
 
@@ -84,6 +85,7 @@ class Example extends REST_Controller {
             {
                 if (isset($value['id']) && $value['id'] === $id)
                 {
+                    echo $name;
                     $user = $value;
                 }
             }
