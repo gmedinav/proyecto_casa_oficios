@@ -7,6 +7,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
 /** @noinspection PhpIncludeInspection */
 require APPPATH . 'libraries/REST_Controller.php';
+//
+//Invocar como : http://localhost:8081/proyecto_casa_oficios/wsvalidarlogin/validar/usuario/desco%40gmail.com/pass/admin
+
+
+
 
 class Wsvalidarlogin extends REST_Controller{
     
