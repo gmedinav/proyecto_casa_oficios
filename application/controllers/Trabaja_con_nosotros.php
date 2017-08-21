@@ -18,33 +18,23 @@ class Trabaja_con_nosotros extends CI_Controller {
 
 	public function index()
 	{
-                
-                $data['guardado']=FALSE;
-                
-                $this->resetListaTelefono();
-                
+                $data['poscionador'] =0;
+                $data['guardado']=FALSE;                
+                $this->resetListaTelefono();                
 		$this->load->model('ubigeo_model');
-		$data['distritos']= $this->ubigeo_model->listDistritosLima(); 
-                
+		$data['distritos']= $this->ubigeo_model->listDistritosLima();                 
 		$this->load->model('oficio_model');
-		$data['oficios']= $this->oficio_model->listOficios();  
-                
+		$data['oficios']= $this->oficio_model->listOficios();                  
 		$this->load->model('tipo_sexo_model');
-		$data['sexos']= $this->tipo_sexo_model->listTipoSexo();        
-                
+		$data['sexos']= $this->tipo_sexo_model->listTipoSexo();                        
 		$this->load->model('tipo_operadora_model');
-		$data['operadoras']= $this->tipo_operadora_model->listTipoOperadora();     
-                
+		$data['operadoras']= $this->tipo_operadora_model->listTipoOperadora();                     
 		$this->load->model('tipo_documento_model');
-		$data['documentos']= $this->tipo_documento_model->listTipoDocumentos();        
-                
+		$data['documentos']= $this->tipo_documento_model->listTipoDocumentos();                        
  		$this->load->model('tipo_experiencia_model');
-		$data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();  
+		$data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();                  
                 
-
-                //$data['array_telefonos'] = $this->listarTelefono();
-
-                //print_r($data['array_telefonos']);
+                $data['array_telefonos']=$this->listarTelefono();
                 
 		$this->load->view('trabaja_con_nosotros',$data);
 
@@ -75,10 +65,11 @@ class Trabaja_con_nosotros extends CI_Controller {
         $data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();              
 
         $data['array_telefonos']=array();
-        
-        echo "cargado de modelo y previo aray()<br>";
+        $data['poscionador'] =0;
+        //echo "cargado de modelo y previo aray()<br>";
         if($this->input->post('btnAccionTelefono') == "Agregar")
         {
+            $data['poscionador']=1;    
             $this->form_validation->set_rules('txtTelefono', '"Teléfono"', 'required|callback_validar_telefono_check');
             $this->form_validation->set_rules('cboProveedorTelf', '"Proveedor Telefónico"', 'required|is_natural_no_zero');
             
@@ -91,7 +82,8 @@ class Trabaja_con_nosotros extends CI_Controller {
                 if(empty($this->listarTelefono())==false){                    
                     $data['array_telefonos'] = $this->listarTelefono();
                 }
-                                
+                    
+                //echo $data['poscionador'];
                 $this->load->view('trabaja_con_nosotros',$data);   
                 return;
             }else{
@@ -105,32 +97,43 @@ class Trabaja_con_nosotros extends CI_Controller {
                     $data['array_telefonos'] = $this->listarTelefono();
                 }                
             }
-            
+                                              
         }else{
             
             if($this->input->post('btnAccionTelefono') == "Eliminar")
             {
                 $this->form_validation->set_rules('lstTelefonoAgregados', '"Lista Teléfonos"', 'required');
                 $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
+                $data['poscionador']=1;
                 
                 if ($this->form_validation->run() == FALSE) 
                 {
                     if(empty($this->listarTelefono())==false){
                         $data['array_telefonos'] = $this->listarTelefono();  
-                    }
-                    
+                    }                                        
+                    //echo $data['poscionador'];
                     $this->load->view('trabaja_con_nosotros',$data);   
                     return;
                 }else{
                     
                     $proveedor_fono = trim($this->input->post('lstTelefonoAgregados'));
-                    $arreglo = explode("-", $proveedor_fono);                  
-                    $telefono=$arreglo[1];
+                    $arreglo = explode("-", $proveedor_fono);        
                     
-                    if(empty($this->existeItemTelefono($telefono))==false)
+                    $telefono=$arreglo[1];
+                    $indice=$arreglo[0];
+                    
+                    //Parte del Testing:
+                    //
+                    //echo "parámetros previo a existeItemTelefono(telefono):<br>";
+                    //echo "telefono:".$telefono."<br>";
+                    //echo "indice:".$indice."<br>";
+                    //echo "existeItemTelefono(telefono):".$this->existeItemTelefono($telefono)."<br>";
+                    
+                    if($this->existeItemTelefono($telefono)!= -1)
                     {
-                        $indice=$this->existeItemTelefono($telefono);                    
+                        //$indice=$this->existeItemTelefono($telefono);                    
                         $this->borrarItemTelefono($indice);
+                        
                         if(empty($this->listarTelefono())==false){
                             $data['array_telefonos'] = $this->listarTelefono();  
                         }
@@ -355,45 +358,42 @@ class Trabaja_con_nosotros extends CI_Controller {
     function agregarItemTelefono($telefono,$proveedor_fono)
     {
                
-      $_SESSION['lista_telefonos'][][0] = $telefono;
-      $_SESSION['lista_telefonos'][][1] = $proveedor_fono;         
-//      return $_SESSION['lista_telefonos'];    
-
-//      $arreglo=array();
-//      if(empty($this->session->userdata('lista_telefonos'))==false){
-//               $arreglo=$this->session->userdata('lista_telefonos');                
-//      }      
-//      return $arreglo;   
-      return true;//$this->listarTelefono();
+      $_SESSION['lista_telefonos'][] = $telefono;
+      $_SESSION['proveedor_telefonico'][] = $proveedor_fono;         
+   
+      return true;
     }
     
     function listarTelefono()
     {
-        //print_r($_SESSION['lista_telefonos']);
-        //return $_SESSION['lista_telefonos']; 
         $arreglo=array();
         if(empty($this->session->userdata('lista_telefonos'))==false){            
-            $arreglo=$this->session->userdata('lista_telefonos');               
-        }
-        
+            $arreglo = $this->session->userdata('lista_telefonos');               
+        }        
         return $arreglo; 
     }
     
+    function listarProveedorTelefonico()
+    {
+        $arreglo=array();
+        if(empty($this->session->userdata('proveedor_telefonico'))==false){            
+            $arreglo = $this->session->userdata('proveedor_telefonico');               
+        }        
+        return $arreglo; 
+    }    
+    
     //verificar si existe telefono a agregar: retornará el indice si encuentra
-    function existeItemTelefono($telefono){
-       
-        
-        //foreach($_SESSION['lista_telefonos'] as $item_telefono=>$value_telefono)
-        $arreglo = array();
-        
+    function existeItemTelefono($telefono){               
+
+        $arreglo = array();        
         if(empty($this->listarTelefono())==false){
-            $arreglo = $this->listarTelefono();
             
+            $arreglo = $this->listarTelefono();            
             foreach($arreglo as $item_telefono=>$value_telefono)
             {        
-                if(empty($value_telefono[0])==false){
+                if(empty($value_telefono)==false){
                     
-                    if($telefono == $value_telefono[0])
+                    if($telefono == $value_telefono)
                     {
                         return $item_telefono;
                     }                        
@@ -415,35 +415,37 @@ class Trabaja_con_nosotros extends CI_Controller {
             $arreglo=$this->listarTelefono();
             foreach($arreglo as $item_telefono=>$value_telefono)
            {        
-               if(empty($value_telefono[0])==false){
+               if(empty($value_telefono)==false){
                    
-                    if($telefono == $value_telefono[0])
+                    if($telefono == $value_telefono)
                     {
-                        //echo "validatExistenciaTelefono_check  bucle/value_telefono[0]".$value_telefono[0]."<br>";
                         return TRUE;
                     }                      
-                }
-           
+                }           
            }             
            
         }
 
-        return FALSE;      
-        
+        return FALSE;              
     }    
     
     //Borrar telefono del temporal
     function borrarItemTelefono($x){
      
+        echo "previo a borrar<br>";
+        echo "borrarItemTelefono: (".$x.")";
         if(empty($_SESSION['lista_telefonos'][$x])==false){ 
-            unset($_SESSION['lista_telefonos'][$x]);        
-            //array_values($_SESSION['lista_telefonos'][$x]);
+            
+           //echo "es_array: ". is_array($_SESSION['lista_telefonos'][$x]);
+            unset($_SESSION['lista_telefonos'][$x]);    
+            unset($_SESSION['proveedor_telefonico'][$x]);      
+            
+            $_SESSION['lista_telefonos'] = array_values($_SESSION['lista_telefonos']);
+            $_SESSION['proveedor_telefonico'] = array_values($_SESSION['proveedor_telefonico']);
             return true;
             
         }    
-
         return false;
-
     }    
 
     function resetListaTelefono(){
@@ -451,4 +453,25 @@ class Trabaja_con_nosotros extends CI_Controller {
         return $this->session->userdata('lista_telefonos');
     }    
 
+    
+    
+    function agregarItemOficioExperiencia($id_Oficio,$id_periodo)
+    {
+               
+      $_SESSION['oficio_experiencia'][] = $id_Oficio;
+      $_SESSION['id_periodo_experiencia'][] = $id_periodo;         
+   
+      return true;
+    }
+    
+
+    function resetListaOficiosExperimentados(){
+        $this->session->sess_destroy();
+        return $this->session->userdata('oficio_experiencia');
+    }    
+    
+    
+    
+    
+    
 }

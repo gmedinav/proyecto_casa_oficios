@@ -403,6 +403,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <body>
     
+$poscionador : <?php echo $poscionador;?>
+
+
 
 <?php //echo form_open('formulario/procesar'); ?>
 <?php echo form_open_multipart('trabaja_con_nosotros/formulario'); ?>
@@ -729,9 +732,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
-                                                                            if(empty($mdaData)== false)
+                                                                            if(empty($mdaData[0])== false)
                                                                             {
-                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."-".$mdaData."'>".$mdaData."</option>\n";
+                                                                                echo "\t\t\t\t\t<option value='".$mdaData[1]."-".$mdaData[0]."'>".$mdaData[0]."</option>\n";
                                                                             }
                                                                         }
                                                                     }
@@ -739,11 +742,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             </select>
                                                         
                                                             <?php 
-                                                            
-                                                            //Parte del testing
-                                                            //echo "<pre>";
-                                                            //print_r($array_telefonos);
-                                                            //echo "</pre>";
+                                                            echo "<pre>";
+                                                            print_r($array_telefonos);
+                                                            echo "</pre>";
                                                             echo form_error('lstTelefonoAgregados', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                                   
 
@@ -766,8 +767,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     {
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
-                                                                            if(empty($mdaData)== false){                                                                                
-                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData."</option>\n";
+                                                                            if(empty($mdaData[0])== false){
+                                                                                
+                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData[0]."</option>\n";
                                                                             }
                                                                             
                                                                             //echo $mdaKey . ": " . $mdaData["value"];
