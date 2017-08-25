@@ -63,6 +63,10 @@ $route['cities/(:num)']['delete'] = 'cities/index/$1';
 
 $route['wsvalidarlogin/validar/(:num)'] = 'wsvalidarlogin/validar/usuario/$1/pass/$2'; // Example 4
 
+//http://localhost:8081/proyecto_casa_oficios/wsgenero/generos/
+    
+$route['wsgenero']['get'] = 'wsgenero/generos';
+
 
 $route['api/example/users/(:num)'] = 'api/example/users/id/$1/name/$2'; // Example 4
 $route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4'; // Example 8
