@@ -831,11 +831,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         
 
                                                         <div class="input-group">
-                                                            <input type="button" class="col-md-6 " name="enviar_oficio" id="btnEliminarOficio" value="Eliminar" onclick="borrarItemOficio()">
-                                                            <input type="button" class="col-md-6" name="enviar_oficio" id="btnAgregarOficio" value="Agregar" onclick="agregarItemOficio('20');">  
+                                                            <input type="submit" class="col-md-6 " name="btnAccionOficio" id="btnEliminarOficio" value="Eliminar">
+                                                            <input type="submit" class="col-md-6" name="btnAccionOficio" id="btnAgregarOficio" value="Agregar" >  
                                                         </div>
 
-                                                        <select id="lstOficioExperienciAgregados"  Multiple  name="lstOficioExperienciAgregados" Class="form-control selectpicker" >
+                                                        <select id="lstOficioExperienciAgregados"  size="6" name="lstOficioExperienciAgregados" Class="form-control selectpicker" >
                                                         </select>
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>

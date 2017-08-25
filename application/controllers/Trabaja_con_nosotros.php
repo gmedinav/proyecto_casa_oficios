@@ -144,6 +144,9 @@ class Trabaja_con_nosotros extends CI_Controller {
 
         }
 
+        
+        
+        
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('TxtNombres', '"Nombres"', 'required|trim|callback_alpha_dash_space');
@@ -463,15 +466,91 @@ class Trabaja_con_nosotros extends CI_Controller {
    
       return true;
     }
-    
+
+    function borrarItemOficios($x){
+     
+        if(empty($_SESSION['oficio_experiencia'][$x])==false){ 
+            
+           //echo "es_array: ". is_array($_SESSION['lista_telefonos'][$x]);
+            unset($_SESSION['oficio_experiencia'][$x]);    
+            unset($_SESSION['id_periodo_experiencia'][$x]);      
+            
+            $_SESSION['oficio_experiencia'] = array_values($_SESSION['oficio_experiencia']);
+            $_SESSION['id_periodo_experiencia'] = array_values($_SESSION['id_periodo_experiencia']);
+            return true;
+            
+        }    
+        return false;
+    }     
 
     function resetListaOficiosExperimentados(){
         $this->session->sess_destroy();
         return $this->session->userdata('oficio_experiencia');
     }    
     
+    function listarOficios()
+    {
+        $arreglo=array();
+        if(empty($this->session->userdata('oficio_experiencia'))==false){            
+            $arreglo = $this->session->userdata('oficio_experiencia');               
+        }        
+        return $arreglo; 
+    }    
     
+    function listarExperiencia()
+    {
+        $arreglo=array();
+        if(empty($this->session->userdata('id_periodo_experiencia'))==false){            
+            $arreglo = $this->session->userdata('id_periodo_experiencia');               
+        }        
+        return $arreglo; 
+    }      
+
+    function existeItemOficio($id_oficio){               
+
+        $arreglo = array();        
+        if(empty($this->listarOficios())==false){
+            
+            $arreglo = $this->listarOficios();            
+            foreach($arreglo as $item=>$value)
+            {        
+                if(empty($value)==false){
+                    
+                    if($id_oficio == $value)
+                    {
+                        return $item;
+                    }                        
+                    
+                }
+                            
+            }                        
+        }
+        return -1;  
+                
+    }    
     
-    
+
+    function validatExistenciaOficio_check($id_oficio){
+  
+        $arreglo=array();        
+        if(empty($this->listarExperiencia())==false){
+            
+           $arreglo=$this->listarExperiencia();
+           foreach($arreglo as $item=>$value_experiencia)
+           {        
+               if(empty($value_experiencia)==false){
+                   
+                    if($id_oficio == $value_experiencia)
+                    {
+                        return TRUE;
+                    }                      
+                }           
+           }             
+           
+        }
+
+        return FALSE;              
+    }    
+        
     
 }
