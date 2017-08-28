@@ -724,14 +724,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                            <select id="lstTelefonoAgregados" name="lstTelefonoAgregados" Multiple  Class="form-control selectpicker" >
                                                                 <?php 
 
-                                                                    if(empty($array_telefonos)==false)
+                                                                    if(empty($array_telefonos)==false && empty($array_tiempo_experiencia)==false)
                                                                     {
                                                                         
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
                                                                             if(empty($mdaData)== false)
                                                                             {
-                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."-".$mdaData."'>".$mdaData."</option>\n";
+                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."-".$mdaData."'>".$array_tiempo_experiencia[$mdaKey]."</option>\n";
                                                                             }
                                                                         }
                                                                     }
@@ -836,18 +836,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         </div>
 
                                                         <select id="lstOficioExperienciAgregados"  size="6" name="lstOficioExperienciAgregados" Class="form-control selectpicker" >
-                                                        </select>
+                                                                <?php 
+
+                                                                    if(empty($array_oficios)==false)
+                                                                    {
+                                                                        
+                                                                        foreach ($array_oficios as $mdaKey => $mdaData) 
+                                                                        {
+                                                                            if(empty($mdaData)== false)
+                                                                            {
+                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."-".$mdaData."'>".$mdaData."</option>\n";
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                ?>    
+                                                            </select>
+                                                        
+                                                            <?php 
+
+                                                            echo form_error('lstOficioExperienciAgregados', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>');
+                                                            
+                                                            ?>
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                            <select id="cboOficiosOtros" name="cboOficiosOtros" Class="form-control selectpicker">
+                                                            <select id="cboOficiosPreferencial" name="cboOficiosPreferencial" Class="form-control selectpicker">
                                                                 <option value="0">Seleccione el oficio Ud. destaca</option>
-                                                                <?php foreach ($oficios as $key => $value) { 
-                                                                        if(set_value('cboOficios')==$value['COD_OFICIO']){
-                                                                            echo "\t\t\t\t\t<option value='".$value['COD_OFICIO']."' selected>".$value['DES_OFICIO']."</option>\n";
-                                                                        }else{
-                                                                            echo "\t\t\t\t\t<option value='".$value['COD_OFICIO']."'>".$value['DES_OFICIO']."</option>\n";
+                                                                <?php 
+                                                                    if(empty($array_oficios)==false)
+                                                                    {
+                                                                        foreach ($array_oficios as $mdaKey => $mdaData) 
+                                                                        {
+                                                                            if(empty($mdaData)== false){                                                                                
+                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData."</option>\n";
+                                                                            }
+                                                                            
+                                                                            //echo $mdaKey . ": " . $mdaData["value"];
                                                                         }
-                                                                  } 
+                                                                    }
+                                                                    
+                                                                    
                                                                 ?>     
                                                             </select>
 

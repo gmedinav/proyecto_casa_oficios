@@ -74,7 +74,7 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->form_validation->set_rules('cboProveedorTelf', '"Proveedor Telefónico"', 'required|is_natural_no_zero');
             
             $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
-            $this->form_validation->set_message('is_natural_no_zero','Debe selecionar un proveedor.');  
+            $this->form_validation->set_message('is_natural_no_zero','Debe selecionar ítem.');  
 
             if ($this->form_validation->run() == FALSE) 
             {
@@ -144,7 +144,84 @@ class Trabaja_con_nosotros extends CI_Controller {
 
         }
 
-        
+        if($this->input->post('btnAccionOficio') == "Agregar")
+        {
+            $data['poscionador']=1;    
+            
+            $this->form_validation->set_rules('cboOficiDomin', '"Oficio"', 'required|is_natural_no_zero');
+            $this->form_validation->set_rules('cboPerioDomin', '"Periodo"', 'required|is_natural_no_zero');          
+            $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
+            $this->form_validation->set_message('is_natural_no_zero','Debe selecionar un ítem.');  
+
+            if ($this->form_validation->run() == FALSE) 
+            {
+
+                if(empty($this->listarOficios())==false){                    
+                    $data['array_oficios'] = $this->listarOficios();
+                    $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+                }
+                    
+                //echo $data['poscionador'];
+                $this->load->view('trabaja_con_nosotros',$data);   
+                return;
+            }else{
+                
+                $id_Oficio = $this->input->post('cboOficiDomin');
+                $id_periodo = $this->input->post('cboPerioDomin');
+               
+                $data['array_oficios'] = $this->agregarItemOficioExperiencia($id_Oficio, $id_periodo); 
+
+                if(empty($this->listarOficios())==false){                    
+                    $data['array_oficios'] = $this->listarOficios();
+                    $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+                }                
+            }
+                                              
+        }else{
+            
+            if($this->input->post('btnAccionOficio') == "Eliminar")
+            {
+                $this->form_validation->set_rules('lstOficioExperienciAgregados', '"Lista Oficios y experiencias"', 'required');
+                $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
+                $data['poscionador']=1;
+                
+                if ($this->form_validation->run() == FALSE) 
+                {
+                    if(empty($this->listarOficios())==false){
+                        $data['array_oficios'] = $this->listarOficios();  
+                        $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+                    }                                        
+                    //echo $data['poscionador'];
+                    $this->load->view('trabaja_con_nosotros',$data);   
+                    return;
+                }else{
+                    
+                    $lista_oficios_temp = trim($this->input->post('lstOficioExperienciAgregados'));
+                    $arreglo = explode("-", $lista_oficios_temp);        
+                    
+                    $id_Oficio=$arreglo[1];
+                    $id_periodo=$arreglo[0];
+                    
+                    //Parte del Testing:
+                    //
+                     
+                    if($this->existeItemOficio($id_oficio)!= -1)
+                    {
+                        //$indice=$this->existeItemTelefono($telefono);                    
+                        $this->borrarItemOficios($id_Oficio);
+                        
+                        if(empty($this->listarOficios())==false){
+                            $data['array_oficios'] = $this->listarOficios();  
+                            $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+                        }
+                    }                  
+                }                
+                
+            }
+
+        }
+
+             
         
         
 
@@ -284,7 +361,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     if($this->validatExistenciaTelefono_check($telefono) == TRUE)
                     {
                         //echo "caso celular// validatExistenciaTelefono_check: ".$this->validatExistenciaTelefono_check($telefono)."<br>" ;
-                        $this->form_validation->set_message('validación de Télefono', 'El teléfono %s ya está referido.');
+                        $this->form_validation->set_message('validar_telefono_check', 'El %s ya está referido.');
                         return FALSE;                        
                     }else{                        
                         return TRUE;
@@ -292,7 +369,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     
                 }else{
                     //echo "No es celular porque no empieza con 9 // Y esto detecto como primer caracter: ".substr($telefono,0,1);
-                    $this->form_validation->set_message('validación de Télefono', 'El %s teléfono no corresponde a un celular: empieza por el dígito 9 y tiene 9 caracteres.');
+                    $this->form_validation->set_message('validar_telefono_check', 'El %s no corresponde a un celular: empieza por el dígito 9 y tiene 9 caracteres.');
                     return FALSE;
                 }
             } else {
@@ -306,25 +383,25 @@ class Trabaja_con_nosotros extends CI_Controller {
                         
                         if($this->validatExistenciaTelefono_check($telefono) == TRUE)
                         {
-                            $this->form_validation->set_message('validación de Télefono', 'El teléfono %s ya está referido.');
+                            $this->form_validation->set_message('validar_telefono_check', 'El  %s ya está referido.');
                             return FALSE;                        
                         }else{                        
                             return TRUE;
                         }
                     
                     }else{
-                        $this->form_validation->set_message('validación de Télefono', 'El %s teléfono no corresponde a un domicilio: no empieza por el dígito 9 y tiene 7 caracteres');
+                        $this->form_validation->set_message('validar_telefono_check', 'El %s no corresponde a un domicilio: no empieza por el dígito 9 y tiene 7 caracteres');
                         return FALSE;
                     }
                 }
                 
-                $this->form_validation->set_message('validación de Télefono', 'El %s teléfono no tiene cantidad de digitos correctos.');
+                $this->form_validation->set_message('validar_telefono_check', 'El %s  no tiene cantidad de digitos correctos.');
                 return FALSE;
             }           
                       
        }else{
            //echo "No es telefono porque no es numerico.";
-           $this->form_validation->set_message('validación de Télefono', 'El %s teléfono debe ser numérico.');
+           $this->form_validation->set_message('validar_telefono_check', 'El %s debe ser numérico.');
            return FALSE;
        }        
         
@@ -418,6 +495,7 @@ class Trabaja_con_nosotros extends CI_Controller {
             $arreglo=$this->listarTelefono();
             foreach($arreglo as $item_telefono=>$value_telefono)
            {        
+                //echo $value_telefono
                if(empty($value_telefono)==false){
                    
                     if($telefono == $value_telefono)
