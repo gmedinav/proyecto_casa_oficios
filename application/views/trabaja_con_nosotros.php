@@ -725,8 +725,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <?php 
 
                                                                     if(empty($array_telefonos)==false && empty($array_tiempo_experiencia)==false)
-                                                                    {
-                                                                        
+                                                                    {                                                                        
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
                                                                             if(empty($mdaData)== false)
@@ -771,6 +770,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                             }
                                                                             
                                                                             //echo $mdaKey . ": " . $mdaData["value"];
+                                                                            
                                                                         }
                                                                     }
                                                                     
@@ -810,6 +810,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         }else{
                                                                             echo "\t\t\t\t\t<option value='".$value['COD_OFICIO']."'>".$value['DES_OFICIO']."</option>\n";
                                                                         }
+                                                                        
+                                                                        $oficios_selecionado[$value['COD_OFICIO']]=$value['DES_OFICIO'];
                                                                   } 
                                                                 ?>      
                                                             </select>
@@ -822,6 +824,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         }else{
                                                                             echo "\t\t\t\t\t<option value='".$value['COD_TIPO_MAESTRO']."'>".$value['DES_TIPO_MAESTRO']."</option>\n";
                                                                         }
+                                                                        $experiencias_selecionada[$value['COD_TIPO_MAESTRO']]=$value['DES_TIPO_MAESTRO'];
                                                                   } 
                                                                 ?>    
                                                             </select>
@@ -837,20 +840,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                         <select id="lstOficioExperienciAgregados"  size="6" name="lstOficioExperienciAgregados" Class="form-control selectpicker" >
                                                                 <?php 
-
-                                                                    if(empty($array_oficios)==false)
-                                                                    {
+                                                                    
                                                                         
+                                                                    if(empty($array_oficios)==false)
+                                                                    {                                                                        
                                                                         foreach ($array_oficios as $mdaKey => $mdaData) 
                                                                         {
                                                                             if(empty($mdaData)== false)
                                                                             {
-                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."-".$mdaData."'>".$mdaData."</option>\n";
+                                                                                if(empty($array_tiempo_experiencia)==false){
+                                                                                                                                                                        
+                                                                                     echo "\t\t\t\t\t<option value='".$mdaKey."-".$mdaData."-".$array_tiempo_experiencia[$mdaKey]."'>";
+                                                                                     echo $mdaData."-".$array_tiempo_experiencia[$mdaKey];
+                                                                                     echo "</option>\n";   
+                                                                                }
+                                                                                
                                                                             }
                                                                         }
                                                                     }
                                                                 ?>    
-                                                            </select>
+                                                        </select>
                                                         
                                                             <?php 
 

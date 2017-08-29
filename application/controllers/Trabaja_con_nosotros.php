@@ -156,7 +156,8 @@ class Trabaja_con_nosotros extends CI_Controller {
             if ($this->form_validation->run() == FALSE) 
             {
 
-                if(empty($this->listarOficios())==false){                    
+                if(empty($this->listarOficios())==false){       
+                    
                     $data['array_oficios'] = $this->listarOficios();
                     $data['array_tiempo_experiencia'] = $this->listarExperiencia();
                 }
@@ -540,8 +541,13 @@ class Trabaja_con_nosotros extends CI_Controller {
     {
                
       $_SESSION['oficio_experiencia'][] = $id_Oficio;
-      $_SESSION['id_periodo_experiencia'][] = $id_periodo;         
-   
+      $_SESSION['id_periodo_experiencia'][] = $id_periodo;
+      
+      $temp1= $this->tipo_experiencia_model->instanciaPeriodoExperiencia($id_periodo) ;
+      $_SESSION['periodo_experiencia'][] = $temp1["DES_TIPO_MAESTRO"];
+
+      $temp2= $this->oficio_model->instanciaPeriodoExperiencia($id_periodo) ;
+      $_SESSION['oficio_experiencia'][] = $temp2["DES_OFICIO"];
       return true;
     }
 
@@ -553,8 +559,15 @@ class Trabaja_con_nosotros extends CI_Controller {
             unset($_SESSION['oficio_experiencia'][$x]);    
             unset($_SESSION['id_periodo_experiencia'][$x]);      
             
+            unset($_SESSION['periodo_experiencia'][$x]) ;
+            unset($_SESSION['oficio_experiencia'][$x]);
+      
             $_SESSION['oficio_experiencia'] = array_values($_SESSION['oficio_experiencia']);
             $_SESSION['id_periodo_experiencia'] = array_values($_SESSION['id_periodo_experiencia']);
+
+            $_SESSION['periodo_experiencia'] = array_values($_SESSION['periodo_experiencia']);
+            $_SESSION['oficio_experiencia'] = array_values($_SESSION['oficio_experiencia']);
+            
             return true;
             
         }    
@@ -584,6 +597,26 @@ class Trabaja_con_nosotros extends CI_Controller {
         return $arreglo; 
     }      
 
+    function listarPeriodoExperienciaDescrip()
+    {
+        $arreglo=array();
+        if(empty($this->session->userdata('periodo_experiencia'))==false){            
+            $arreglo = $this->session->userdata('periodo_experiencia');               
+        }        
+        return $arreglo; 
+    }      
+    
+    
+    function listarOficioExperienciaDescrip()
+    {
+        $arreglo=array();
+        if(empty($this->session->userdata('oficio_experiencia'))==false){            
+            $arreglo = $this->session->userdata('oficio_experiencia');               
+        }        
+        return $arreglo; 
+    } 
+    
+    
     function existeItemOficio($id_oficio){               
 
         $arreglo = array();        
