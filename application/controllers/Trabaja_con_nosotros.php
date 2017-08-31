@@ -20,7 +20,8 @@ class Trabaja_con_nosotros extends CI_Controller {
 	{
                 $data['poscionador'] =0;
                 $data['guardado']=FALSE;                
-                $this->resetListaTelefono();                
+                $this->resetListaTelefono();      
+                //$thi->res
 		$this->load->model('ubigeo_model');
 		$data['distritos']= $this->ubigeo_model->listDistritosLima();                 
 		$this->load->model('oficio_model');
@@ -35,7 +36,12 @@ class Trabaja_con_nosotros extends CI_Controller {
 		$data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();                  
                 
                 $data['array_telefonos']=$this->listarTelefono();
-                
+
+                $data['array_oficios'] = $this->listarOficios();
+                $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+                $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+                $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();  
+                    
 		$this->load->view('trabaja_con_nosotros',$data);
 
 	}
@@ -160,6 +166,9 @@ class Trabaja_con_nosotros extends CI_Controller {
                     
                     $data['array_oficios'] = $this->listarOficios();
                     $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+                    
+                    $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+                    $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();
                 }
                     
                 //echo $data['poscionador'];
@@ -170,11 +179,14 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $id_Oficio = $this->input->post('cboOficiDomin');
                 $id_periodo = $this->input->post('cboPerioDomin');
                
-                $data['array_oficios'] = $this->agregarItemOficioExperiencia($id_Oficio, $id_periodo); 
+                //$data['array_oficios'] =$this->agregarItemOficioExperiencia($id_Oficio, $id_periodo) ; 
 
-                if(empty($this->listarOficios())==false){                    
+                if($this->agregarItemOficioExperiencia($id_Oficio, $id_periodo)==true){                    
                     $data['array_oficios'] = $this->listarOficios();
                     $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+                    
+                    $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+                    $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();     
                 }                
             }
                                               
@@ -191,6 +203,9 @@ class Trabaja_con_nosotros extends CI_Controller {
                     if(empty($this->listarOficios())==false){
                         $data['array_oficios'] = $this->listarOficios();  
                         $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+                        
+                        $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+                        $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip(); 
                     }                                        
                     //echo $data['poscionador'];
                     $this->load->view('trabaja_con_nosotros',$data);   
@@ -200,13 +215,15 @@ class Trabaja_con_nosotros extends CI_Controller {
                     $lista_oficios_temp = trim($this->input->post('lstOficioExperienciAgregados'));
                     $arreglo = explode("-", $lista_oficios_temp);        
                     
+                    $id_indice=$arreglo[0];
+                    
                     $id_Oficio=$arreglo[1];
-                    $id_periodo=$arreglo[0];
+                    $id_periodo=$arreglo[2];
                     
                     //Parte del Testing:
                     //
                      
-                    if($this->existeItemOficio($id_oficio)!= -1)
+                    if($this->existeItemOficio($id_Oficio)!= -1)
                     {
                         //$indice=$this->existeItemTelefono($telefono);                    
                         $this->borrarItemOficios($id_Oficio);
@@ -214,6 +231,9 @@ class Trabaja_con_nosotros extends CI_Controller {
                         if(empty($this->listarOficios())==false){
                             $data['array_oficios'] = $this->listarOficios();  
                             $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+                            
+                            $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+                            $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();                             
                         }
                     }                  
                 }                
@@ -514,8 +534,8 @@ class Trabaja_con_nosotros extends CI_Controller {
     //Borrar telefono del temporal
     function borrarItemTelefono($x){
      
-        echo "previo a borrar<br>";
-        echo "borrarItemTelefono: (".$x.")";
+        //echo "previo a borrar<br>";
+        //echo "borrarItemTelefono: (".$x.")";
         if(empty($_SESSION['lista_telefonos'][$x])==false){ 
             
            //echo "es_array: ". is_array($_SESSION['lista_telefonos'][$x]);
@@ -539,15 +559,18 @@ class Trabaja_con_nosotros extends CI_Controller {
     
     function agregarItemOficioExperiencia($id_Oficio,$id_periodo)
     {
-               
+
+      $this->load->model('oficio_model');                    
+      $this->load->model('tipo_experiencia_model');
+                
       $_SESSION['oficio_experiencia'][] = $id_Oficio;
       $_SESSION['id_periodo_experiencia'][] = $id_periodo;
       
       $temp1= $this->tipo_experiencia_model->instanciaPeriodoExperiencia($id_periodo) ;
-      $_SESSION['periodo_experiencia'][] = $temp1["DES_TIPO_MAESTRO"];
+      $_SESSION['descrip_periodo_experiencia'][] = $temp1["DES_TIPO_MAESTRO"];
 
-      $temp2= $this->oficio_model->instanciaPeriodoExperiencia($id_periodo) ;
-      $_SESSION['oficio_experiencia'][] = $temp2["DES_OFICIO"];
+      $temp2= $this->oficio_model->instanciaOficios($id_Oficio);
+      $_SESSION['descrip_oficio_experiencia'][] = $temp2["DES_OFICIO"];
       return true;
     }
 
@@ -559,14 +582,14 @@ class Trabaja_con_nosotros extends CI_Controller {
             unset($_SESSION['oficio_experiencia'][$x]);    
             unset($_SESSION['id_periodo_experiencia'][$x]);      
             
-            unset($_SESSION['periodo_experiencia'][$x]) ;
-            unset($_SESSION['oficio_experiencia'][$x]);
+            unset($_SESSION['descrip_periodo_experiencia'][$x]) ;
+            unset($_SESSION['descrip_oficio_experiencia'][$x]);
       
             $_SESSION['oficio_experiencia'] = array_values($_SESSION['oficio_experiencia']);
             $_SESSION['id_periodo_experiencia'] = array_values($_SESSION['id_periodo_experiencia']);
 
-            $_SESSION['periodo_experiencia'] = array_values($_SESSION['periodo_experiencia']);
-            $_SESSION['oficio_experiencia'] = array_values($_SESSION['oficio_experiencia']);
+            $_SESSION['descrip_periodo_experiencia'] = array_values($_SESSION['descrip_periodo_experiencia']);
+            $_SESSION['descrip_oficio_experiencia'] = array_values($_SESSION['descrip_oficio_experiencia']);
             
             return true;
             
@@ -577,6 +600,7 @@ class Trabaja_con_nosotros extends CI_Controller {
     function resetListaOficiosExperimentados(){
         $this->session->sess_destroy();
         return $this->session->userdata('oficio_experiencia');
+        
     }    
     
     function listarOficios()
@@ -600,8 +624,8 @@ class Trabaja_con_nosotros extends CI_Controller {
     function listarPeriodoExperienciaDescrip()
     {
         $arreglo=array();
-        if(empty($this->session->userdata('periodo_experiencia'))==false){            
-            $arreglo = $this->session->userdata('periodo_experiencia');               
+        if(empty($this->session->userdata('descrip_periodo_experiencia'))==false){            
+            $arreglo = $this->session->userdata('descrip_periodo_experiencia');               
         }        
         return $arreglo; 
     }      
@@ -610,8 +634,8 @@ class Trabaja_con_nosotros extends CI_Controller {
     function listarOficioExperienciaDescrip()
     {
         $arreglo=array();
-        if(empty($this->session->userdata('oficio_experiencia'))==false){            
-            $arreglo = $this->session->userdata('oficio_experiencia');               
+        if(empty($this->session->userdata('descrip_oficio_experiencia'))==false){            
+            $arreglo = $this->session->userdata('descrip_oficio_experiencia');               
         }        
         return $arreglo; 
     } 
