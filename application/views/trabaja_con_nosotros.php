@@ -529,7 +529,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 if(set_value('cboTipoGenero') == $value['COD_TIPO_MAESTRO']){
                                                                     echo "\t\t\t\t\t<option value='".$value['COD_TIPO_MAESTRO']."' selected>".$value['DES_TIPO_MAESTRO']."</option>\n";
                                                                 }else{                            
-                                                                    echo "\t\t\t\t\t<option value='".$value['DES_TIPO_MAESTRO']."'>".$value['DES_TIPO_MAESTRO']."</option>\n";
+                                                                    echo "\t\t\t\t\t<option value='".$value['COD_TIPO_MAESTRO']."'>".$value['DES_TIPO_MAESTRO']."</option>\n";
                                                                 }
                                                         } 
                                                         ?>           
@@ -679,7 +679,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <label for="txtEmail">Correo Electrónico : </label>
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                                            <input type="text" name="txtEmail" id="txtEmail" Text="<?php echo set_value('txtEmail'); ?>"  Class="form-control" PlaceHolder="Correo Electrónico">
+                                                            <input type="email" name="txtEmail" id="txtEmail" Text="<?php echo set_value('txtEmail'); ?>"  Class="form-control" PlaceHolder="Correo Electrónico">
                                                         </div>
                                                         <?php echo form_error('txtEmail', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                                     </div>
@@ -724,7 +724,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                            <select id="lstTelefonoAgregados" name="lstTelefonoAgregados" Multiple  Class="form-control selectpicker" >
                                                                 <?php 
 
-                                                                    if(empty($array_telefonos)==false && empty($array_tiempo_experiencia)==false)
+                                                                    if(empty($array_telefonos)==false)
                                                                     {                                                                        
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
@@ -869,7 +869,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                                                             <select id="cboOficiosPreferencial" name="cboOficiosPreferencial" Class="form-control selectpicker">
-                                                                <option value="0">Seleccione el oficio Ud. destaca</option>
+                                                                <option value="-1">Seleccione el oficio Ud. destaca</option>
                                                                 <?php 
                                                                     if(empty($array_descrip_oficio_experiencia)==false)
                                                                     {
