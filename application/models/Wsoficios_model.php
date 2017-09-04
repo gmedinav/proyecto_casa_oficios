@@ -12,7 +12,7 @@
  *  */
 
 
-class Wscliente_model extends CI_Model{
+class Wsoficios_model extends CI_Model{
     
     
         public function __construct()
@@ -20,13 +20,12 @@ class Wscliente_model extends CI_Model{
         parent::__construct();
     }
     
-    public function  getCliente($codigo){
+    public function  getOficios(){
              
           $this->load->database();
           
-          $sql = "select * from tb_cliente where cod_cliente = ".$codigo.'';
+          $sql = "select * from tb_oficio";
           
-
           $query = $this->db->query($sql);
           
 //          echo $sql;

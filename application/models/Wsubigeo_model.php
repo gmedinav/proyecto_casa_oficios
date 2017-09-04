@@ -12,7 +12,7 @@
  *  */
 
 
-class Wscliente_model extends CI_Model{
+class Wsubigeo_model extends CI_Model{
     
     
         public function __construct()
@@ -20,20 +20,37 @@ class Wscliente_model extends CI_Model{
         parent::__construct();
     }
     
-    public function  getCliente($codigo){
+    public function  get_ubigeo($codigo){
              
           $this->load->database();
           
-          $sql = "select * from tb_cliente where cod_cliente = ".$codigo.'';
-          
 
+          
+               $sql = "select * from tb_ubigeo where cod_ubigeo = ".$codigo."";
           $query = $this->db->query($sql);
           
 //          echo $sql;
                return $query->result_array();
         
+                }
+        
+    
+    
+        
+    public function  getdistritos(){
+             
+          $this->load->database();
           
+          $sql = "select * from tb_ubigeo where cod_pais = '001' and cod_departamento = '15' and cod_provincia = '01' order by des_ubigeo";
+          $query = $this->db->query($sql);
+          
+//          echo $sql;
+               return $query->result_array();
+        
                 }
         
     }
+    
+    
+    
 

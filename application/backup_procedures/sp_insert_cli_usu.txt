@@ -1,0 +1,117 @@
+delimiter $$
+CREATE  PROCEDURE sp_insert_cli_usu(
+
+p_log_usuario varchar(255),
+p_pass_usuario varchar(255),
+p_estado int,
+p_cod_tipo_usuario int,
+p_fec_registro datetime,
+p_fec_modificacion datetime,
+p_cod_usuario_registro int,
+p_nom_cliente varchar(255),
+p_ape_paterno varchar(100),
+p_ape_materno varchar(100),
+p_cod_tipo_documento int,
+p_num_documento varchar(255),
+p_cod_tipo_genero int,
+p_cod_ubigeo char(9),
+p_direccion varchar(300),
+p_cel_1 varchar(50),
+p_cel_2 varchar(50),
+p_cuenta_facebook varchar(255),
+p_cuenta_gmail varchar(255),
+p_fecha_nacimiento date,
+p_cod_tipo_canal_contacto int,
+p_fec_modificacion_cli datetime,
+p_fec_registro_cli datetime,
+p_cod_usuario_registro_cli int,
+p_estado_cli int,
+out out_id int
+)
+begin
+declare p_des_name varchar(255);
+DECLARE exit handler for sqlexception
+  BEGIN
+    -- ERROR
+  ROLLBACK;
+  set out_id = 0; 
+END;
+
+DECLARE exit handler for sqlwarning
+ BEGIN
+    -- WARNING
+ ROLLBACK;
+ set out_id = 0; 
+END;
+
+
+start transaction ;
+
+	set p_des_name = concat(p_nom_cliente,' ',p_ape_paterno,' ',p_ape_materno);
+
+insert into tb_usuario (des_usuario,log_usuario ,
+pass_usuario ,
+estado ,
+cod_tipo_usuario ,
+fec_registro ,
+fec_modificacion ,
+cod_usuario_registro )
+
+values (p_des_name,p_log_usuario ,
+p_pass_usuario ,
+p_estado ,
+p_cod_tipo_usuario ,
+p_fec_registro ,
+p_fec_modificacion ,
+p_cod_usuario_registro);
+
+ set out_id = LAST_INSERT_ID(); 
+
+insert into tb_cliente  (
+NOM_CLIENTE,
+APE_PATERNO,
+APE_MATERNO,
+COD_TIPO_DOCUMENTO,
+NUM_DOCUMENTO,
+COD_TIPO_GENERO,
+COD_UBIGEO,
+DIRECCION,
+CEL_1,
+CEL_2,
+COD_USUARIO,
+CUENTA_FACEBOOK,
+CUENTA_GMAIL,
+FEC_NACIMIENTO,
+COD_TIPO_CANAL_CONTACTO,
+FEC_MODIFICACION,
+FEC_REGISTRO,
+COD_USUARIO_REGISTRO,
+ESTADO
+)
+values
+
+(
+p_nom_cliente,
+p_ape_paterno,
+p_ape_materno,
+p_cod_tipo_documento,
+p_num_documento,
+p_cod_tipo_genero,
+p_cod_ubigeo,
+p_direccion,
+p_cel_1,
+p_cel_2,
+LAST_INSERT_ID(),
+p_cuenta_facebook,
+p_cuenta_gmail,
+p_fecha_nacimiento,
+p_cod_tipo_canal_contacto,
+p_fec_modificacion_cli,
+p_fec_registro_cli,
+p_cod_usuario_registro_cli,
+p_estado);
+
+        COMMIT;
+
+END $$;
+Delimiter;

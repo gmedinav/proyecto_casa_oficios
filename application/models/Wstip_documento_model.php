@@ -12,7 +12,7 @@
  *  */
 
 
-class Wscliente_model extends CI_Model{
+class Wstip_documento_model extends CI_Model{
     
     
         public function __construct()
@@ -20,13 +20,15 @@ class Wscliente_model extends CI_Model{
         parent::__construct();
     }
     
-    public function  getCliente($codigo){
+    public function  getTip_Documento($codigo){
              
           $this->load->database();
           
-          $sql = "select * from tb_cliente where cod_cliente = ".$codigo.'';
-          
 
+          
+                  $sql = "select * from tb_tip_documento where cod_tipo_maestro = ".$codigo.'';
+          
+          
           $query = $this->db->query($sql);
           
 //          echo $sql;

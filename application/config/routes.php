@@ -53,21 +53,60 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-//Rutas de examples
+
+
+/*Validar Login*/
+
+$route['wsvalidarlogin/validar/(:num)'] = 'wsvalidarlogin/validar/usuario/$1/pass/$2'; 
+
+
+    
+/*Generos*/
+
+$route['wsgenero']['get'] = 'wsgenero/generos';
+
+/*Oficios*/
+$route['wsoficios']['get'] = 'wsoficios/oficios';
+
+
+/*clientes*/
+
+
+$route['wsvalidarlogin/cliente/(:num)'] = 'wsvalidarlogin/cliente/codigo/$1'; 
+
+/*Usuarios*/
+
+
+$route['wsusuario/usuario/(:num)'] = 'wsusuario/usuario/codigo/$1'; 
+
+
+/*Ubigeo*/
+
+$route['wsubigeo/ubigeo/(:num)'] = 'wsubigeo/ubigeo/codigo/$1'; 
+
+$route['wsubigeo']['get'] = 'wsubigeo/distritos'; 
+
+/*Tipo documento*/
+
+$route['wstip_documento/tipdocumento/(:num)'] = 'wstip_documento/tipdocumento/codigo/$1'; 
+
+
+
+
+
+
+/*Others*/
+
+$route['api/example/users/(:num)'] = 'api/example/users/id/$1/name/$2'; // Example 4
+$route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4'; // Example 8
+
+
+
 $route['cities']['get'] = 'cities/index';
 $route['cities/(:num)']['get'] = 'cities/find/$1';
 $route['cities']['post'] = 'cities/index';
 $route['cities/(:num)']['put'] = 'cities/index/$1';
 $route['cities/(:num)']['delete'] = 'cities/index/$1';
 
-
-$route['wsvalidarlogin/validar/(:num)'] = 'wsvalidarlogin/validar/usuario/$1/pass/$2'; // Example 4
-
-//http://localhost:8081/proyecto_casa_oficios/wsgenero/generos/
-    
-$route['wsgenero']['get'] = 'wsgenero/generos';
-
-
-$route['api/example/users/(:num)'] = 'api/example/users/id/$1/name/$2'; // Example 4
-$route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4'; // Example 8
+//
 //

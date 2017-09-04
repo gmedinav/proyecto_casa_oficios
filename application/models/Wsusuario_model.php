@@ -35,6 +35,22 @@ class Wsusuario_model extends CI_Model{
         return $rpta;
          
      }
+     
+     
+     
+         public function  getUsuario($codigo){
+             
+          $this->load->database();
+          
+          $sql = "select * from tb_usuario where cod_usuario = ".$codigo.'';
+          
+          $query = $this->db->query($sql);
+          
+//          echo $sql;
+               return $query->result_array();
+        
+          
+                }
     
      
     
