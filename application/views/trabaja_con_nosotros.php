@@ -724,13 +724,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                            <select id="lstTelefonoAgregados" name="lstTelefonoAgregados" Multiple  Class="form-control selectpicker" >
                                                                 <?php 
 
-                                                                    if(empty($array_telefonos)==false)
+                                                                    if(empty($array_telefonos)==false )
                                                                     {                                                                        
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
                                                                             if(empty($mdaData)== false)
                                                                             {
-                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."-".$mdaData."'>".$array_tiempo_experiencia[$mdaKey]."</option>\n";
+                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."-".$mdaData."'>".$mdaData."</option>\n";
                                                                             }
                                                                         }
                                                                     }

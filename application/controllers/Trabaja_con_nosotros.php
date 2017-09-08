@@ -428,7 +428,7 @@ class Trabaja_con_nosotros extends CI_Controller {
     
     public function validar_id_Oficio_check($id_oficio)
     {  
-        if($this->validatExistenciaOficio_check($id_oficio)==TRUE){            
+        if($this->validatExistenciaOficio_check($id_oficio) == TRUE){            
            $this->form_validation->set_message('validar_id_Oficio_check', 'El %s ya está registrado el oficio.');
            return FALSE;           
         }        
@@ -463,7 +463,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                                
     }
     
-    function agregarItemTelefono($telefono,$proveedor_fono)
+    public function agregarItemTelefono($telefono,$proveedor_fono)
     {
                
       $_SESSION['lista_telefonos'][] = $telefono;
@@ -472,7 +472,7 @@ class Trabaja_con_nosotros extends CI_Controller {
       return true;
     }
     
-    function listarTelefono()
+    public function listarTelefono()
     {
         $arreglo=array();
         if(empty($this->session->userdata('lista_telefonos'))==false){            
@@ -481,7 +481,7 @@ class Trabaja_con_nosotros extends CI_Controller {
         return $arreglo; 
     }
     
-    function listarProveedorTelefonico()
+    public function listarProveedorTelefonico()
     {
         $arreglo=array();
         if(empty($this->session->userdata('proveedor_telefonico'))==false){            
@@ -491,7 +491,7 @@ class Trabaja_con_nosotros extends CI_Controller {
     }    
     
     //verificar si existe telefono a agregar: retornará el indice si encuentra
-    function existeItemTelefono($telefono){               
+    public function existeItemTelefono($telefono){               
 
         $arreglo = array();        
         if(empty($this->listarTelefono())==false){            
@@ -510,7 +510,7 @@ class Trabaja_con_nosotros extends CI_Controller {
     }
     
     
-    function validatExistenciaTelefono_check($telefono){
+   public function validatExistenciaTelefono_check($telefono){
   
         $arreglo=array();        
         if(empty($this->listarTelefono())== false){            
@@ -531,7 +531,7 @@ class Trabaja_con_nosotros extends CI_Controller {
     }    
     
     //Borrar telefono del temporal
-    function borrarItemTelefono($x){
+    public function borrarItemTelefono($x){
      
         //echo "previo a borrar<br>";
         //echo "borrarItemTelefono: (".$x.")";
@@ -549,14 +549,14 @@ class Trabaja_con_nosotros extends CI_Controller {
         return false;
     }    
 
-    function resetListaTelefono(){
+    public function resetListaTelefono(){
         $this->session->sess_destroy();
         return $this->session->userdata('lista_telefonos');
     }    
 
     
     
-    function agregarItemOficioExperiencia($id_Oficio,$id_periodo)
+    public function agregarItemOficioExperiencia($id_Oficio,$id_periodo)
     {
 
       $this->load->model('oficio_model');                    
@@ -569,11 +569,12 @@ class Trabaja_con_nosotros extends CI_Controller {
       $_SESSION['descrip_periodo_experiencia'][] = $temp1["DES_TIPO_MAESTRO"];
 
       $temp2= $this->oficio_model->instanciaOficios($id_Oficio);
+      #echo "temp2:".$temp2["DES_OFICIO"];
       $_SESSION['descrip_oficio_experiencia'][] = $temp2["DES_OFICIO"];
       return true;
     }
 
-    function borrarItemOficios($x){
+    public function borrarItemOficios($x){
      
         if(empty($_SESSION['oficio_experiencia'][$x])==false){ 
             
@@ -596,13 +597,13 @@ class Trabaja_con_nosotros extends CI_Controller {
         return false;
     }     
 
-    function resetListaOficiosExperimentados(){
+    public function resetListaOficiosExperimentados(){
         $this->session->sess_destroy();
         return $this->session->userdata('oficio_experiencia');
         
     }    
     
-    function listarOficios()
+    public function listarOficios()
     {
         $arreglo=array();
         if(empty($this->session->userdata('oficio_experiencia'))==false){            
@@ -611,7 +612,7 @@ class Trabaja_con_nosotros extends CI_Controller {
         return $arreglo; 
     }    
     
-    function listarExperiencia()
+    public function listarExperiencia()
     {
         $arreglo=array();
         if(empty($this->session->userdata('id_periodo_experiencia'))==false){            
@@ -620,7 +621,7 @@ class Trabaja_con_nosotros extends CI_Controller {
         return $arreglo; 
     }      
 
-    function listarPeriodoExperienciaDescrip()
+    public function listarPeriodoExperienciaDescrip()
     {
         $arreglo=array();
         if(empty($this->session->userdata('descrip_periodo_experiencia'))==false){            
@@ -630,7 +631,7 @@ class Trabaja_con_nosotros extends CI_Controller {
     }      
     
     
-    function listarOficioExperienciaDescrip()
+    public function listarOficioExperienciaDescrip()
     {
         $arreglo=array();
         if(empty($this->session->userdata('descrip_oficio_experiencia'))==false){            
@@ -640,7 +641,7 @@ class Trabaja_con_nosotros extends CI_Controller {
     } 
     
     
-    function existeItemOficio($id_oficio){               
+    public function existeItemOficio($id_oficio){               
         $arreglo = array();        
         if(empty($this->listarOficios())==false){            
             $arreglo = $this->listarOficios();            
@@ -658,7 +659,7 @@ class Trabaja_con_nosotros extends CI_Controller {
     }    
     
 
-    function validatExistenciaOficio_check($id_oficio){
+    public function validatExistenciaOficio_check($id_oficio){
   
         $arreglo=array();        
         if(empty($this->listarOficios())==false){            
