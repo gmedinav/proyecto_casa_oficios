@@ -610,7 +610,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                            <input type="file" id="FotoCarnet" name="FotoCarnet" Class="form-control" placeholder="Foto">
+                                            <input type="file" id="FotoCarnet" name="FotoCarnet" value="<?php echo set_value('FotoCarnet'); ?>" Class="form-control" placeholder="Foto">
                                         </div>
 
                                  
@@ -679,7 +679,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <label for="txtEmail">Correo Electrónico : </label>
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                                            <input type="email" name="txtEmail" id="txtEmail" Text="<?php echo set_value('txtEmail'); ?>"  Class="form-control" PlaceHolder="Correo Electrónico">
+                                                            <input type="email" name="txtEmail" id="txtEmail" value="<?php echo set_value('txtEmail'); ?>"  Class="form-control" PlaceHolder="Correo Electrónico">
                                                         </div>
                                                         <?php echo form_error('txtEmail', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                                     </div>
@@ -935,7 +935,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file" id="fileReciboResidencia" name="fileReciboResidencia" Class="form-control" placeholder="Foto">
+                                                    <input type="file" id="fileReciboResidencia" name="fileReciboResidencia" value="<?php echo set_value('fileReciboResidencia'); ?>" Class="form-control" placeholder="Foto">
                                                     
 
                                                 </div>
@@ -952,7 +952,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file"  ID="fileAntecedentePenales" runat="server" Class="form-control" placeholder="Foto">                                                                                                       
+                                                    <input type="file"  ID="fileAntecedentePenales" name="fileAntecedentePenales" value="<?php echo set_value('fileAntecedentePenales'); ?>" Class="form-control" placeholder="Antecedentes penales">                                                                                                       
 
                                                 </div>
                                                 <?php echo form_error('fileAntecedentePenales', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>  
@@ -966,7 +966,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                  <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file" id="fileAntecendentesPoliciales"  name="fileAntecendentesPoliciales" Class="form-control" placeholder="Foto">
+                                                    <input type="file" id="fileAntecendentesPoliciales"  name="fileAntecendentesPoliciales" value="<?php echo set_value('fileAntecendentesPoliciales'); ?>" Class="form-control" placeholder="Foto">
                                                     
                                                 </div>
                                                 <?php echo form_error('fileAntecendentesPoliciales', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
@@ -983,7 +983,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file" id="fileDocumentoIdentidad" name="fileDocumentoIdentidad" Class="form-control" placeholder="Foto">
+                                                    <input type="file" id="fileDocumentoIdentidad" value="<?php echo set_value('fileDocumentoIdentidad'); ?>" name="fileDocumentoIdentidad" Class="form-control" placeholder="Foto">
                                                     
                                                 </div>
                                                 <?php echo form_error('fileDocumentoIdentidad', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>

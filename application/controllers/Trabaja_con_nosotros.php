@@ -70,9 +70,35 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->load->model('tipo_experiencia_model');
         $data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();              
 
-        $data['array_telefonos']=array();
+        $data['array_telefonos'] = array();
+        $data['array_oficios'] = array();
+        $data['array_tiempo_experiencia'] = array();
+        
+        $data['array_descrip_tiempo_experiencia'] = array();
+        $data['array_descrip_tipo_experiencia'] = array();        
+        
+        
+        $data['array_oficios'] = $this->listarOficios();
+        $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+
+        $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+        $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();             
+        
+        
+        
         $data['poscionador'] =0;
         //echo "cargado de modelo y previo aray()<br>";
+    
+        
+        if(empty($this->listarTelefono())==false){                    
+            $data['array_telefonos'] = $this->listarTelefono();                    
+        }
+
+        //echo $data['poscionador'];
+        $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+        $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();          
+
+        
         if($this->input->post('btnAccionTelefono') == "Agregar")
         {
             $data['poscionador']=1;    
@@ -86,10 +112,13 @@ class Trabaja_con_nosotros extends CI_Controller {
             {
 
                 if(empty($this->listarTelefono())==false){                    
-                    $data['array_telefonos'] = $this->listarTelefono();
+                    $data['array_telefonos'] = $this->listarTelefono();                    
                 }
                     
                 //echo $data['poscionador'];
+                $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+                $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
+                
                 $this->load->view('trabaja_con_nosotros',$data);   
                 return;
             }else{
@@ -118,6 +147,9 @@ class Trabaja_con_nosotros extends CI_Controller {
                         $data['array_telefonos'] = $this->listarTelefono();  
                     }                                        
                     //echo $data['poscionador'];
+                    $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+                    $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();
+                    
                     $this->load->view('trabaja_con_nosotros',$data);   
                     return;
                 }else{
@@ -172,6 +204,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                 }
                     
                 //echo $data['poscionador'];
+                $data['array_telefonos'] = $this->listarTelefono();
                 $this->load->view('trabaja_con_nosotros',$data);   
                 return;
             }else{
@@ -254,6 +287,7 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->form_validation->set_rules('fileAntecedentePenales', '"Antecedente Penales"', 'required|callback_cargar_archivo');
         $this->form_validation->set_rules('fileAntecendentesPoliciales', '"Antecedentes Policiales"', 'required|callback_cargar_archivo');
         $this->form_validation->set_rules('fileDocumentoIdentidad', '"Documento Identidad"', 'required|callback_cargar_archivo');
+        $this->form_validation->set_rules('FotoCarnet', '"Subir Archivo"', 'required|callback_cargar_archivo');        
 
 
         $this->form_validation->set_rules('cboDistrito', '"Distrito"', 'required|callback_distrito_no_elegido');
@@ -265,7 +299,7 @@ class Trabaja_con_nosotros extends CI_Controller {
 
         $this->form_validation->set_rules('txtEmail', '"Email"', 'required|valid_email');
         $this->form_validation->set_rules('txtDireccion', '"Dirección"', 'required');
-        $this->form_validation->set_rules('FotoCarnet', '"Subir Archivo"', 'callback_cargar_archivo');
+
 
 
         $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
@@ -291,40 +325,34 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->load->model('solicitud_trabajo_model');
 
             //$this->Solicitud_trabajo_model->insertar_Solicitud_Trabajo();  
-
-
-            $nombres = $this->input->post('TxtNombres');	                
-            $ApePa = $this->input->post('txtApePa');	
-            $ApeMa = $this->input->post('txtApeMa');
-
-            $tipoGenero = $this->input->post('cboTipoGenero');
-            $tipoDocumento = $this->input->post('cboTipoDocumento');
-            $tipoDistrito = $this->input->post('cboDistrito');
-            $tipoOficio = $this->input->post('cboOficios');	  
-
-            $direccion = $this->input->post('txtDireccion'); 
-            $email = $this->input->post('txtEmail');	
-
-            $telefono = $this->input->post('telefono');							
-
             $archivo_ReciboResidencia =  base64_encode( addslashes(file_get_contents($_FILES["fileReciboResidencia"]['tmp_name'])));	
             $archivo_AntecedentePenales = base64_encode( addslashes(file_get_contents($_FILES["fileAntecedentePenales"]['tmp_name'])));
             $archivo_AntecendentesPoliciales = base64_encode( addslashes(file_get_contents($_FILES["fileAntecendentesPoliciales"]['tmp_name'])));
             $archivo_DocumentoIdentidad = base64_encode( addslashes(file_get_contents($_FILES["fileDocumentoIdentidad"]['tmp_name'])));
+            $archivo_FotoCarnet = base64_encode( addslashes(file_get_contents($_FILES["FotoCarnet"]['tmp_name'])));
 
 
+            //$data['COD_TMRH']
+            $data['NOM_TMRH']=$this->input->post('TxtNombres');
+            $data['APE_PATERNO']=$this->input->post('txtApePa');	
+            $data['APE_MATERNO']=$this->input->post('txtApeMa');
+            $data['EMAIL']= $this->input->post('txtEmail');
+            $data['COD_TIPO_DOCUMENTO']=$this->input->post('cboTipoDocumento');
+            $data['NUM_DOCUMENTO']=$this->input->post('txtNroDocumento');
+            $data['COD_TIPO_GENERO']=$this->input->post('cboTipoGenero');
+            $data['COD_UBIGEO']=$this->input->post('cboDistrito');
+            $data['DIRECCION']=$this->input->post('txtDireccion'); 
+            $data['FEC_NACIMIENTO']=$this->input->post('txtFecNaci'); 
+            $data['COD_OFICIO_PRINCIPAL']=$this->input->post('cboOficios');
+            #$data['COD_TIEMPO_EXPERIENCIA']
+            #$data['FEC_REGISTRO']
+            #$data['FEC_MODIFICACION']
+            #$data['COD_USUARIO_REGISTRO']
+            #$data['NUM_CELU']= $this->input->post('telefono');
+            #$data['COD_TIPO_OPERADORA']
 
-            $data['guardado'] = $this->solicitud_trabajo_model->insertar_Solicitud_Trabajo(
-                                $cboOficios,
-                                $nombre_apellidos,
-                                $email,
-                                $telefono,
-                                $direccion,
-                                $descripcionUrgencia,
-                                $cboDistrito,
-                                $foto
-            );
-
+          
+            $data['guardado'] = $this->solicitud_trabajo_model->insertar_Solicitud_Trabajo($data);
             $this->load->view('trabaja_con_nosotros',$data);
 
         }
@@ -436,7 +464,7 @@ class Trabaja_con_nosotros extends CI_Controller {
     }    
     
     
-     function cargar_archivo() {
+     function cargar_archivo($input) {
            
         $config['upload_path']          = realpath(APPPATH ."\upload");        
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
@@ -447,7 +475,7 @@ class Trabaja_con_nosotros extends CI_Controller {
 
         $this->load->library('upload', $config);
                         
-        if ($this->upload->do_upload('foto')==FALSE) {
+        if ($this->upload->do_upload($input)==FALSE) {
             //*** ocurrio un error
             $data['uploadError'] = $this->upload->display_errors();
             
@@ -572,6 +600,7 @@ class Trabaja_con_nosotros extends CI_Controller {
       #echo "temp2:".$temp2["DES_OFICIO"];
       $_SESSION['descrip_oficio_experiencia'][] = $temp2["DES_OFICIO"];
       return true;
+      
     }
 
     public function borrarItemOficios($x){
