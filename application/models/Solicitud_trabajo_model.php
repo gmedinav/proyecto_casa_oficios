@@ -14,6 +14,7 @@ class Solicitud_trabajo_model extends CI_Model {
                //echo $setencia;
                //$query = $this->db->query($setencia);
                $query = $this->db->insert('tb_solicitud_trabajo', $data_array); 
+              
                
                return $query;//->result_array();
         }

@@ -344,6 +344,9 @@ class Trabaja_con_nosotros extends CI_Controller {
             $data['DIRECCION']=$this->input->post('txtDireccion'); 
             $data['FEC_NACIMIENTO']=$this->input->post('txtFecNaci'); 
             $data['COD_OFICIO_PRINCIPAL']=$this->input->post('cboOficios');
+            
+            
+            
             #$data['COD_TIEMPO_EXPERIENCIA']
             #$data['FEC_REGISTRO']
             #$data['FEC_MODIFICACION']
@@ -353,6 +356,55 @@ class Trabaja_con_nosotros extends CI_Controller {
 
           
             $data['guardado'] = $this->solicitud_trabajo_model->insertar_Solicitud_Trabajo($data);
+            
+            if($data['guardado']){
+                
+                $ultimo_id = $this->db->insert_id();
+                
+
+                
+                //recorrer el bucle de de array session de fonos        
+                $this->load->model('tmrh_telefono_adjunto_model');
+                
+                $array_fonos= $this->listarTelefono();
+                $array_proveedor= $this->listarProveedorTelefonico();                                
+                
+                foreach($array_fonos as $key=>$value){                    
+                    	
+                    $instancia['COD_TMRH'] = $ultimo_id;
+                    $instancia['COD_TIPO_OPERADORA'] =$array_proveedor[$key];
+                    $instancia['TELEFONO'] = $value;
+                                                            
+                    $this->tmrh_telefono_adjunto_model->guardar_Instancia($instancia);                     
+                    unset($instancia);
+                }
+                
+                //recorrer el bucle de  array session de Oficios  
+                $array_id_oficios = $this->listarOficios();
+                $array_id_experiencia= $this->listarExperiencia();
+                
+                
+                $this->load->model('tmrh_oficios_extra_model');
+                foreach($array_id_oficios as $key=>$value){                    
+                    	                                       
+                    #$instancia['COD_TMRH_OFIC_EXTRA']
+                    $instancia['COD_TMRH'] =$ultimo_id;
+                    $instancia['COD_OFICIO']= $value;
+                    #$instancia['FEC_REGISTRO']
+                    #$instancia['FEC_MODIFICACION']
+                    #$instancia['COD_USUARIO_REGISTRO']                    
+                    $instancia['COD_TIEMPO_EXPERIENCIA']=$array_id_experiencia[$key];
+                    
+                    $this->tmrh_oficios_extra_model->guardar_Instancia($instancia); 
+                    
+                    unset($instancia);
+                }                
+                
+                                
+                
+            }
+            
+            
             $this->load->view('trabaja_con_nosotros',$data);
 
         }

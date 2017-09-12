@@ -21,17 +21,18 @@ class Tmrh_telefono_adjunto_model extends CI_Model {
         }  
         
         
-        public function guardar_Instancia($id,$instancia)
+        //public function guardar_Instancia($id,$instancia)
+        public function guardar_Instancia($data_array)
         {
-                $instancia->$cod_Tmrh = $id;
+                //$instancia->$cod_Tmrh = $id;
                 
 //               $this->$cod_Tmrh_Contacto;
 //               $this->$cod_Tmrh;
 //               $this->$cod_Tipo_Operadora;
 //               $this->$telefono;
-                
+
                $this->load->database();                  
-               $rpta= $this->db->insert('tb_tmrh_contacto', $instancia);
+               $rpta= $this->db->insert('tb_tmrh_contacto', $data_array);
                return $rpta;
 
         }
@@ -47,7 +48,7 @@ class Tmrh_telefono_adjunto_model extends CI_Model {
         public function obtener_telefono_adjunto($id)
         {
                $this->load->database();
-               $query = $this->db->query('SELECT * from tb_tmrh_contacto where COD_TMRH=$id;');
+               $query = $this->db->query("SELECT * from tb_tmrh_contacto where COD_TMRH='$id';");
                return $query->result_array();
         }
 

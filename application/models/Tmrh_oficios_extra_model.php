@@ -1,13 +1,13 @@
 <?php
 
-class Tmrh_documento_adjunto_model extends CI_Model {
+class Tmrh_oficios_extra_model extends CI_Model {
 
        //public $cod_ubigeo;
         
-       public function listar_Tmrh_documento_adjunto()
+       public function listar_Tmrh_oficios_extra()
         {
                $this->load->database();
-               $query = $this->db->query('SELECT * from tb_tmrh_documentos_adjuntos;');
+               $query = $this->db->query('SELECT * FROM tb_tmrh_oficios_extra;');
                return $query->result_array();
         }
 
@@ -22,7 +22,7 @@ class Tmrh_documento_adjunto_model extends CI_Model {
 //               $this->$telefono;
                 
                $this->load->database();                  
-               $rpta= $this->db->insert('tb_tmrh_documentos_adjuntos', $data);
+               $rpta= $this->db->insert('tb_tmrh_oficios_extra', $data);
                return $rpta;
 
         }        
