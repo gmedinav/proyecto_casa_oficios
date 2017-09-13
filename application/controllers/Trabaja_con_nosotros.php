@@ -325,12 +325,6 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->load->model('solicitud_trabajo_model');
 
             //$this->Solicitud_trabajo_model->insertar_Solicitud_Trabajo();  
-            $archivo_ReciboResidencia =  base64_encode( addslashes(file_get_contents($_FILES["fileReciboResidencia"]['tmp_name'])));	
-            $archivo_AntecedentePenales = base64_encode( addslashes(file_get_contents($_FILES["fileAntecedentePenales"]['tmp_name'])));
-            $archivo_AntecendentesPoliciales = base64_encode( addslashes(file_get_contents($_FILES["fileAntecendentesPoliciales"]['tmp_name'])));
-            $archivo_DocumentoIdentidad = base64_encode( addslashes(file_get_contents($_FILES["fileDocumentoIdentidad"]['tmp_name'])));
-            $archivo_FotoCarnet = base64_encode( addslashes(file_get_contents($_FILES["FotoCarnet"]['tmp_name'])));
-
 
             //$data['COD_TMRH']
             $data['NOM_TMRH']=$this->input->post('TxtNombres');
@@ -343,10 +337,10 @@ class Trabaja_con_nosotros extends CI_Controller {
             $data['COD_UBIGEO']=$this->input->post('cboDistrito');
             $data['DIRECCION']=$this->input->post('txtDireccion'); 
             $data['FEC_NACIMIENTO']=$this->input->post('txtFecNaci'); 
-            $data['COD_OFICIO_PRINCIPAL']=$this->input->post('cboOficios');
             
-            
-            
+            $data['COD_OFICIO_PRINCIPAL']=$this->input->post('cboOficiosPreferencial');
+            $data['NUM_CELU']=$this->input->post('cboCompaniaPrincipal');
+                                   
             #$data['COD_TIEMPO_EXPERIENCIA']
             #$data['FEC_REGISTRO']
             #$data['FEC_MODIFICACION']
@@ -360,9 +354,7 @@ class Trabaja_con_nosotros extends CI_Controller {
             if($data['guardado']){
                 
                 $ultimo_id = $this->db->insert_id();
-                
-
-                
+                                
                 //recorrer el bucle de de array session de fonos        
                 $this->load->model('tmrh_telefono_adjunto_model');
                 
@@ -378,6 +370,31 @@ class Trabaja_con_nosotros extends CI_Controller {
                     $this->tmrh_telefono_adjunto_model->guardar_Instancia($instancia);                     
                     unset($instancia);
                 }
+                
+               #inicio
+
+                $this->load->model('Tmrh_documento_adjunto_model');
+                
+                $array_files[1] = base64_encode( addslashes(file_get_contents($_FILES["FotoCarnet"]['tmp_name'])));                 
+                $array_files[2] = base64_encode( addslashes(file_get_contents($_FILES["fileDocumentoIdentidad"]['tmp_name'])));
+                $array_files[3] = base64_encode( addslashes(file_get_contents($_FILES["fileReciboResidencia"]['tmp_name'])));
+                $array_files[5] = base64_encode( addslashes(file_get_contents($_FILES["fileAntecedentePenales"]['tmp_name'])));
+                $array_files[6] = base64_encode( addslashes(file_get_contents($_FILES["fileAntecendentesPoliciales"]['tmp_name'])));
+                        
+                foreach($array_files as $key=>$value){                    
+                    	
+                    $instancia['COD_TMRH'] = $ultimo_id;
+                    $instancia['COD_TIPO_ADJUNTO_TMRH']=$key;
+                    #$instancia['DESCRIPCION']
+                    #$instancia['RUTA_FOTO']
+                    $instancia['IMAGEN']=$value;
+                    $instancia['LENGHT_D']=filesize($value);
+                                                            
+                    $this->Tmrh_documento_adjunto_model->guardar_Instancia($instancia);                     
+                    unset($instancia);
+                }                
+
+               #fin
                 
                 //recorrer el bucle de  array session de Oficios  
                 $array_id_oficios = $this->listarOficios();
@@ -395,16 +412,12 @@ class Trabaja_con_nosotros extends CI_Controller {
                     #$instancia['COD_USUARIO_REGISTRO']                    
                     $instancia['COD_TIEMPO_EXPERIENCIA']=$array_id_experiencia[$key];
                     
-                    $this->tmrh_oficios_extra_model->guardar_Instancia($instancia); 
-                    
+                    $this->tmrh_oficios_extra_model->guardar_Instancia($instancia);                     
                     unset($instancia);
-                }                
-                
-                                
+                }                                                                
                 
             }
-            
-            
+                        
             $this->load->view('trabaja_con_nosotros',$data);
 
         }
@@ -460,8 +473,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                         return FALSE;       
                         
                     }else{                        
-                        return TRUE;
-                        
+                        return TRUE;                        
                     }
                     
                 }else{
