@@ -10,10 +10,9 @@ class Trabaja_con_nosotros extends CI_Controller {
         {
             parent::__construct();
             $this->load->helper('form');
-            $this->load->helper('url');
-            
-            $this->load->library('session');
-            
+            $this->load->helper('url');            
+            $this->load->library('session');       
+            $this->load->helper('file');
         }    
 
 	public function index()
@@ -82,13 +81,10 @@ class Trabaja_con_nosotros extends CI_Controller {
         $data['array_tiempo_experiencia'] = $this->listarExperiencia();
 
         $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
-        $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();             
-        
-        
+        $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();                             
         
         $data['poscionador'] =0;
-        //echo "cargado de modelo y previo aray()<br>";
-    
+        //echo "cargado de modelo y previo aray()<br>";    
         
         if(empty($this->listarTelefono())==false){                    
             $data['array_telefonos'] = $this->listarTelefono();                    
@@ -283,14 +279,16 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->form_validation->set_rules('txtNroDocumento', '"Número de Documento"', 'required|is_natural_no_zero');                        
         $this->form_validation->set_rules('txtFecNaci', '"Fecha Nacimiento"', 'required|callback_valid_date');
 
-        $this->form_validation->set_rules('fileReciboResidencia', '"Recibo de Servicios"', 'required|callback_cargar_archivo');
-        $this->form_validation->set_rules('fileAntecedentePenales', '"Antecedente Penales"', 'required|callback_cargar_archivo');
-        $this->form_validation->set_rules('fileAntecendentesPoliciales', '"Antecedentes Policiales"', 'required|callback_cargar_archivo');
-        $this->form_validation->set_rules('fileDocumentoIdentidad', '"Documento Identidad"', 'required|callback_cargar_archivo');
-        $this->form_validation->set_rules('FotoCarnet', '"Subir Archivo"', 'required|callback_cargar_archivo');        
+        $this->form_validation->set_rules('fileReciboResidencia', '"Recibo de Servicios"', 'callback_cargar_archivo_fileReciboResidencia');
+        $this->form_validation->set_rules('fileAntecedentePenales', '"Antecedente Penales"', 'callback_cargar_archivo_fileAntecedentePenales');
+        $this->form_validation->set_rules('fileAntecendentesPoliciales', '"Antecedentes Policiales"', 'callback_cargar_archivo_fileAntecendentesPoliciales');
+        $this->form_validation->set_rules('fileDocumentoIdentidad', '"Documento Identidad"', 'callback_cargar_archivo_fileDocumentoIdentidad');
+        $this->form_validation->set_rules('FotoCarnet', '"Foto Carnet"', 'callback_cargar_archivo_FotoCarnet'); 
 
 
         $this->form_validation->set_rules('cboDistrito', '"Distrito"', 'required|callback_distrito_no_elegido');
+        $this->form_validation->set_rules('cboOficiosPreferencial', '"Oficios Preferencial"', 'required');
+        
         $this->form_validation->set_rules('CboTipoDocumento', '"Tipo documento"', 'required|is_natural_no_zero');
         $this->form_validation->set_rules('cboTipoGenero', '"Tipo género"', 'required|is_natural_no_zero');
 
@@ -318,9 +316,11 @@ class Trabaja_con_nosotros extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
 
             $data['guardado']=FALSE;
+            echo "no pasó";
             $this->load->view('trabaja_con_nosotros',$data);   
 
         } else {
+            echo "sí pasó";
             $data['guardado']=TRUE;     
             $this->load->model('solicitud_trabajo_model');
 
@@ -348,8 +348,13 @@ class Trabaja_con_nosotros extends CI_Controller {
             #$data['NUM_CELU']= $this->input->post('telefono');
             #$data['COD_TIPO_OPERADORA']
 
-          
+            echo "<pre>";
+            print_r($data);
+            echo "</pre>";
+            
             $data['guardado'] = $this->solicitud_trabajo_model->insertar_Solicitud_Trabajo($data);
+            
+            echo "rpta insercion: ".$data['guardado'];
             
             if($data['guardado']){
                 
@@ -450,7 +455,7 @@ class Trabaja_con_nosotros extends CI_Controller {
        if($d && $d->format($format) == $date) {
           return true;
        } else {
-         $this->form_validation->set_message('validación de fecha', 'El %s fecha no es un valor  como formato permitido ('.$format.') ');
+         $this->form_validation->set_message('valid_date', 'El %s fecha no es un valor  como formato permitido ('.$format.') ');
             return false;
        }
     }     
@@ -469,7 +474,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     if($this->validatExistenciaTelefono_check($telefono) == TRUE)
                     {
                         //echo "caso celular// validatExistenciaTelefono_check: ".$this->validatExistenciaTelefono_check($telefono)."<br>" ;
-                        $this->form_validation->set_message('validar_telefono_check', 'El yy %s ya está referido.');
+                        $this->form_validation->set_message('validar_telefono_check', 'El %s ya está referido.');
                         return FALSE;       
                         
                     }else{                        
@@ -492,7 +497,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                         
                         if($this->validatExistenciaTelefono_check($telefono) == TRUE)
                         {
-                            $this->form_validation->set_message('validar_telefono_check', 'El xx  %s ya está referido.');
+                            $this->form_validation->set_message('validar_telefono_check', 'El %s ya está referido.');
                             return FALSE;                        
                         }else{                        
                             return TRUE;
@@ -527,8 +532,39 @@ class Trabaja_con_nosotros extends CI_Controller {
         return TRUE;        
     }    
     
+        public function upload_image($str,$nombre_input)
+        {
+            $config['upload_path'] = realpath(APPPATH ."\upload");    
+            #$config['max_size'] = 1024 * 10;
+            $config['allowed_types'] = 'gif|png|jpg|jpeg';
+            $config['encrypt_name'] = TRUE;
+
+            $this->load->library('upload', $config);
+
+            if(isset($_FILES[$nombre_input]) && !empty($_FILES[$nombre_input]['name']))
+            {
+                if($this->upload->do_upload($nombre_input))
+                {
+                    #$upload_data = $this->upload->data();
+                    #$_POST[$nombre_input] = $upload_data['file_name'];
+                    return TRUE;
+                }
+                else
+                {
+                    $this->form_validation->set_message('upload_image', $this->upload->display_errors());
+                    return FALSE;
+                }
+            }
+            else
+            {
+                $_POST[$nombre_input] = NULL;
+                $this->form_validation->set_message('upload_image', $this->upload->display_errors());
+                return FALSE;
+            }
+        }
     
-     function cargar_archivo($input) {
+    
+    public function cargar_archivo_FotoCarnet() {
            
         $config['upload_path']          = realpath(APPPATH ."\upload");        
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
@@ -536,31 +572,168 @@ class Trabaja_con_nosotros extends CI_Controller {
         //$config['max_width']            = 1024;
         //$config['max_height']           = 768;
         
-
-        $this->load->library('upload', $config);
+       $this->load->library('upload', $config);     
+         
+       if(isset($_FILES['FotoCarnet']['name']) && $_FILES['FotoCarnet']['name']!=""){ 
+                
+            if ($this->upload->do_upload('FotoCarnet')==FALSE) {
+                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
+                $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'Verifique el el formato del archivo o peso del archivo');
+                return FALSE;  
+            }else{
+                #$data['uploadSuccess'] = $this->upload->data();
+                return TRUE;                    
+            }
                         
-        if ($this->upload->do_upload($input)==FALSE) {
-            //*** ocurrio un error
-            $data['uploadError'] = $this->upload->display_errors();
-            
-            //echo "<br>".$config['upload_path'];
-            //echo $this->upload->display_errors();
-            
-            $this->form_validation->set_message('cargar_archivo', $data['uploadError'] );
-            return FALSE;  
+        }else{            
+                $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'No ha seleccionado ningún archivo.' );
+                return FALSE;                          
         }
-
-        $data['uploadSuccess'] = $this->upload->data();
-        return TRUE;            
-                               
+                                       
     }
+
+     public function cargar_archivo_fileDocumentoIdentidad() {
+           
+        $config['upload_path']          = realpath(APPPATH ."\upload");        
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size']             = '8000';
+        //$config['max_width']            = 1024;
+        //$config['max_height']           = 768;
+        
+        $this->load->library('upload', $config);     
+         
+       if(isset($_FILES['fileDocumentoIdentidad']['name']) && $_FILES['fileDocumentoIdentidad']['name']!=""){ 
+                
+            if ($this->upload->do_upload('fileDocumentoIdentidad')==FALSE) {
+                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
+                $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'Verifique el el formato del archivo o peso del archivo');
+                return FALSE;  
+            }else{
+                #$data['uploadSuccess'] = $this->upload->data();
+                return TRUE;                    
+            }
+                        
+        }else{            
+                $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'No ha seleccionado ningún archivo.' );
+                return FALSE;                          
+        }      
+                               
+    }    
+    
+     public function cargar_archivo_fileReciboResidencia() {
+           
+        $config['upload_path']          = realpath(APPPATH ."\upload");        
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size']             = '8000';
+        //$config['max_width']            = 1024;
+        //$config['max_height']           = 768;
+        
+        $this->load->library('upload', $config);     
+         
+       if(isset($_FILES['fileReciboResidencia']['name']) && $_FILES['fileReciboResidencia']['name']!=""){ 
+                
+            if ($this->upload->do_upload('fileReciboResidencia')==FALSE) {
+                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
+                $this->form_validation->set_message('cargar_archivo_fileReciboResidencia', 'Verifique el el formato del archivo o peso del archivo');
+                return FALSE;  
+            }else{
+                #$data['uploadSuccess'] = $this->upload->data();
+                return TRUE;                    
+            }
+                        
+        }else{            
+                $this->form_validation->set_message('cargar_archivo_fileReciboResidencia', 'No ha seleccionado ningún archivo.' );
+                return FALSE;                          
+        }             
+                               
+    }     
+    
+     public function cargar_archivo_fileAntecedentePenales() {
+           
+        $config['upload_path']          = realpath(APPPATH ."\upload");        
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size']             = '8000';
+        //$config['max_width']            = 1024;
+        //$config['max_height']           = 768;
+        
+        $this->load->library('upload', $config);     
+         
+       if(isset($_FILES['fileReciboResidencia']['name']) && $_FILES['fileReciboResidencia']['name']!=""){ 
+                
+            if ($this->upload->do_upload('fileReciboResidencia')==FALSE) {
+                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
+                $this->form_validation->set_message('cargar_archivo_fileAntecedentePenales', 'Verifique el el formato del archivo o peso del archivo');
+                return FALSE;  
+            }else{
+                #$data['uploadSuccess'] = $this->upload->data();
+                return TRUE;                    
+            }
+                        
+        }else{            
+                $this->form_validation->set_message('cargar_archivo_fileAntecedentePenales', 'No ha seleccionado ningún archivo.' );
+                return FALSE;                          
+        } 
+        
+    }      
+    
+     public function cargar_archivo_fileAntecendentesPoliciales() {
+           
+        $config['upload_path']          = realpath(APPPATH ."\upload");        
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size']             = '8000';
+        //$config['max_width']            = 1024;
+        //$config['max_height']           = 768;
+        
+        $this->load->library('upload', $config);     
+         
+       if(isset($_FILES['fileAntecendentesPoliciales']['name']) && $_FILES['fileAntecendentesPoliciales']['name']!=""){ 
+                
+            if ($this->upload->do_upload('fileAntecendentesPoliciales')==FALSE) {
+                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
+                $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'Verifique el el formato del archivo o peso del archivo');
+                return FALSE;  
+            }else{
+                #$data['uploadSuccess'] = $this->upload->data();
+                return TRUE;                    
+            }
+                        
+        }else{            
+                $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'No ha seleccionado ningún archivo.' );
+                return FALSE;                          
+        }                                              
+    }        
+    
+    public function file_check($str,$input_file){
+        
+ 
+        
+
+
+        echo $_FILES[$input_file]['name'];
+        if(isset($_FILES[$input_file]['name']) && $_FILES[$input_file]['name']!=""){
+            
+            $allowed_mime_type_arr = array('gif','jpeg','jpg','png','bmp');  
+            $archivo = $_FILES[$input_file]['name'];
+            $ext = pathinfo($archivo, PATHINFO_EXTENSION);
+        
+            if(in_array($ext, $allowed_mime_type_arr)){
+                                
+                return true;
+            }else{
+                $this->form_validation->set_message('file_check', 'Por favor, seleccione unicamente archivos del tipo: gif, jpg o png. En el campo %s');
+                return false;
+            }
+        }else{
+            $this->form_validation->set_message('file_check', 'Por favor, escoja el archivo en el campo %s.');
+            return false;
+        }
+    }    
+    
     
     public function agregarItemTelefono($telefono,$proveedor_fono)
-    {
-               
+    {               
       $_SESSION['lista_telefonos'][] = $telefono;
-      $_SESSION['proveedor_telefonico'][] = $proveedor_fono;         
-   
+      $_SESSION['proveedor_telefonico'][] = $proveedor_fono;            
       return true;
     }
     

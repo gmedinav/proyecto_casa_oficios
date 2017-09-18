@@ -610,7 +610,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                            <input type="file" id="FotoCarnet" name="FotoCarnet" value="<?php echo set_value('FotoCarnet'); ?>" Class="form-control" placeholder="Foto">
+                                            <input type="file" id="FotoCarnet" name="FotoCarnet" value="" Class="form-control" placeholder="Foto">
                                         </div>
 
                                  
@@ -754,21 +754,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     
                                              <div class="form-group">
 
-                                                        <label for="txtTelefono">Celular Principal de Contacto : </label>
+                                                        <label for="cboCompaniaPrincipal">Celular Principal de Contacto : </label>
                                                         <div class="input-group">
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                                                             <select id="cboCompaniaPrincipal" name="cboCompaniaPrincipal" Class="form-control selectpicker">                                                                                                                              
                                                                 <option value="0">Selecione el teléfono principal</option>
+                                                                                                                                                                                                                                                                                                                                                                                             
                                                                 <?php 
                                                                     if(empty($array_telefonos)==false)
                                                                     {
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
-                                                                            if(empty($mdaData)== false){                                                                                
+
+                                                                            if(set_value('cboCompaniaPrincipal')==$mdaKey){
+                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."' selected>".$mdaData."</option>\n";
+                                                                            }else{
                                                                                 echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData."</option>\n";
-                                                                            }
-                                                                            
+                                                                            }                                                                                                                                        
                                                                             //echo $mdaKey . ": " . $mdaData["value"];
                                                                             
                                                                         }
@@ -846,14 +849,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     {                     
                                                                         foreach ($array_oficios as $k=> $valor){
                                                                             //echo "<option>k:".$k."</option>";
-                                                                                
-                                                                                echo "\t\t\t\t\t<option value='".
-                                                                                                $k."-".
-                                                                                                $array_oficios[$k]."-".
-                                                                                                $array_tiempo_experiencia[$k]."'>";
+                                                                                $id =$k."-".$array_oficios[$k]."-".$array_tiempo_experiencia[$k];
+                                                                                echo "\t\t\t\t\t<option value='".$id."'>";
                                                                                 echo $array_descrip_tiempo_experiencia[$k]." - ".$array_descrip_oficio_experiencia[$k] ;
-                                                                                echo "</option>";                                                                                                                                                                                                                                                
-                                                                            
+                                                                                echo "</option>";     
 
                                                                         }
 
@@ -875,18 +874,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     {
                                                                         foreach ($array_descrip_oficio_experiencia as $mdaKey => $mdaData) 
                                                                         {
-                                                                            if(empty($mdaData)== false){                                                                                
-                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData."</option>\n";
+                                                                            if(empty($mdaData)== false){     
+                                                                                
+                                                                                if(set_value('cboOficiosPreferencial')==$mdaKey){
+                                                                                    echo "\t\t\t\t\t<option value='".$mdaKey."' selected>".$mdaData."</option>\n";
+                                                                                }else{
+                                                                                    echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData."</option>\n";
+                                                                                }                                                                                                                                                                                                                                                                                                                                
                                                                             }
-                                                                            
-                                                                            //echo $mdaKey . ": " . $mdaData["value"];
+
                                                                         }
                                                                     }
                                                                     
                                                                     
                                                                 ?>     
                                                             </select>
+                                                            <?php 
 
+                                                            echo form_error('cboOficiosPreferencial', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>');
+                                                            
+                                                            ?>
 
                                                     </div>
 
@@ -935,7 +942,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file" id="fileReciboResidencia" name="fileReciboResidencia" value="<?php echo set_value('fileReciboResidencia'); ?>" Class="form-control" placeholder="Foto">
+                                                    <input type="file" id="fileReciboResidencia" name="fileReciboResidencia" value="" Class="form-control" placeholder="Foto">
                                                     
 
                                                 </div>
@@ -952,7 +959,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file"  ID="fileAntecedentePenales" name="fileAntecedentePenales" value="<?php echo set_value('fileAntecedentePenales'); ?>" Class="form-control" placeholder="Antecedentes penales">                                                                                                       
+                                                    <input type="file"  id="fileAntecedentePenales" name="fileAntecedentePenales" value="" Class="form-control" placeholder="Antecedentes penales">                                                                                                       
 
                                                 </div>
                                                 <?php echo form_error('fileAntecedentePenales', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>  
@@ -966,7 +973,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                  <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file" id="fileAntecendentesPoliciales"  name="fileAntecendentesPoliciales" value="<?php echo set_value('fileAntecendentesPoliciales'); ?>" Class="form-control" placeholder="Foto">
+                                                    <input type="file" id="fileAntecendentesPoliciales"  name="fileAntecendentesPoliciales" value="" Class="form-control" placeholder="Foto">
                                                     
                                                 </div>
                                                 <?php echo form_error('fileAntecendentesPoliciales', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
@@ -983,7 +990,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file" id="fileDocumentoIdentidad" value="<?php echo set_value('fileDocumentoIdentidad'); ?>" name="fileDocumentoIdentidad" Class="form-control" placeholder="Foto">
+                                                    <input type="file" id="fileDocumentoIdentidad" value="" name="fileDocumentoIdentidad" Class="form-control" placeholder="Foto">
                                                     
                                                 </div>
                                                 <?php echo form_error('fileDocumentoIdentidad', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
