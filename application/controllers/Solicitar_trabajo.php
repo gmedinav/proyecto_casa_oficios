@@ -75,7 +75,7 @@ class Solicitar_trabajo extends CI_Controller {
                 $cboDistrito = $this->input->post('cboDistrito');							
                 $foto = base64_encode( addslashes(file_get_contents($_FILES['foto']['tmp_name'])));  //this->input->post('foto')                
                 
-                
+                /*
                 $data['guardado'] = $this->solicitud_trabajo_model->insertar_Solicitud_Trabajo(
                                     $cboOficios,
                                     $nombre_apellidos,
@@ -85,7 +85,20 @@ class Solicitar_trabajo extends CI_Controller {
                                     $descripcionUrgencia,
                                     $cboDistrito,
                                     $foto
-                );
+                );*/
+                
+                $data_insert['COD_OFICIO']=$this->input->post('cboOficios');                
+                $data_insert['NOMBRE'] = $this->input->post('contacto');	
+                $data_insert['EMAIL'] = $this->input->post('email');		
+                $data_insert['TELEFONO'] = $this->input->post('telefono');							
+                $data_insert['DIRECCION'] = $this->input->post('direccion');                
+                $data_insert['DESCRIPCION']= $this->input->post('descripcionUrgencia');		
+                $data_insert['COD_UBIGEO'] = $this->input->post('cboDistrito');							
+                $data_insert['FOTO'] = base64_encode( addslashes(file_get_contents($_FILES['foto']['tmp_name'])));                 
+                
+                
+                
+                $data['guardado']=$this->solicitud_trabajo_model->insertar_Solicitud_Trabajo($data_insert);
                 //redirect(base_url("comentarios"), "refresh");                
 
                 

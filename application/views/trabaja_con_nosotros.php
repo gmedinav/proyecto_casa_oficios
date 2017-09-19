@@ -406,6 +406,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <?php //echo form_open('formulario/procesar'); ?>
 <?php echo form_open_multipart('trabaja_con_nosotros/formulario'); ?>
+    
+    
+    <?php echo validation_errors(); ?>
 <!-- Form Name -->
 <?php if($guardado==TRUE){ ?>
 
@@ -548,7 +551,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <div class="input-group">
 
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <select name='CboTipoDocumento'  ID="CboTipoDocumento" Class="form-control selectpicker">
+                                                <select name='CboTipoDocumento'  id="CboTipoDocumento" class="form-control selectpicker">
                                                     <option value='0'>Seleccione Tipo de Documento</option>
                                                     <?php foreach ($documentos as $key => $value) { 
                                                             if(set_value('CboTipoDocumento')==$value['COD_TIPO_MAESTRO']){
@@ -723,7 +726,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 
                                                            <select id="lstTelefonoAgregados" name="lstTelefonoAgregados" Multiple  Class="form-control selectpicker" >
                                                                 <?php 
-
                                                                     if(empty($array_telefonos)==false )
                                                                     {                                                                        
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
@@ -735,23 +737,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                         }
                                                                     }
                                                                 ?>    
-                                                            </select>
-                                                        
-                                                            <?php 
-                                                            
+                                                            </select>                                                        
+                                                            <?php                                                             
                                                             //Parte del testing
                                                             //echo "<pre>";
                                                             //print_r($array_telefonos);
                                                             //echo "</pre>";
-                                                            echo form_error('lstTelefonoAgregados', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
-                                                  
-
-
-                               
-                                                    </div>
-                                                    
-                                                    
-                                                    
+                                                            echo form_error('lstTelefonoAgregados', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); 
+                                                            ?>
+                                                                                
+                                             </div>                                                                                                                                                           
                                              <div class="form-group">
 
                                                         <label for="cboCompaniaPrincipal">Celular Principal de Contacto : </label>
@@ -766,21 +761,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     {
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
-
                                                                             if(set_value('cboCompaniaPrincipal')==$mdaKey){
                                                                                 echo "\t\t\t\t\t<option value='".$mdaKey."' selected>".$mdaData."</option>\n";
                                                                             }else{
                                                                                 echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData."</option>\n";
                                                                             }                                                                                                                                        
-                                                                            //echo $mdaKey . ": " . $mdaData["value"];
-                                                                            
+                                                                            //echo $mdaKey . ": " . $mdaData["value"];                                                                            
                                                                         }
                                                                     }
-                                                                    
-                                                                    
+  
                                                                 ?>                                                                                                                                             
                                                             </select>
-
+                                                            <?php echo form_error('cboCompaniaPrincipal', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>   
 
                                                         </div>
 

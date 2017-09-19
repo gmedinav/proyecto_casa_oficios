@@ -4,8 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Trabaja_con_nosotros extends CI_Controller {
     
-        //Public $lista_telefonos= array();
-        
+        //Public $lista_telefonos= array();        
         function __construct()
         {
             parent::__construct();
@@ -293,7 +292,7 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->form_validation->set_rules('cboTipoGenero', '"Tipo género"', 'required|is_natural_no_zero');
 
 
-        $this->form_validation->set_rules('cboOficios', '"Oficio"', 'required|is_natural_no_zero', array('is_natural_no_zero' => 'Debe seleccionar un Oficio.'));
+        #$this->form_validation->set_rules('cboOficios', '"Oficio"', 'required|is_natural_no_zero', array('is_natural_no_zero' => 'Debe seleccionar un Oficio.'));
 
         $this->form_validation->set_rules('txtEmail', '"Email"', 'required|valid_email');
         $this->form_validation->set_rules('txtDireccion', '"Dirección"', 'required');
@@ -316,30 +315,33 @@ class Trabaja_con_nosotros extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
 
             $data['guardado']=FALSE;
-            echo "no pasó";
+            echo "no pasó por form_validation";
             $this->load->view('trabaja_con_nosotros',$data);   
 
         } else {
             echo "sí pasó";
             $data['guardado']=TRUE;     
-            $this->load->model('solicitud_trabajo_model');
+            $this->load->model('tmrh');
 
             //$this->Solicitud_trabajo_model->insertar_Solicitud_Trabajo();  
 
             //$data['COD_TMRH']
-            $data['NOM_TMRH']=$this->input->post('TxtNombres');
-            $data['APE_PATERNO']=$this->input->post('txtApePa');	
-            $data['APE_MATERNO']=$this->input->post('txtApeMa');
-            $data['EMAIL']= $this->input->post('txtEmail');
-            $data['COD_TIPO_DOCUMENTO']=$this->input->post('cboTipoDocumento');
-            $data['NUM_DOCUMENTO']=$this->input->post('txtNroDocumento');
-            $data['COD_TIPO_GENERO']=$this->input->post('cboTipoGenero');
-            $data['COD_UBIGEO']=$this->input->post('cboDistrito');
-            $data['DIRECCION']=$this->input->post('txtDireccion'); 
-            $data['FEC_NACIMIENTO']=$this->input->post('txtFecNaci'); 
+            $insertar_tmrh['NOM_TMRH']              = $this->input->post('TxtNombres');	
+            $insertar_tmrh['APE_PATERNO']           = $this->input->post('txtApePa');	
+            $insertar_tmrh['APE_MATERNO']           = $this->input->post('txtApeMa');
+            $insertar_tmrh['EMAIL']                 = $this->input->post('txtEmail');
+            $insertar_tmrh['COD_TIPO_DOCUMENTO']    = $this->input->post('CboTipoDocumento');
+            $insertar_tmrh['NUM_DOCUMENTO']         = $this->input->post('txtNroDocumento');
+            $insertar_tmrh['COD_TIPO_GENERO']       = $this->input->post('cboTipoGenero');
+            $insertar_tmrh['COD_UBIGEO']            = $this->input->post('cboDistrito');
+            $insertar_tmrh['DIRECCION']             = $this->input->post('txtDireccion'); 
+            $insertar_tmrh['FEC_NACIMIENTO']        = $this->input->post('txtFecNaci'); 
             
-            $data['COD_OFICIO_PRINCIPAL']=$this->input->post('cboOficiosPreferencial');
-            $data['NUM_CELU']=$this->input->post('cboCompaniaPrincipal');
+            $lst_oficio_principal =$this->listarOficios();
+            $lst_telefonos_principal  = $this->listarTelefono();
+            
+            $insertar_tmrh['COD_OFICIO_PRINCIPAL']=$lst_oficio_principal[$this->input->post('cboOficiosPreferencial')];
+            $insertar_tmrh['NUM_CELU']=$lst_telefonos_principal[$this->input->post('cboCompaniaPrincipal')];
                                    
             #$data['COD_TIEMPO_EXPERIENCIA']
             #$data['FEC_REGISTRO']
@@ -349,10 +351,10 @@ class Trabaja_con_nosotros extends CI_Controller {
             #$data['COD_TIPO_OPERADORA']
 
             echo "<pre>";
-            print_r($data);
+            print_r($insertar_tmrh);
             echo "</pre>";
             
-            $data['guardado'] = $this->solicitud_trabajo_model->insertar_Solicitud_Trabajo($data);
+            $data['guardado'] = $this->tmrh->guardar_Instancia($insertar_tmrh);
             
             echo "rpta insercion: ".$data['guardado'];
             
