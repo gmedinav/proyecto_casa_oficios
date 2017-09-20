@@ -16,9 +16,9 @@ class Trabaja_con_nosotros extends CI_Controller {
 
 	public function index()
 	{
-                $data['poscionador'] =0;
-                $data['guardado']=FALSE;                
-                $this->resetListaTelefono();      
+        $data['poscionador'] =0;
+        $data['guardado']=FALSE;                
+        $this->resetListaTelefono();      
                 //$thi->res
 		$this->load->model('ubigeo_model');
 		$data['distritos']= $this->ubigeo_model->listDistritosLima();                 
@@ -33,12 +33,12 @@ class Trabaja_con_nosotros extends CI_Controller {
  		$this->load->model('tipo_experiencia_model');
 		$data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();                  
                 
-                $data['array_telefonos']=$this->listarTelefono();
+        $data['array_telefonos']=$this->listarTelefono();
 
-                $data['array_oficios'] = $this->listarOficios();
-                $data['array_tiempo_experiencia'] = $this->listarExperiencia();
-                $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
-                $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();  
+        $data['array_oficios'] = $this->listarOficios();
+        $data['array_tiempo_experiencia'] = $this->listarExperiencia();
+        $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+        $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();  
                     
 		$this->load->view('trabaja_con_nosotros',$data);
 
@@ -353,10 +353,14 @@ class Trabaja_con_nosotros extends CI_Controller {
             echo "<pre>";
             print_r($insertar_tmrh);
             echo "</pre>";
+
+
+
+            $this->db->trans_begin();
             
             $data['guardado'] = $this->tmrh->guardar_Instancia($insertar_tmrh);
             
-            echo "rpta insercion: ".$data['guardado'];
+            #echo "rpta insercion: ".$data['guardado'];
             
             if($data['guardado']){
                 
@@ -382,20 +386,20 @@ class Trabaja_con_nosotros extends CI_Controller {
 
                 $this->load->model('Tmrh_documento_adjunto_model');
                 
-                $array_files[1] = base64_encode( addslashes(file_get_contents($_FILES["FotoCarnet"]['tmp_name'])));                 
-                $array_files[2] = base64_encode( addslashes(file_get_contents($_FILES["fileDocumentoIdentidad"]['tmp_name'])));
-                $array_files[3] = base64_encode( addslashes(file_get_contents($_FILES["fileReciboResidencia"]['tmp_name'])));
-                $array_files[5] = base64_encode( addslashes(file_get_contents($_FILES["fileAntecedentePenales"]['tmp_name'])));
-                $array_files[6] = base64_encode( addslashes(file_get_contents($_FILES["fileAntecendentesPoliciales"]['tmp_name'])));
+                $array_files[1] = $_FILES["FotoCarnet"];                 
+                $array_files[2] = $_FILES["fileDocumentoIdentidad"];
+                $array_files[3] = $_FILES["fileReciboResidencia"];
+                $array_files[5] = $_FILES["fileAntecedentePenales"];
+                $array_files[6] = $_FILES["fileAntecendentesPoliciales"];
                         
                 foreach($array_files as $key=>$value){                    
                     	
-                    $instancia['COD_TMRH'] = $ultimo_id;
-                    $instancia['COD_TIPO_ADJUNTO_TMRH']=$key;
-                    #$instancia['DESCRIPCION']
-                    #$instancia['RUTA_FOTO']
-                    $instancia['IMAGEN']=$value;
-                    $instancia['LENGHT_D']=filesize($value);
+                    $instancia['COD_TMRH']              = $ultimo_id;
+                    $instancia['COD_TIPO_ADJUNTO_TMRH'] = $key;
+                    $instancia['DESCRIPCION']           = $value['name'];
+
+                    $instancia['IMAGEN']                = base64_encode( addslashes(file_get_contents($value['tmp_name'])));
+                    $instancia['LENGHT_D']              = $value['size'];
                                                             
                     $this->Tmrh_documento_adjunto_model->guardar_Instancia($instancia);                     
                     unset($instancia);
@@ -412,22 +416,36 @@ class Trabaja_con_nosotros extends CI_Controller {
                 foreach($array_id_oficios as $key=>$value){                    
                     	                                       
                     #$instancia['COD_TMRH_OFIC_EXTRA']
-                    $instancia['COD_TMRH'] =$ultimo_id;
+                    $instancia['COD_TMRH'] = $ultimo_id;
                     $instancia['COD_OFICIO']= $value;
                     #$instancia['FEC_REGISTRO']
                     #$instancia['FEC_MODIFICACION']
                     #$instancia['COD_USUARIO_REGISTRO']                    
-                    $instancia['COD_TIEMPO_EXPERIENCIA']=$array_id_experiencia[$key];
+                    $instancia['COD_TIEMPO_EXPERIENCIA'] = $array_id_experiencia[$key];
                     
                     $this->tmrh_oficios_extra_model->guardar_Instancia($instancia);                     
                     unset($instancia);
                 }                                                                
                 
+            }      
+
+
+
+           if ($this->db->trans_status() === FALSE){
+
+                $this->db->trans_rollback();
+
+            } else {
+
+                $this->db->trans_commit();
             }
-                        
+
             $this->load->view('trabaja_con_nosotros',$data);
 
         }
+
+
+
 
     }        
 
@@ -534,6 +552,9 @@ class Trabaja_con_nosotros extends CI_Controller {
         return TRUE;        
     }    
     
+
+
+
         public function upload_image($str,$nombre_input)
         {
             $config['upload_path'] = realpath(APPPATH ."\upload");    
@@ -565,27 +586,58 @@ class Trabaja_con_nosotros extends CI_Controller {
             }
         }
     
+
+
+#5137900- Oncosalud
+
     
     public function cargar_archivo_FotoCarnet() {
            
         $config['upload_path']          = realpath(APPPATH ."\upload");        
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = '8000';
-        //$config['max_width']            = 1024;
+        $config['max_size']             = '2097152';
+
+        #$config['max_width']            = 1024;
         //$config['max_height']           = 768;
         
        $this->load->library('upload', $config);     
          
        if(isset($_FILES['FotoCarnet']['name']) && $_FILES['FotoCarnet']['name']!=""){ 
+
+
+            if ($_FILES['FotoCarnet']['size'] > $config['max_size'] ) {
                 
-            if ($this->upload->do_upload('FotoCarnet')==FALSE) {
-                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
-                $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'Verifique el el formato del archivo o peso del archivo');
+                $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'Verifique el peso del archivo.');
                 return FALSE;  
+
             }else{
-                #$data['uploadSuccess'] = $this->upload->data();
+
+                $upload_project_thum = $_FILES['FotoCarnet']['name'];
+                $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);                   
+
+                $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
+                $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
+
+                if(!in_array($_FILES['FotoCarnet']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
+                {
+                    $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'Verifique el peso del archivo.');
+                    return FALSE;  
+                }else{
+                    return TRUE;
+                }
+
+            }     
+
+            /*
+            if ($this->upload->do_upload('FotoCarnet')==FALSE) {
+               
+                $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'Verifique el formato del archivo.');
+                return FALSE;  
+
+            }else{
+
                 return TRUE;                    
-            }
+            }*/
                         
         }else{            
                 $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'No ha seleccionado ningún archivo.' );
@@ -598,26 +650,44 @@ class Trabaja_con_nosotros extends CI_Controller {
            
         $config['upload_path']          = realpath(APPPATH ."\upload");        
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = '8000';
+        $config['max_size']             = '2097152';
         //$config['max_width']            = 1024;
         //$config['max_height']           = 768;
         
-        $this->load->library('upload', $config);     
+        $this->load->library('upload', $config);    
+
+             
          
        if(isset($_FILES['fileDocumentoIdentidad']['name']) && $_FILES['fileDocumentoIdentidad']['name']!=""){ 
-                
-            if ($this->upload->do_upload('fileDocumentoIdentidad')==FALSE) {
-                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
-                $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'Verifique el el formato del archivo o peso del archivo');
+
+
+            if ($_FILES['fileDocumentoIdentidad']['size'] > $config['max_size'] ) {
+                    
+                $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'Verifique el peso del archivo.');
                 return FALSE;  
-            }else{
-                #$data['uploadSuccess'] = $this->upload->data();
-                return TRUE;                    
+            
+            } else{
+
+                $upload_project_thum = $_FILES['fileDocumentoIdentidad']['name'];
+                $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);     
+
+                $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
+                $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
+
+                if(!in_array($_FILES['fileDocumentoIdentidad']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
+                {
+                    $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'Verifique el peso del archivo.');
+                    return FALSE;  
+                }else{
+                    return TRUE;
+                }
+
             }
-                        
-        }else{            
-                $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'No ha seleccionado ningún archivo.' );
-                return FALSE;                          
+   
+        }else{       
+
+            $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'No ha seleccionado ningún archivo.' );
+            return FALSE;                          
         }      
                                
     }    
@@ -626,21 +696,35 @@ class Trabaja_con_nosotros extends CI_Controller {
            
         $config['upload_path']          = realpath(APPPATH ."\upload");        
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = '8000';
+        $config['max_size']             = '2097152';
         //$config['max_width']            = 1024;
         //$config['max_height']           = 768;
         
         $this->load->library('upload', $config);     
          
        if(isset($_FILES['fileReciboResidencia']['name']) && $_FILES['fileReciboResidencia']['name']!=""){ 
+
+
+            if ($_FILES['fileReciboResidencia']['size'] > $config['max_size'] ) {
                 
-            if ($this->upload->do_upload('fileReciboResidencia')==FALSE) {
-                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
-                $this->form_validation->set_message('cargar_archivo_fileReciboResidencia', 'Verifique el el formato del archivo o peso del archivo');
+                $this->form_validation->set_message('cargar_archivo_fileReciboResidencia', 'Verifique el peso del archivo.');
                 return FALSE;  
             }else{
-                #$data['uploadSuccess'] = $this->upload->data();
-                return TRUE;                    
+
+                $upload_project_thum = $_FILES['fileReciboResidencia']['name'];
+                $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);   
+
+                $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
+                $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
+
+                if(!in_array($_FILES['fileReciboResidencia']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
+                {
+                    $this->form_validation->set_message('cargar_archivo_fileReciboResidencia', 'Verifique el formato del archivo.');
+                    return FALSE;  
+                }else{
+                    return TRUE;
+                }
+
             }
                         
         }else{            
@@ -654,21 +738,34 @@ class Trabaja_con_nosotros extends CI_Controller {
            
         $config['upload_path']          = realpath(APPPATH ."\upload");        
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = '8000';
+        $config['max_size']             = '2097152';
         //$config['max_width']            = 1024;
         //$config['max_height']           = 768;
         
-        $this->load->library('upload', $config);     
+        $this->load->library('upload', $config);    
+
          
-       if(isset($_FILES['fileReciboResidencia']['name']) && $_FILES['fileReciboResidencia']['name']!=""){ 
-                
-            if ($this->upload->do_upload('fileReciboResidencia')==FALSE) {
-                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
-                $this->form_validation->set_message('cargar_archivo_fileAntecedentePenales', 'Verifique el el formato del archivo o peso del archivo');
-                return FALSE;  
+       if(isset($_FILES['fileAntecedentePenales']['name']) && $_FILES['fileAntecedentePenales']['name']!=""){ 
+
+        
+            if ($_FILES['fileAntecedentePenales']['size'] > $config['max_size'] ) {                
+                $this->form_validation->set_message('cargar_archivo_fileAntecedentePenales', 'Verifique el peso del archivo.');
+                return FALSE;              
             }else{
-                #$data['uploadSuccess'] = $this->upload->data();
-                return TRUE;                    
+
+                $upload_project_thum = $_FILES['fileAntecedentePenales']['name'];
+                $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);   
+
+                $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
+                $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
+
+                if(!in_array($_FILES['fileAntecedentePenales']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
+                {
+                    $this->form_validation->set_message('cargar_archivo_fileAntecedentePenales', 'Verifique el formato del archivo.');
+                    return FALSE;  
+                }else{
+                    return TRUE;
+                }
             }
                         
         }else{            
@@ -682,17 +779,66 @@ class Trabaja_con_nosotros extends CI_Controller {
            
         $config['upload_path']          = realpath(APPPATH ."\upload");        
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-        $config['max_size']             = '8000';
+        $config['max_size']             = '2097152';
         //$config['max_width']            = 1024;
         //$config['max_height']           = 768;
         
         $this->load->library('upload', $config);     
          
        if(isset($_FILES['fileAntecendentesPoliciales']['name']) && $_FILES['fileAntecendentesPoliciales']['name']!=""){ 
-                
+
+
+            if ($_FILES['fileAntecendentesPoliciales']['size'] > $config['max_size'] ) {                
+                $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'Verifique el peso del archivo.');
+                return FALSE;              
+            }else{
+
+                $upload_project_thum = $_FILES['fileAntecendentesPoliciales']['name'];
+                $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);   
+
+                $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
+                $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
+
+                if(!in_array($_FILES['fileAntecendentesPoliciales']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
+                {
+                    $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'Verifique el formato del archivo.');
+                    return FALSE;  
+                }else{
+                    return TRUE;
+                }
+            }
+                        
+        }else{            
+                $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'No ha seleccionado ningún archivo.' );
+                return FALSE;                          
+        } 
+
+
+    }        
+    
+    public function file_check($input_file){
+        
+ 
+        $config['upload_path']          = realpath(APPPATH ."\upload");        
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size']             = '2097152';
+        //$config['max_width']            = 1024;
+        //$config['max_height']           = 768;
+        
+        $this->load->library('upload', $config);     
+         
+       if(isset($input_file['name']) && $input_file['name']!=""){ 
+
+
+            if ($input_file['size'] > $config['max_size'] ) {                
+                $this->form_validation->set_message('file_check', 'Verifique el peso del archivo.');
+                return FALSE;              
+            }         
+            
+
             if ($this->upload->do_upload('fileAntecendentesPoliciales')==FALSE) {
                 #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
-                $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'Verifique el el formato del archivo o peso del archivo');
+                $this->form_validation->set_message('file_check', 'Verifique el formato del archivo.');
                 return FALSE;  
             }else{
                 #$data['uploadSuccess'] = $this->upload->data();
@@ -700,35 +846,10 @@ class Trabaja_con_nosotros extends CI_Controller {
             }
                         
         }else{            
-                $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'No ha seleccionado ningún archivo.' );
+                $this->form_validation->set_message('file_check', 'No ha seleccionado ningún archivo.' );
                 return FALSE;                          
-        }                                              
-    }        
-    
-    public function file_check($str,$input_file){
-        
- 
-        
+        } 
 
-
-        echo $_FILES[$input_file]['name'];
-        if(isset($_FILES[$input_file]['name']) && $_FILES[$input_file]['name']!=""){
-            
-            $allowed_mime_type_arr = array('gif','jpeg','jpg','png','bmp');  
-            $archivo = $_FILES[$input_file]['name'];
-            $ext = pathinfo($archivo, PATHINFO_EXTENSION);
-        
-            if(in_array($ext, $allowed_mime_type_arr)){
-                                
-                return true;
-            }else{
-                $this->form_validation->set_message('file_check', 'Por favor, seleccione unicamente archivos del tipo: gif, jpg o png. En el campo %s');
-                return false;
-            }
-        }else{
-            $this->form_validation->set_message('file_check', 'Por favor, escoja el archivo en el campo %s.');
-            return false;
-        }
     }    
     
     

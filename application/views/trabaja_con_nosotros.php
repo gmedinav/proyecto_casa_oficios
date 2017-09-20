@@ -408,15 +408,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php echo form_open_multipart('trabaja_con_nosotros/formulario'); ?>
     
     
-    <?php echo validation_errors(); ?>
+    <?php echo validation_errors(); 
+
+        if(empty($guardado)==false){
+
+    ?>
 <!-- Form Name -->
-<?php if($guardado==TRUE){ ?>
+        <?php 
+        if($guardado==TRUE){ 
 
-<div class="alert alert-success">
-  <strong>Guardado: </strong> Nos contactataremos pronto con Ud.
-</div>
+        ?>
 
-<?php } ?>
+        <div class="alert alert-success">
+          <strong>Guardado: </strong> Nos contactataremos pronto con Ud.
+        </div>
+
+        <?php
+        }else{
+        ?>
+        
+        <div class="alert alert-danger">
+          <strong>Advertencia: </strong> No se pudo grabar el registro. Por favor, revise correctamente los datos.
+        </div>
+    <?php 
+
+        }
+
+    }
+ ?>
 
 
 
@@ -500,7 +519,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <label for="Nombres">Nombres : </label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                            <input type="text" name='TxtNombres'  id="TxtNombres" value="Edgar" Class="form-control" PlaceHolder="Nombres">
+                                            <input type="text" name='TxtNombres'  id="TxtNombres" value="<?php echo set_value('TxtNombres'); ?>" Class="form-control" PlaceHolder="Nombres">
                                         </div>
                                         <?php echo form_error('TxtNombres', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>   
                                     </div>
@@ -509,7 +528,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <label for="Apellidos">Apellidos  Paterno: </label>
                                         <div class="input-group">
                                           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                          <input type="text" name='txtApePa'  id="txtApePa" value="Ligarda Estrada" Class="form-control" PlaceHolder="Apellidos">
+                                          <input type="text" name='txtApePa'  id="txtApePa" value="<?php echo set_value('txtApePa'); ?>" Class="form-control" PlaceHolder="Apellidos">
                                         </div>
                                         <?php echo form_error('txtApePa', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                    </div>
@@ -517,7 +536,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <label for="Apellidos">Apellidos Materno: </label>
                                         <div class="input-group">
                                           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                          <input type="text" name='txtApeMa' id="txtApeMa" value="Ligarda Estrada" Class="form-control" PlaceHolder="Apellidos">
+                                          <input type="text" name='txtApeMa' id="txtApeMa" value="<?php echo set_value('txtApeMa'); ?>" Class="form-control" PlaceHolder="Apellidos">
                                         </div>
                                         <?php echo form_error('txtApeMa', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                    </div>
@@ -670,7 +689,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <label  for="txtDireccion">Dirección : </label>
                                                         <div class="input-group">
                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                                               <input type="text" value="Calle Monterrey 341 - Chacarrilla - Santiago de Surco" name="txtDireccion" id="txtDireccion" Class="form-control" PlaceHolder="Dirección">
+                                                               <input type="text" value="<?php echo set_value('txtDireccion'); ?>" name="txtDireccion" id="txtDireccion" Class="form-control" PlaceHolder="Dirección">
                                                         </div>
                                                         <?php echo form_error('txtDireccion', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                                     </div>
