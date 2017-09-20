@@ -343,13 +343,6 @@ class Trabaja_con_nosotros extends CI_Controller {
             $insertar_tmrh['COD_OFICIO_PRINCIPAL']=$lst_oficio_principal[$this->input->post('cboOficiosPreferencial')];
             $insertar_tmrh['NUM_CELU']=$lst_telefonos_principal[$this->input->post('cboCompaniaPrincipal')];
                                    
-            #$data['COD_TIEMPO_EXPERIENCIA']
-            #$data['FEC_REGISTRO']
-            #$data['FEC_MODIFICACION']
-            #$data['COD_USUARIO_REGISTRO']
-            #$data['NUM_CELU']= $this->input->post('telefono');
-            #$data['COD_TIPO_OPERADORA']
-
             echo "<pre>";
             print_r($insertar_tmrh);
             echo "</pre>";

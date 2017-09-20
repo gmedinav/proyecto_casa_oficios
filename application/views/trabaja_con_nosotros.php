@@ -635,7 +635,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <input type="file" id="FotoCarnet" name="FotoCarnet" value="" Class="form-control" placeholder="Foto">
                                         </div>
 
-                                 
+                                        <div class="container-fluid" style="background-color:lavenderblush;">
+                                          <div class="row">
+                                            <div class="col-sm-5">
+                                              <p align="center"><strong>Archivo Adjunto</strong></p>
+                                            </div>
+                                            <div class="col-sm-5">
+                                              <p align="center"><strong>Remover</strong></p>
+                                            </div>
+                                          </div>
+
+                                          <div class="row">
+                                            <div class="col-sm-5">
+                                              <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
+                                            </div>
+                                            <div class="col-sm-5">
+                                              <p align="center">        
+                                                <button type="button" class="btn btn-default">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button></p>
+                                            </div>
+                                          </div>
+
+                                        </div>      
+
                                         <?php echo form_error('FotoCarnet', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                     </div>
                                         
