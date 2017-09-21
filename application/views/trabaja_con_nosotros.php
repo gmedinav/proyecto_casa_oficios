@@ -9,6 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Casa Oficios</title>
+
     <script src="<?php echo base_url("assets/js/jquery.js"); ?>" type="text/javascript"></script>
     <link href="<?php echo base_url("assets/css/bootstrap.min.css"); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url("assets/css/font-awesome.min.css"); ?>" rel="stylesheet" type="text/css">
@@ -17,15 +18,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url("assets/css/main.css"); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url("assets/css/responsive.css"); ?>" rel="stylesheet" type="text/css">
     
-
      <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"  rel="stylesheet" type="text/css" />
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-
-
-
 
     <link href="<?php echo base_url("assets/css/bootstrap-datetimepicker.min.css"); ?>" rel="stylesheet" media="screen">
     <script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap-datetimepicker.js"); ?>" charset="UTF-8"></script>
@@ -34,10 +31,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
  <script language="javascript">
       
-
         //variable global para fx AgregarItem
         var arrayFonos = [];
-
         /*---------------------------------------------------------------------------*/
                     function addCustomItem(id, text, val) {
                         var vlist = document.getElementById(id);
@@ -54,28 +49,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }
                         }
                     }
-
-
                     function selectAllElements(id,id2) {
                         var oList = document.getElementById(id);
                         if (oList != null) {
                             for (i = 0; i < oList.options.length; i++)
                                 oList.options[i].selected = true;
                         }
-
-
                         var oList2 = document.getElementById(id2);
                         if (oList2 != null) {
                             for (e = 0; e < oList2.options.length; e++)
                                 oList2.options[e].selected = true;
                         }
-
-
-
-
                     }
-
-
                     //function selectAllElements2(id) {
                     //    var oList = document.getElementById(id);
                     //    if (oList != null) {
@@ -83,16 +68,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     //            oList.options[i].selected = true;
                     //    }
                     //}
-
-
-
-
-
-
         function openTab(tab){
             //Obtiene el nombre del UL
             //var tabName2 = $('.nav-tabs .active').text();
-
             // eSTE JAVA SCRIPT LLAMA EL BOTON SIGUIENTE PASO..
             // AQUI CAPTURA EN ESTA VARIABLE CUAL ES EL TABPANEL ACTIVO...
             // AQUI RECUPERA EL ID QUE LE HAYAS PUESTO AL TABPANEL
@@ -112,35 +90,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     ValidarElementosContacto();
                     tabName2 = 'profile';
                     break;
-                //case '':
-                //    day = "Tuesday";
-                //    return;
 
-                //case '':
-                //    day = "Saturday";
-                //    return;
             }
-
-
             if(bol == false){
                 return;           
             }
-
             // LUEGO DE ESTO SI TODO ESTA BIEN PASA A EL TAB QUE REQUIERA EL BOTON..
-
             $('#Tabs a[href="#' + tab + '"]').tab('show');
             $("#Tabs a").click(function () {
                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
             });
-
         
         }
         
-
         
-
         
-
         function AgregarItem(id) {
             telefono = $.trim($('#txtTelefono').val());
             codigonItem = $.trim($('#cboProveedorTelf option:selected').val());
@@ -154,7 +118,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 alert("El teléfono '" + telefono + "' no es númerico: .");
                 return;
             }
-
             //Validación de Longitud de Telefono
             if (telefono.length == 9 && telefono.substring(0, 1) == 9) {
                 //alert("El número descrito es celular correcto.");
@@ -166,8 +129,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     return;
                 }            
             }
-
-
             //Validacion Existencia de teléfono
             for (var i = 0; i < arrayFonos.length; i++)
             {
@@ -178,192 +139,106 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }            
             }
             arrayFonos.push(telefono);
-
             document.getElementById('txtTelefono').value = '';
-
             addCustomItem(id, descri, nuevoCodigo);
         }
-
-
         /*---------------------------------------------------------------------------*/
-
-
-
        
-
-
-
-
-        function borrarItemTelefono()
-        {
-
-            //if( confirm("¿Está seguro que desea eliminar el item seleccionado?") == true)
-            //{                
-            //    $('#lstTelefonoAgregados :selected').each(function (i, selected) {
-            //        if (arrayFonos[i] == telefono) {                        
-            //            $("#lstTelefonoAgregados option:selected").remove();
-            //            arrayFonos.splice(i);
-            //        }                    
-            //    });
-            //}
-
-            if( confirm("¿Está seguro que desea eliminar el item seleccionado?") == true)
-            {  
-                var dropDownListRef = document.getElementById('lstTelefonoAgregados');
-               
-                var optionsList = '';
-                var itemIndex = dropDownListRef.selectedIndex;
-                if (itemIndex>=0){
-                    var txt= []
-                    txt = (document.getElementById('lstTelefonoAgregados').value).split("-");
-                   
-
-                
-             
-                    dropDownListRef.remove(itemIndex);
-                    for (var i=0; i<arrayFonos.length; i++){
-                        //alert(arrayFonos[i]);
-                        //alert(txt[1]);
-                        if (arrayFonos[i] == txt[1]){
-                            
-                            arrayFonos.splice(i,1);
-                        }
-                       
-                                    }
-
-               
-                }
-            }
-
-        }
-
-
-
-        function borrarItemOficio()
-        {
-
-            //if( confirm("¿Está seguro que desea eliminar el item seleccionado?") == true)
-            //{                
-            //    $('#lstTelefonoAgregados :selected').each(function (i, selected) {
-            //        if (arrayFonos[i] == telefono) {                        
-            //            $("#lstTelefonoAgregados option:selected").remove();
-            //            arrayFonos.splice(i);
-            //        }                    
-            //    });
-            //}
-
-            if( confirm("¿Está seguro que desea eliminar el item seleccionado?") == true)
-            {  
-                var dropDownListRef = document.getElementById('lstOficioExperienciAgregados');
-               
-                var optionsList = '';
-                var itemIndex = dropDownListRef.selectedIndex;
-                if (itemIndex>=0){
-                    var txt= []
-                    txt = (document.getElementById('lstOficioExperienciAgregados').value).split("-");
-                   
-
-                
-             
-                    dropDownListRef.remove(itemIndex);
-                    for (var i=0; i<arrayOficios.length; i++){
-                        //alert(arrayOficios[i]);
-                        //alert(txt[0]);
-                        if (arrayOficios[i] == txt[0]){
-                            
-                            arrayOficios.splice(i,1);
-                        }
-                       
-                                    }
-
-               
-                }
-            }
-
-        }
-
-
-
         /////////////////////////
-
         var arrayOficios = [];
         function agregarItemOficio(id) {
-
             //declaración de variables
-
             //telefono = $.trim($('#txtTelefono').val());
             codigoPerfilLaboral = $.trim($('#cboOficiosOtros option:selected').val());
             codigoPeriodolLaboral = $.trim($('#cboPeriodoExpeOtros option:selected').val());
-
             descripPerfilLaboral = $.trim($('#cboOficiosOtros option:selected').text());
             descripPeriodoLaboral = $.trim($('#cboPeriodoExpeOtros option:selected').text());
-
             nuevoCodigo = codigoPerfilLaboral + '-' + codigoPeriodolLaboral;
-            //activarSalida = false;
 
-
-
-            //Seleccionar al menos un Perfil Laboral
-
-            //if (codigoPerfilLaboral == '00') {
-            //    alert("Debe seleciconar un perfil laboral.");
-            //    return;
-            //}
-
-            ////Seleccionar al menos un Perfil Laboral
-            //if (codigoPeriodolLaboral == '00') {
-            //    alert("Debe seleciconar un periodo laboral.");
-            //    return;
-            //}
-
-
-
-            //Validacion Existencia de teléfono
             for (var i = 0; i < arrayOficios.length; i++) {
-
                 if (arrayOficios[i] == codigoPerfilLaboral) {
                     alert("Ya existe el oficio '" + descripPerfilLaboral + "' registrado.");
                     return;
                 }
-
             }
             arrayOficios.push(codigoPerfilLaboral);
 
-
-            //AgregarItem de Lista
-            //$('#lstOficioExperienciAgregados').append($('<option>', {
-            //    value: nuevoCodigo,
-            //    text: descripPerfilLaboral + ': ' + descripPeriodoLaboral
-            //}));
-
-
             var descriptotal = descripPerfilLaboral + ': ' + descripPeriodoLaboral;
 
-            //Preparar los controles para la siguientes inserción.
-            //$("#lstPerfilLaboral ").get(0).selectedIndex
-            //$("#listPeriodoExperiencia ").get(0).selectedIndex
-
             addCustomItem(id, descriptotal, nuevoCodigo);
-
         }
 
 
-        //function borrarItemOficio() {
 
-        //    if (confirm("¿Está seguro que desea eliminar el item seleccionado?") == true) {
-
-        //        $('#lstOficioExperienciAgregados :selected').each(function (i, selected) {
-        //            if (arrayOficios[i] == codigoPerfilLaboral) {
-        //                $("#lstOficioExperienciAgregados option:selected").remove();
-        //                arrayOficios.splice(i);
-        //            }
-        //        });
+function validar_idenctidad(){
 
 
+nombre          = $.trim($('#TxtNombres').val());
+ape_paterno     = $.trim($('#txtApePa').val());
+ape_materno     = $.trim($('#txtApeMa').val());
+nro_documento   = $.trim($('#txtNroDocumento').val());
+foto_carnet     = $.trim($('#FotoCarnet').val());
 
-        //    }
-        //}
+//=$.trim($('#cboTipoGenero').val());
+//=$.trim($('#CboTipoDocumento').val());
+resultado_validacion = true;
 
+    if(document.getElementById("cboTipoGenero").selectedIndex == "0"){
+        rpta[1]= false;
+        rpta[0]="No se seleccionó ningún género.";
+
+        return rpta;
+    }
+
+
+   if(document.getElementById("CboTipoDocumento").selectedIndex = "0"){
+        rpta[1]= false;
+        rpta[0]="No se seleccionó ningún tipo de documento";
+
+        return rpta;
+
+   }
+
+
+
+
+}
+
+
+function fileValidation(nom_input_file,id_imagen){
+
+    var fileInput = document.getElementById(nom_input_file);
+    var filePath = fileInput.value;
+    var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
+
+    if(!allowedExtensions.exec(filePath)){
+        alert('Por favor, el archivo debe tener alguna de las extensiones siguientes: .jpeg/.jpg/.png/.gif.');
+        fileInput.value = '';
+        return false;
+    }else{
+
+        //alert("size:"+document.getElementById(nom_input_file).files[0].size);
+        size_file= document.getElementById(nom_input_file).files[0].size;
+
+        if(size_file>2097152){
+
+            alert('Por favor, el archivo no debe superar de los 2Mb de espacio físico.');
+            fileInput.value = '';
+            return false;
+
+        }
+
+        //Image preview
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                /*document.getElementById('imagePreview').innerHTML = '<img src="'+e.target.result+'"/>';*/
+                document.getElementById(id_imagen).src = e.target.result;
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+}
 
 
 
@@ -409,14 +284,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     
     
     <?php echo validation_errors(); 
-
         if(empty($guardado)==false){
-
     ?>
 <!-- Form Name -->
         <?php 
         if($guardado==TRUE){ 
-
         ?>
 
         <div class="alert alert-success">
@@ -431,9 +303,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <strong>Advertencia: </strong> No se pudo grabar el registro. Por favor, revise correctamente los datos.
         </div>
     <?php 
-
         }
-
     }
  ?>
 
@@ -454,8 +324,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 <div class="container">
-	<div class="row">
-		    <div class="col-md-8">
+  <div class="row">
+        <div class="col-md-8">
                                     <!-- Nav tabs -->
                                     
 
@@ -544,10 +414,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <label for="Apellidos">Genero: </label>
                                         <div class="input-group">
                                           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                <select name='cboTipoGenero'  ID="cboTipoGenero" Class="form-control selectpicker">
+                                                <select name='cboTipoGenero'  id="cboTipoGenero" Class="form-control selectpicker">
                                                     <option value='0'>Seleccione</option>
                                                         <?php foreach ($sexos as $key => $value) { 
-
                                                                 if(set_value('cboTipoGenero') == $value['COD_TIPO_MAESTRO']){
                                                                     echo "\t\t\t\t\t<option value='".$value['COD_TIPO_MAESTRO']."' selected>".$value['DES_TIPO_MAESTRO']."</option>\n";
                                                                 }else{                            
@@ -611,11 +480,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">                    
                                                                                                              
                                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                             <input class="form-control"  size="16" name="txtFecNaci"  id="txtFecNaci" value="<?php echo set_value('txtFecNaci'); ?>"  ReadOnly="true">  
                                                         </div>
           
-				                                     <input type="hidden" id="dtp_input2" value="" />
+                                             <input type="hidden" id="dtp_input2" value="" />
                                                     </div>
                                                     <?php echo form_error('txtFecNaci', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                     </div>
@@ -632,7 +501,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                            <input type="file" id="FotoCarnet" name="FotoCarnet" value="" Class="form-control" placeholder="Foto">
+                                            <input type="file" id="FotoCarnet" name="FotoCarnet" onchange="return fileValidation('FotoCarnet','img_fotoCarnet')" value="" Class="form-control" placeholder="Foto">
                                         </div>
 
                                         <div class="container-fluid" style="background-color:lavenderblush;">
@@ -647,7 +516,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                                           <div class="row">
                                             <div class="col-sm-5">
-                                              <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
+                                              <p align="center">
+                                                <img src="" id="img_fotoCarnet" width="80px" height="80px" alt="nombre_archivo">
+                                              </p>
                                             </div>
                                             <div class="col-sm-5">
                                               <p align="center">        
@@ -670,11 +541,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           </div>
                            
 
-
-
-
-
-
            
                           <div role="tabpanel" class="tab-pane" id="profile">
                                         <!--Inicio: Tab panes02-->
@@ -691,7 +557,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 <select id="cboDistrito" name="cboDistrito" Class="form-control">
                                                                     <option value="0" selected="True">- Seleccione Distrito de Lima -</option>
                                                                     <?php foreach ($distritos as $key => $value) { 
-
                                                                             if(set_value('cboDistrito')==$value['cod_ubigeo']){
                                                                                 echo "\t\t\t\t\t<option value='".$value['cod_ubigeo']."' selected>".$value['des_ubigeo']."</option>\n";
                                                                             }else{                            
@@ -772,23 +637,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     {                                                                        
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
-                                                                            if(empty($mdaData)== false)
-                                                                            {
-                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."-".$mdaData."'>".$mdaData."</option>\n";
-                                                                            }
+                                                                            #if(empty($mdaData['telefono'])== false)
+                                                                            #{
+                                                                            echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData['telefono']."</option>\n";
+                                                                            #}
                                                                         }
                                                                     }
                                                                 ?>    
                                                             </select>                                                        
                                                             <?php                                                             
-                                                            //Parte del testing
-                                                            //echo "<pre>";
-                                                            //print_r($array_telefonos);
-                                                            //echo "</pre>";
                                                             echo form_error('lstTelefonoAgregados', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); 
                                                             ?>
                                                                                 
-                                             </div>                                                                                                                                                           
+                                             </div>  
+
                                              <div class="form-group">
 
                                                         <label for="cboCompaniaPrincipal">Celular Principal de Contacto : </label>
@@ -803,10 +665,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                     {
                                                                         foreach ($array_telefonos as $mdaKey => $mdaData) 
                                                                         {
-                                                                            if(set_value('cboCompaniaPrincipal')==$mdaKey){
-                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."' selected>".$mdaData."</option>\n";
+                                                                            if(set_value('cboCompaniaPrincipal') == $mdaKey){
+                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."' selected>".$mdaData['telefono']."</option>\n";
                                                                             }else{
-                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData."</option>\n";
+                                                                                echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData['telefono']."</option>\n";
                                                                             }                                                                                                                                        
                                                                             //echo $mdaKey . ": " . $mdaData["value"];                                                                            
                                                                         }
@@ -887,15 +749,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                                 echo "\t\t\t\t\t<option value='".$id."'>";
                                                                                 echo $array_descrip_tiempo_experiencia[$k]." - ".$array_descrip_oficio_experiencia[$k] ;
                                                                                 echo "</option>";     
-
                                                                         }
-
                                                                     }
                                                                 ?>    
                                                         </select>
                                                         
                                                             <?php 
-
                                                             echo form_error('lstOficioExperienciAgregados', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>');
                                                             
                                                             ?>
@@ -916,7 +775,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                                     echo "\t\t\t\t\t<option value='".$mdaKey."'>".$mdaData."</option>\n";
                                                                                 }                                                                                                                                                                                                                                                                                                                                
                                                                             }
-
                                                                         }
                                                                     }
                                                                     
@@ -924,7 +782,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 ?>     
                                                             </select>
                                                             <?php 
-
                                                             echo form_error('cboOficiosPreferencial', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>');
                                                             
                                                             ?>
@@ -980,6 +837,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     
 
                                                 </div>
+
+
+                                                <div class="container-fluid" style="background-color:lavenderblush;">
+                                                  <div class="row">
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><strong>Archivo Adjunto</strong></p>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><strong>Remover</strong></p>
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="row">
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                      <p align="center">        
+                                                        <button type="button" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button></p>
+                                                    </div>
+                                                  </div>
+
+                                                </div>   
+
+
                                                 <?php echo form_error('fileReciboResidencia', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                                 
 
@@ -996,6 +880,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <input type="file"  id="fileAntecedentePenales" name="fileAntecedentePenales" value="" Class="form-control" placeholder="Antecedentes penales">                                                                                                       
 
                                                 </div>
+
+                                                <div class="container-fluid" style="background-color:lavenderblush;">
+                                                  <div class="row">
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><strong>Archivo Adjunto</strong></p>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><strong>Remover</strong></p>
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="row">
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                      <p align="center">        
+                                                        <button type="button" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button></p>
+                                                    </div>
+                                                  </div>
+
+                                                </div>   
+
+
                                                 <?php echo form_error('fileAntecedentePenales', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>  
 
                                             </div>
@@ -1010,6 +920,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <input type="file" id="fileAntecendentesPoliciales"  name="fileAntecendentesPoliciales" value="" Class="form-control" placeholder="Foto">
                                                     
                                                 </div>
+
+
+                                                <div class="container-fluid" style="background-color:lavenderblush;">
+                                                  <div class="row">
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><strong>Archivo Adjunto</strong></p>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><strong>Remover</strong></p>
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="row">
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                      <p align="center">        
+                                                        <button type="button" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button></p>
+                                                    </div>
+                                                  </div>
+
+                                                </div>   
+
+
+
                                                 <?php echo form_error('fileAntecendentesPoliciales', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                                 
                                                 
@@ -1027,6 +965,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <input type="file" id="fileDocumentoIdentidad" value="" name="fileDocumentoIdentidad" Class="form-control" placeholder="Foto">
                                                     
                                                 </div>
+
+
+                                                <div class="container-fluid" style="background-color:lavenderblush;">
+                                                  <div class="row">
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><strong>Archivo Adjunto</strong></p>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><strong>Remover</strong></p>
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="row">
+                                                    <div class="col-sm-5">
+                                                      <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                      <p align="center">        
+                                                        <button type="button" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button></p>
+                                                    </div>
+                                                  </div>
+
+                                                </div>   
+
+
+
                                                 <?php echo form_error('fileDocumentoIdentidad', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                                 
 
@@ -1047,7 +1013,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                      </div>
           </div>
-	</div>
+  </div>
 </div>
 
 
@@ -1175,7 +1141,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     jQuery('.back-to-top').fadeOut(duration);
                 }
             });
-
             jQuery('.back-to-top').click(function (event) {
                 event.preventDefault();
                 jQuery('html, body').animate({ scrollTop: 0 }, duration);
@@ -1244,10 +1209,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript">
 //in this line of code, to display the datetimepicker,  we used â€˜form_datetimeâ€™ as an argument to be 
     //passed in javascript. This is for Date and Time.
-
     // Esta función sirve para que despues de realizar el submit puedas mantenerte en tu panel
-
-
     $(function () {
         var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "home";
         $('#Tabs a[href="#' + tabName + '"]').tab('show');
@@ -1255,39 +1217,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
         });
     });
-
     $('.form_datetime').datetimepicker({
         language:  'es',
         weekStart: 1,
         todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		forceParse: 0,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
         showMeridian: 1
     });
-//this is for Date only	
- 	$('.form_date').datetimepicker({
+//this is for Date only 
+  $('.form_date').datetimepicker({
         language:  'es',
         weekStart: 1,
         todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0
     });
-//this is for Time Only	
-	$('.form_time').datetimepicker({
+//this is for Time Only 
+  $('.form_time').datetimepicker({
         language:  'es',
         weekStart: 1,
         todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 1,
-		minView: 0,
-		maxView: 1,
-		forceParse: 0
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 1,
+    minView: 0,
+    maxView: 1,
+    forceParse: 0
     });
 </script>
 

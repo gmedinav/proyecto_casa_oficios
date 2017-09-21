@@ -1,9 +1,9 @@
 <?php
 //session_start();
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Trabaja_con_nosotros extends CI_Controller {
     
+
         //Public $lista_telefonos= array();        
         function __construct()
         {
@@ -13,61 +13,50 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->load->library('session');       
             $this->load->helper('file');
         }    
-
-	public function index()
-	{
+    public function index()
+    {
         $data['poscionador'] =0;
         $data['guardado']=FALSE;                
         $this->resetListaTelefono();      
                 //$thi->res
-		$this->load->model('ubigeo_model');
-		$data['distritos']= $this->ubigeo_model->listDistritosLima();                 
-		$this->load->model('oficio_model');
-		$data['oficios']= $this->oficio_model->listOficios();                  
-		$this->load->model('tipo_sexo_model');
-		$data['sexos']= $this->tipo_sexo_model->listTipoSexo();                        
-		$this->load->model('tipo_operadora_model');
-		$data['operadoras']= $this->tipo_operadora_model->listTipoOperadora();                     
-		$this->load->model('tipo_documento_model');
-		$data['documentos']= $this->tipo_documento_model->listTipoDocumentos();                        
- 		$this->load->model('tipo_experiencia_model');
-		$data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();                  
+        $this->load->model('ubigeo_model');
+        $data['distritos']= $this->ubigeo_model->listDistritosLima();                 
+        $this->load->model('oficio_model');
+        $data['oficios']= $this->oficio_model->listOficios();                  
+        $this->load->model('tipo_sexo_model');
+        $data['sexos']= $this->tipo_sexo_model->listTipoSexo();                        
+        $this->load->model('tipo_operadora_model');
+        $data['operadoras']= $this->tipo_operadora_model->listTipoOperadora();                     
+        $this->load->model('tipo_documento_model');
+        $data['documentos']= $this->tipo_documento_model->listTipoDocumentos();                        
+        $this->load->model('tipo_experiencia_model');
+        $data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();                  
                 
         $data['array_telefonos']=$this->listarTelefono();
-
         $data['array_oficios'] = $this->listarOficios();
         $data['array_tiempo_experiencia'] = $this->listarExperiencia();
         $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
         $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();  
                     
-		$this->load->view('trabaja_con_nosotros',$data);
-
-	}
-
+        $this->load->view('trabaja_con_nosotros',$data);
+    }
         
     public function formulario()
     {
         $this->load->library('session');
         $data['guardado']=FALSE;
-
         $this->load->model('ubigeo_model');
         $data['distritos']= $this->ubigeo_model->listDistritosLima(); 
-
         $this->load->model('oficio_model');
         $data['oficios']= $this->oficio_model->listOficios();  
-
         $this->load->model('tipo_sexo_model');
         $data['sexos']= $this->tipo_sexo_model->listTipoSexo();        
-
         $this->load->model('tipo_operadora_model');
         $data['operadoras']= $this->tipo_operadora_model->listTipoOperadora();     
-
         $this->load->model('tipo_documento_model');
         $data['documentos']= $this->tipo_documento_model->listTipoDocumentos();        
-
         $this->load->model('tipo_experiencia_model');
         $data['experiencias']= $this->tipo_experiencia_model->listPeriodoExperiencia();              
-
         $data['array_telefonos'] = array();
         $data['array_oficios'] = array();
         $data['array_tiempo_experiencia'] = array();
@@ -78,7 +67,6 @@ class Trabaja_con_nosotros extends CI_Controller {
         
         $data['array_oficios'] = $this->listarOficios();
         $data['array_tiempo_experiencia'] = $this->listarExperiencia();
-
         $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
         $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();                             
         
@@ -88,16 +76,15 @@ class Trabaja_con_nosotros extends CI_Controller {
         if(empty($this->listarTelefono())==false){                    
             $data['array_telefonos'] = $this->listarTelefono();                    
         }
-
         //echo $data['poscionador'];
         $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
         $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();          
-
         
+
         if($this->input->post('btnAccionTelefono') == "Agregar")
         {
             $data['poscionador']=1;    
-            $this->form_validation->set_rules('txtTelefono', '"Teléfono"', 'required|trim|callback_validar_telefono_check');
+            $this->form_validation->set_rules('txtTelefono', '"Teléfono"', 'trim|callback_validar_telefono_check');
             $this->form_validation->set_rules('cboProveedorTelf', '"Proveedor Telefónico"', 'required|is_natural_no_zero');
             
             $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
@@ -105,24 +92,22 @@ class Trabaja_con_nosotros extends CI_Controller {
 
             if ($this->form_validation->run() == FALSE) 
             {
-
                 if(empty($this->listarTelefono())==false){                    
                     $data['array_telefonos'] = $this->listarTelefono();                    
                 }
                     
-                //echo $data['poscionador'];
                 $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                 $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
                 
                 $this->load->view('trabaja_con_nosotros',$data);   
                 return;
+
             }else{
                 
                 $telefono = $this->input->post('txtTelefono');
                 $proveedor_fono = $this->input->post('cboProveedorTelf');
                
                 $data['array_telefonos'] = $this->agregarItemTelefono($telefono,$proveedor_fono);
-
                 if(empty($this->listarTelefono())==false){                    
                     $data['array_telefonos'] = $this->listarTelefono();
                 }                
@@ -132,6 +117,7 @@ class Trabaja_con_nosotros extends CI_Controller {
             
             if($this->input->post('btnAccionTelefono') == "Eliminar")
             {
+
                 $this->form_validation->set_rules('lstTelefonoAgregados', '"Lista Teléfonos"', 'required');
                 $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
                 $data['poscionador']=1;
@@ -147,35 +133,22 @@ class Trabaja_con_nosotros extends CI_Controller {
                     
                     $this->load->view('trabaja_con_nosotros',$data);   
                     return;
+
                 }else{
                     
-                    $proveedor_fono = trim($this->input->post('lstTelefonoAgregados'));
-                    $arreglo = explode("-", $proveedor_fono);        
+                    $indice = trim($this->input->post('lstTelefonoAgregados'));
                     
-                    $telefono=$arreglo[1];
-                    $indice=$arreglo[0];
-                    
-                    //Parte del Testing:
-                    //
-                    //echo "parámetros previo a existeItemTelefono(telefono):<br>";
-                    //echo "telefono:".$telefono."<br>";
-                    //echo "indice:".$indice."<br>";
-                    //echo "existeItemTelefono(telefono):".$this->existeItemTelefono($telefono)."<br>";
-                    
-                    if($this->existeItemTelefono($telefono)!= -1)
-                    {
-                        //$indice=$this->existeItemTelefono($telefono);                    
-                        $this->borrarItemTelefono($indice);
+                    $this->borrarItemTelefono($indice);
                         
-                        if(empty($this->listarTelefono())==false){
+                    if(empty($this->listarTelefono())==false){
                             $data['array_telefonos'] = $this->listarTelefono();  
-                        }
-                    }                  
+                    }
+                
                 }                
                 
             }
-
         }
+
 
         if($this->input->post('btnAccionOficio') == "Agregar")
         {
@@ -185,10 +158,8 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->form_validation->set_rules('cboPerioDomin', '"Periodo"', 'required|is_natural_no_zero');          
             $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
             $this->form_validation->set_message('is_natural_no_zero','Debe selecionar un ítem.');  
-
             if ($this->form_validation->run() == FALSE) 
             {
-
                 if(empty($this->listarOficios())==false){       
                     
                     $data['array_oficios'] = $this->listarOficios();
@@ -208,7 +179,6 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $id_periodo = $this->input->post('cboPerioDomin');
                
                 //$data['array_oficios'] =$this->agregarItemOficioExperiencia($id_Oficio, $id_periodo) ; 
-
                 if($this->agregarItemOficioExperiencia($id_Oficio, $id_periodo)==true){                    
                     $data['array_oficios'] = $this->listarOficios();
                     $data['array_tiempo_experiencia'] = $this->listarExperiencia();
@@ -248,9 +218,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     $id_Oficio=$arreglo[1];
                     $id_periodo=$arreglo[2];
                     
-                    //Parte del Testing:
-                    //
-                     
+
                     if($this->existeItemOficio($id_Oficio)!= -1)
                     {
                         //$indice=$this->existeItemTelefono($telefono);                    
@@ -267,14 +235,15 @@ class Trabaja_con_nosotros extends CI_Controller {
                 }                
                 
             }
-
         }
      
-        $this->load->library('form_validation');
+        #$this->load->library('form_validation');
+
+        $this->form_validation->reset_validation();
+
         $this->form_validation->set_rules('TxtNombres', '"Nombres"', 'required|trim|callback_alpha_dash_space');
         $this->form_validation->set_rules('txtApePa', '"Apellido Paterno"', 'required|trim|callback_alpha_dash_space');
         $this->form_validation->set_rules('txtApeMa', '"Apellidos Materno"', 'required|trim|callback_alpha_dash_space');
-
         $this->form_validation->set_rules('txtNroDocumento', '"Número de Documento"', 'required|is_natural_no_zero');                        
         $this->form_validation->set_rules('txtFecNaci', '"Fecha Nacimiento"', 'required|callback_valid_date');
 
@@ -282,22 +251,16 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->form_validation->set_rules('fileAntecedentePenales', '"Antecedente Penales"', 'callback_cargar_archivo_fileAntecedentePenales');
         $this->form_validation->set_rules('fileAntecendentesPoliciales', '"Antecedentes Policiales"', 'callback_cargar_archivo_fileAntecendentesPoliciales');
         $this->form_validation->set_rules('fileDocumentoIdentidad', '"Documento Identidad"', 'callback_cargar_archivo_fileDocumentoIdentidad');
-        $this->form_validation->set_rules('FotoCarnet', '"Foto Carnet"', 'callback_cargar_archivo_FotoCarnet'); 
-
+        $this->form_validation->set_rules('FotoCarnet', '"Foto Carnet"', "callback_cargar_archivo_FotoCarnet"); #cargar_archivo_FotoCarnet
 
         $this->form_validation->set_rules('cboDistrito', '"Distrito"', 'required|callback_distrito_no_elegido');
         $this->form_validation->set_rules('cboOficiosPreferencial', '"Oficios Preferencial"', 'required');
         
         $this->form_validation->set_rules('CboTipoDocumento', '"Tipo documento"', 'required|is_natural_no_zero');
         $this->form_validation->set_rules('cboTipoGenero', '"Tipo género"', 'required|is_natural_no_zero');
-
-
         #$this->form_validation->set_rules('cboOficios', '"Oficio"', 'required|is_natural_no_zero', array('is_natural_no_zero' => 'Debe seleccionar un Oficio.'));
-
         $this->form_validation->set_rules('txtEmail', '"Email"', 'required|valid_email');
         $this->form_validation->set_rules('txtDireccion', '"Dirección"', 'required');
-
-
 
         $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
         $this->form_validation->set_message('alpha','El campo %s debe estar compuesto solo por letras.');
@@ -305,11 +268,11 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->form_validation->set_message('alpha_dash_space','El campo %s debe estar compuesto solo por letras.');  
         $this->form_validation->set_message('is_natural_no_zero','El campo %s es un valor numérico.');  
 
+
         $this->load->model('ubigeo_model');
         $data['distritos']= $this->ubigeo_model->listDistritosLima();   
-
         $this->load->model('oficio_model');
-        $data['oficios']= $this->oficio_model->listOficios();               
+        $data['oficios']= $this->oficio_model->listOficios();   
 
 
         if ($this->form_validation->run() == FALSE) {
@@ -319,15 +282,14 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->load->view('trabaja_con_nosotros',$data);   
 
         } else {
+
             echo "sí pasó";
             $data['guardado']=TRUE;     
             $this->load->model('tmrh');
-
             //$this->Solicitud_trabajo_model->insertar_Solicitud_Trabajo();  
-
             //$data['COD_TMRH']
-            $insertar_tmrh['NOM_TMRH']              = $this->input->post('TxtNombres');	
-            $insertar_tmrh['APE_PATERNO']           = $this->input->post('txtApePa');	
+            $insertar_tmrh['NOM_TMRH']              = $this->input->post('TxtNombres'); 
+            $insertar_tmrh['APE_PATERNO']           = $this->input->post('txtApePa');   
             $insertar_tmrh['APE_MATERNO']           = $this->input->post('txtApeMa');
             $insertar_tmrh['EMAIL']                 = $this->input->post('txtEmail');
             $insertar_tmrh['COD_TIPO_DOCUMENTO']    = $this->input->post('CboTipoDocumento');
@@ -337,18 +299,15 @@ class Trabaja_con_nosotros extends CI_Controller {
             $insertar_tmrh['DIRECCION']             = $this->input->post('txtDireccion'); 
             $insertar_tmrh['FEC_NACIMIENTO']        = $this->input->post('txtFecNaci'); 
             
-            $lst_oficio_principal =$this->listarOficios();
-            $lst_telefonos_principal  = $this->listarTelefono();
+            $lst_oficio_principal                   = $this->listarOficios();
+            $lst_telefonos_principal                = $this->listarTelefono();
             
-            $insertar_tmrh['COD_OFICIO_PRINCIPAL']=$lst_oficio_principal[$this->input->post('cboOficiosPreferencial')];
-            $insertar_tmrh['NUM_CELU']=$lst_telefonos_principal[$this->input->post('cboCompaniaPrincipal')];
+            $insertar_tmrh['COD_OFICIO_PRINCIPAL']  = $lst_oficio_principal[$this->input->post('cboOficiosPreferencial')];
+            $insertar_tmrh['NUM_CELU']              = $lst_telefonos_principal[$this->input->post('cboCompaniaPrincipal')];
                                    
             echo "<pre>";
             print_r($insertar_tmrh);
             echo "</pre>";
-
-
-
             $this->db->trans_begin();
             
             $data['guardado'] = $this->tmrh->guardar_Instancia($insertar_tmrh);
@@ -363,20 +322,19 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $this->load->model('tmrh_telefono_adjunto_model');
                 
                 $array_fonos= $this->listarTelefono();
-                $array_proveedor= $this->listarProveedorTelefonico();                                
+                #$array_proveedor= $this->listarProveedorTelefonico();                                
                 
                 foreach($array_fonos as $key=>$value){                    
-                    	
+                        
                     $instancia['COD_TMRH'] = $ultimo_id;
-                    $instancia['COD_TIPO_OPERADORA'] =$array_proveedor[$key];
-                    $instancia['TELEFONO'] = $value;
+                    $instancia['COD_TIPO_OPERADORA'] = $value['id_proveedor'];#$array_proveedor[$key];
+                    $instancia['TELEFONO'] = $value['telefono'];#$value;
                                                             
                     $this->tmrh_telefono_adjunto_model->guardar_Instancia($instancia);                     
                     unset($instancia);
                 }
                 
                #inicio
-
                 $this->load->model('Tmrh_documento_adjunto_model');
                 
                 $array_files[1] = $_FILES["FotoCarnet"];                 
@@ -386,18 +344,16 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $array_files[6] = $_FILES["fileAntecendentesPoliciales"];
                         
                 foreach($array_files as $key=>$value){                    
-                    	
+                        
                     $instancia['COD_TMRH']              = $ultimo_id;
                     $instancia['COD_TIPO_ADJUNTO_TMRH'] = $key;
                     $instancia['DESCRIPCION']           = $value['name'];
-
                     $instancia['IMAGEN']                = base64_encode( addslashes(file_get_contents($value['tmp_name'])));
                     $instancia['LENGHT_D']              = $value['size'];
                                                             
                     $this->Tmrh_documento_adjunto_model->guardar_Instancia($instancia);                     
                     unset($instancia);
                 }                
-
                #fin
                 
                 //recorrer el bucle de  array session de Oficios  
@@ -407,7 +363,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                 
                 $this->load->model('tmrh_oficios_extra_model');
                 foreach($array_id_oficios as $key=>$value){                    
-                    	                                       
+                                                               
                     #$instancia['COD_TMRH_OFIC_EXTRA']
                     $instancia['COD_TMRH'] = $ultimo_id;
                     $instancia['COD_OFICIO']= $value;
@@ -421,27 +377,14 @@ class Trabaja_con_nosotros extends CI_Controller {
                 }                                                                
                 
             }      
-
-
-
            if ($this->db->trans_status() === FALSE){
-
                 $this->db->trans_rollback();
-
             } else {
-
                 $this->db->trans_commit();
             }
-
             $this->load->view('trabaja_con_nosotros',$data);
-
         }
-
-
-
-
     }        
-
     function alpha_dash_space($str)
     {
         return ( ! preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;                     
@@ -459,7 +402,6 @@ class Trabaja_con_nosotros extends CI_Controller {
              return FALSE;        
          }
     }         
-
     public function valid_date($date)
     {
        $format = 'Y-m-d';
@@ -484,7 +426,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                 {
                     //echo "es celular y empieza con 9 // Y esto detecto como primer caracter: ".substr($telefono,0,1);
                     //echo "validatExistenciaTelefono_check: ".$this->validatExistenciaTelefono_check($telefono) ;
-                    if($this->validatExistenciaTelefono_check($telefono) == TRUE)
+                    if($this->validatExistenciaTelefono_check($telefono) == 1)
                     {
                         //echo "caso celular// validatExistenciaTelefono_check: ".$this->validatExistenciaTelefono_check($telefono)."<br>" ;
                         $this->form_validation->set_message('validar_telefono_check', 'El %s ya está referido.');
@@ -499,6 +441,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     $this->form_validation->set_message('validar_telefono_check', 'El %s no corresponde a un celular: empieza por el dígito 9 y tiene 9 caracteres.');
                     return FALSE;
                 }
+
             } else {
                 
                 if(strlen(trim($telefono)) == 7)
@@ -508,12 +451,16 @@ class Trabaja_con_nosotros extends CI_Controller {
                         //echo "Es telefono de 7 digitos.";   
                         //echo "caso casa// validatExistenciaTelefono_check: ".$this->validatExistenciaTelefono_check($telefono)."<br>" ;
                         
-                        if($this->validatExistenciaTelefono_check($telefono) == TRUE)
+                        if($this->validatExistenciaTelefono_check($telefono) == 1)
                         {
-                            $this->form_validation->set_message('validar_telefono_check', 'El %s ya está referido.');
-                            return FALSE;                        
-                        }else{                        
-                            return TRUE;
+
+                            $this->form_validation->set_message('validar_telefono_check', 'El %s ya está referido.');                            
+                            return false;   
+
+                        }else{           
+
+
+                            return true;
                         }
                     
                     }else{
@@ -532,7 +479,6 @@ class Trabaja_con_nosotros extends CI_Controller {
            return FALSE;
        }        
         
-
     }     
         
     
@@ -545,18 +491,13 @@ class Trabaja_con_nosotros extends CI_Controller {
         return TRUE;        
     }    
     
-
-
-
         public function upload_image($str,$nombre_input)
         {
             $config['upload_path'] = realpath(APPPATH ."\upload");    
             #$config['max_size'] = 1024 * 10;
             $config['allowed_types'] = 'gif|png|jpg|jpeg';
             $config['encrypt_name'] = TRUE;
-
             $this->load->library('upload', $config);
-
             if(isset($_FILES[$nombre_input]) && !empty($_FILES[$nombre_input]['name']))
             {
                 if($this->upload->do_upload($nombre_input))
@@ -579,38 +520,28 @@ class Trabaja_con_nosotros extends CI_Controller {
             }
         }
     
-
-
 #5137900- Oncosalud
-
     
     public function cargar_archivo_FotoCarnet() {
            
         $config['upload_path']          = realpath(APPPATH ."\upload");        
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
         $config['max_size']             = '2097152';
-
         #$config['max_width']            = 1024;
         //$config['max_height']           = 768;
         
        $this->load->library('upload', $config);     
          
        if(isset($_FILES['FotoCarnet']['name']) && $_FILES['FotoCarnet']['name']!=""){ 
-
-
             if ($_FILES['FotoCarnet']['size'] > $config['max_size'] ) {
                 
                 $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'Verifique el peso del archivo.');
                 return FALSE;  
-
             }else{
-
                 $upload_project_thum = $_FILES['FotoCarnet']['name'];
                 $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);                   
-
                 $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
                 $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
-
                 if(!in_array($_FILES['FotoCarnet']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
                 {
                     $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'Verifique el peso del archivo.');
@@ -618,17 +549,13 @@ class Trabaja_con_nosotros extends CI_Controller {
                 }else{
                     return TRUE;
                 }
-
             }     
-
             /*
             if ($this->upload->do_upload('FotoCarnet')==FALSE) {
                
                 $this->form_validation->set_message('cargar_archivo_FotoCarnet', 'Verifique el formato del archivo.');
                 return FALSE;  
-
             }else{
-
                 return TRUE;                    
             }*/
                         
@@ -638,7 +565,6 @@ class Trabaja_con_nosotros extends CI_Controller {
         }
                                        
     }
-
      public function cargar_archivo_fileDocumentoIdentidad() {
            
         $config['upload_path']          = realpath(APPPATH ."\upload");        
@@ -648,25 +574,19 @@ class Trabaja_con_nosotros extends CI_Controller {
         //$config['max_height']           = 768;
         
         $this->load->library('upload', $config);    
-
              
          
        if(isset($_FILES['fileDocumentoIdentidad']['name']) && $_FILES['fileDocumentoIdentidad']['name']!=""){ 
-
-
             if ($_FILES['fileDocumentoIdentidad']['size'] > $config['max_size'] ) {
                     
                 $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'Verifique el peso del archivo.');
                 return FALSE;  
             
             } else{
-
                 $upload_project_thum = $_FILES['fileDocumentoIdentidad']['name'];
                 $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);     
-
                 $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
                 $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
-
                 if(!in_array($_FILES['fileDocumentoIdentidad']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
                 {
                     $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'Verifique el peso del archivo.');
@@ -674,11 +594,9 @@ class Trabaja_con_nosotros extends CI_Controller {
                 }else{
                     return TRUE;
                 }
-
             }
    
         }else{       
-
             $this->form_validation->set_message('cargar_archivo_fileDocumentoIdentidad', 'No ha seleccionado ningún archivo.' );
             return FALSE;                          
         }      
@@ -696,20 +614,15 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->load->library('upload', $config);     
          
        if(isset($_FILES['fileReciboResidencia']['name']) && $_FILES['fileReciboResidencia']['name']!=""){ 
-
-
             if ($_FILES['fileReciboResidencia']['size'] > $config['max_size'] ) {
                 
                 $this->form_validation->set_message('cargar_archivo_fileReciboResidencia', 'Verifique el peso del archivo.');
                 return FALSE;  
             }else{
-
                 $upload_project_thum = $_FILES['fileReciboResidencia']['name'];
                 $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);   
-
                 $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
                 $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
-
                 if(!in_array($_FILES['fileReciboResidencia']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
                 {
                     $this->form_validation->set_message('cargar_archivo_fileReciboResidencia', 'Verifique el formato del archivo.');
@@ -717,7 +630,6 @@ class Trabaja_con_nosotros extends CI_Controller {
                 }else{
                     return TRUE;
                 }
-
             }
                         
         }else{            
@@ -736,22 +648,17 @@ class Trabaja_con_nosotros extends CI_Controller {
         //$config['max_height']           = 768;
         
         $this->load->library('upload', $config);    
-
          
        if(isset($_FILES['fileAntecedentePenales']['name']) && $_FILES['fileAntecedentePenales']['name']!=""){ 
-
         
             if ($_FILES['fileAntecedentePenales']['size'] > $config['max_size'] ) {                
                 $this->form_validation->set_message('cargar_archivo_fileAntecedentePenales', 'Verifique el peso del archivo.');
                 return FALSE;              
             }else{
-
                 $upload_project_thum = $_FILES['fileAntecedentePenales']['name'];
                 $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);   
-
                 $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
                 $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
-
                 if(!in_array($_FILES['fileAntecedentePenales']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
                 {
                     $this->form_validation->set_message('cargar_archivo_fileAntecedentePenales', 'Verifique el formato del archivo.');
@@ -779,19 +686,14 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->load->library('upload', $config);     
          
        if(isset($_FILES['fileAntecendentesPoliciales']['name']) && $_FILES['fileAntecendentesPoliciales']['name']!=""){ 
-
-
             if ($_FILES['fileAntecendentesPoliciales']['size'] > $config['max_size'] ) {                
                 $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'Verifique el peso del archivo.');
                 return FALSE;              
             }else{
-
                 $upload_project_thum = $_FILES['fileAntecendentesPoliciales']['name'];
                 $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);   
-
                 $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
                 $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
-
                 if(!in_array($_FILES['fileAntecendentesPoliciales']['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
                 {
                     $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'Verifique el formato del archivo.');
@@ -805,141 +707,146 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $this->form_validation->set_message('cargar_archivo_fileAntecendentesPoliciales', 'No ha seleccionado ningún archivo.' );
                 return FALSE;                          
         } 
-
-
     }        
     
-    public function file_check($input_file){
+    public function file_check($str, $input_file){
         
  
         $config['upload_path']          = realpath(APPPATH ."\upload");        
         $config['allowed_types']        = 'gif|jpg|png|jpeg';
         $config['max_size']             = '2097152';
+
         //$config['max_width']            = 1024;
         //$config['max_height']           = 768;
         
         $this->load->library('upload', $config);     
          
-       if(isset($input_file['name']) && $input_file['name']!=""){ 
+       if(isset($_FILES[$input_file]) && $_FILES[$input_file]['name']!=""){ 
 
+            if ($_FILES[$input_file]['size'] > $config['max_size'] ) {     
 
-            if ($input_file['size'] > $config['max_size'] ) {                
-                $this->form_validation->set_message('file_check', 'Verifique el peso del archivo.');
-                return FALSE;              
-            }         
-            
+                $this->form_validation->set_message('file_check', 'Verifique el peso del archivo del campo %s.');
+                return FALSE; 
 
-            if ($this->upload->do_upload('fileAntecendentesPoliciales')==FALSE) {
-                #$data['uploadError_FotoCarnet'] = ; #$this->upload->display_errors();                      
-                $this->form_validation->set_message('file_check', 'Verifique el formato del archivo.');
-                return FALSE;  
             }else{
-                #$data['uploadSuccess'] = $this->upload->data();
-                return TRUE;                    
+
+                $upload_project_thum = $_FILES[$input_file]['name'];
+                $upload_project_thum_ext = substr($upload_project_thum, strrpos($upload_project_thum, '.') + 1);   
+                $upload_permitted_types['mime']= array('image/jpeg','image/gif','image/png');
+                $upload_permitted_types['ext']= array('jpeg','jpg','gif','png');
+
+                if(!in_array($_FILES[$input_file]['type'],$upload_permitted_types['mime']) || !in_array($upload_project_thum_ext,$upload_permitted_types['ext']))
+                {
+                    $this->form_validation->set_message('file_check', 'Verifique el formato del archivo del campo %s.');
+                    return FALSE;  
+                }else{
+                    return TRUE;
+                }
             }
                         
-        }else{            
-                $this->form_validation->set_message('file_check', 'No ha seleccionado ningún archivo.' );
+        }else{    
+
+                $this->form_validation->set_message('file_check', 'No ha seleccionado ningún archivo del campo %s.' );
                 return FALSE;                          
         } 
+
 
     }    
     
     
     public function agregarItemTelefono($telefono,$proveedor_fono)
-    {               
-      $_SESSION['lista_telefonos'][] = $telefono;
-      $_SESSION['proveedor_telefonico'][] = $proveedor_fono;            
+    {  
+
+      $arreglo['telefono']=  $telefono;
+      $arreglo['id_proveedor']=  $proveedor_fono;
+
+      $_SESSION['matriz_telefonico'][]= $arreglo;
+
       return true;
     }
     
     public function listarTelefono()
     {
-        $arreglo=array();
-        if(empty($this->session->userdata('lista_telefonos'))==false){            
-            $arreglo = $this->session->userdata('lista_telefonos');               
-        }        
-        return $arreglo; 
+
+        if(empty($_SESSION['matriz_telefonico'])==false || isset($_SESSION['matriz_telefonico'])){
+            return $_SESSION['matriz_telefonico'];
+        }
+        return false;
+
     }
     
-    public function listarProveedorTelefonico()
-    {
-        $arreglo=array();
-        if(empty($this->session->userdata('proveedor_telefonico'))==false){            
-            $arreglo = $this->session->userdata('proveedor_telefonico');               
-        }        
-        return $arreglo; 
-    }    
+    #public function listarProveedorTelefonico()
+    #{
+    #    $arreglo=array();
+    #    if(empty($this->session->userdata('matriz_telefonico'))==false){            
+    #        $arreglo = $this->session->userdata('matriz_telefonico');               
+    #    }        
+    #    return $arreglo; 
+    #}    
     
     //verificar si existe telefono a agregar: retornará el indice si encuentra
-    public function existeItemTelefono($telefono){               
+    public function existeItemTelefono($telefono){ 
+
 
         $arreglo = array();        
         if(empty($this->listarTelefono())==false){            
             $arreglo = $this->listarTelefono();            
             foreach($arreglo as $item_telefono=>$value_telefono)
             {        
-                if(empty($value_telefono)==false){                    
-                    if($telefono == $value_telefono)
+                if(empty($value_telefono['telefono'])==false){                    
+                    if($telefono == $value_telefono['telefono'])
                     {
                         return $item_telefono;
                     }                                            
                 }                            
             }                        
         }
-        return -1;                  
+        return -1;
+
     }
     
     
    public function validatExistenciaTelefono_check($telefono){
   
-        $arreglo=array();        
+     
         if(empty($this->listarTelefono())== false){            
-           $arreglo=$this->listarTelefono();
-           foreach($arreglo as $item_telefono=>$value_telefono)
-           {        
-               //echo "value_telefono:".$value_telefono."<br>";
-               //echo "telefono:".$telefono."<br>";               
-               if(empty($value_telefono)== false){                   
-                    if(trim($telefono) == $value_telefono)
+           #$arreglo=$this->listarTelefono();
+           foreach($this->listarTelefono() as $item_telefono=>$value_telefono)
+           {                  
+               if(empty($value_telefono['telefono'])== false){                   
+                    if(trim($telefono) == $value_telefono['telefono'])
                     {
-                        return TRUE;
+                        return 1;
                     }                      
                 }           
            }                        
         }
-        return FALSE;
+        return 0;
+
     }    
     
     //Borrar telefono del temporal
-    public function borrarItemTelefono($x){
-     
-        //echo "previo a borrar<br>";
-        //echo "borrarItemTelefono: (".$x.")";
-        if(empty($_SESSION['lista_telefonos'][$x])==false){ 
+    public function borrarItemTelefono($x){    
+
+        if(empty($_SESSION['matriz_telefonico'][$x])==false){ 
             
-           //echo "es_array: ". is_array($_SESSION['lista_telefonos'][$x]);
-            unset($_SESSION['lista_telefonos'][$x]);    
-            unset($_SESSION['proveedor_telefonico'][$x]);      
-            
-            $_SESSION['lista_telefonos'] = array_values($_SESSION['lista_telefonos']);
-            $_SESSION['proveedor_telefonico'] = array_values($_SESSION['proveedor_telefonico']);
+            unset($_SESSION['matriz_telefonico'][$x]);    
             return true;
             
-        }    
+        }   
         return false;
+
     }    
+
 
     public function resetListaTelefono(){
         $this->session->sess_destroy();
         return $this->session->userdata('lista_telefonos');
     }    
-
     
     
     public function agregarItemOficioExperiencia($id_Oficio,$id_periodo)
     {
-
       $this->load->model('oficio_model');                    
       $this->load->model('tipo_experiencia_model');
                 
@@ -948,14 +855,12 @@ class Trabaja_con_nosotros extends CI_Controller {
       
       $temp1= $this->tipo_experiencia_model->instanciaPeriodoExperiencia($id_periodo) ;
       $_SESSION['descrip_periodo_experiencia'][] = $temp1["DES_TIPO_MAESTRO"];
-
       $temp2= $this->oficio_model->instanciaOficios($id_Oficio);
       #echo "temp2:".$temp2["DES_OFICIO"];
       $_SESSION['descrip_oficio_experiencia'][] = $temp2["DES_OFICIO"];
       return true;
       
     }
-
     public function borrarItemOficios($x){
      
         if(empty($_SESSION['oficio_experiencia'][$x])==false){ 
@@ -969,7 +874,6 @@ class Trabaja_con_nosotros extends CI_Controller {
       
             $_SESSION['oficio_experiencia'] = array_values($_SESSION['oficio_experiencia']);
             $_SESSION['id_periodo_experiencia'] = array_values($_SESSION['id_periodo_experiencia']);
-
             $_SESSION['descrip_periodo_experiencia'] = array_values($_SESSION['descrip_periodo_experiencia']);
             $_SESSION['descrip_oficio_experiencia'] = array_values($_SESSION['descrip_oficio_experiencia']);
             
@@ -978,7 +882,6 @@ class Trabaja_con_nosotros extends CI_Controller {
         }    
         return false;
     }     
-
     public function resetListaOficiosExperimentados(){
         $this->session->sess_destroy();
         return $this->session->userdata('oficio_experiencia');
@@ -1002,7 +905,6 @@ class Trabaja_con_nosotros extends CI_Controller {
         }        
         return $arreglo; 
     }      
-
     public function listarPeriodoExperienciaDescrip()
     {
         $arreglo=array();
@@ -1040,7 +942,6 @@ class Trabaja_con_nosotros extends CI_Controller {
         return -1;                  
     }    
     
-
     public function validatExistenciaOficio_check($id_oficio){
   
         $arreglo=array();        
