@@ -143,7 +143,7 @@ class Solicitar_trabajo extends CI_Controller {
             //echo "<br>".$config['upload_path'];
             //echo $this->upload->display_errors();
             
-            $this->form_validation->set_message('foto', $data['uploadError'] );
+            $this->form_validation->set_message('cargar_archivo', $data['uploadError'] );
             return FALSE;  
         }
 
