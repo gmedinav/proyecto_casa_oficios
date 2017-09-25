@@ -32,13 +32,19 @@ class Tmrh extends CI_Model {
                return $query->result_array();
         }
 
-        public function buscar_documento_identidad($id_tipo_doc, $nro_documento)
+        public function buscar_documento_identidad($nro_documento)
         {
                $this->load->database();
-               $query = $this->db->query("SELECT * from tb_tmrh where NUM_DOCUMENTO='$id_tipo_doc' and COD_TIPO_DOCUMENTO='$nro_documento';");
+               $query = $this->db->query("SELECT * from tb_tmrh where NUM_DOCUMENTO='$nro_documento';");
                return $query->result_array();
         }
         
+        public function buscar_email($email)
+        {
+               $this->load->database();
+               $query = $this->db->query("SELECT * from tb_tmrh where EMAIL='$email';");
+               return $query->result_array();
+        }        
 
 
 }

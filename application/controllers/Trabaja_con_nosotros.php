@@ -5,14 +5,15 @@ class Trabaja_con_nosotros extends CI_Controller {
     
 
         //Public $lista_telefonos= array();        
-        function __construct()
-        {
+    function __construct()
+    {
             parent::__construct();
             $this->load->helper('form');
             $this->load->helper('url');            
             $this->load->library('session');       
             $this->load->helper('file');
-        }    
+    }    
+
     public function index()
     {
         $data['poscionador'] =0;
@@ -79,12 +80,18 @@ class Trabaja_con_nosotros extends CI_Controller {
         //echo $data['poscionador'];
         $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
         $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();          
+
+        $this->form_validation->set_rules('TxtNombres', '"Nombres"', 'required|trim|callback_alpha_dash_space');
+        $this->form_validation->set_rules('txtApePa', '"Apellido Paterno"', 'required|trim|callback_alpha_dash_space');
+        $this->form_validation->set_rules('txtApeMa', '"Apellidos Materno"', 'required|trim|callback_alpha_dash_space');
+        $this->form_validation->set_rules('txtNroDocumento', '"Número de Documento"', 'required|is_natural_no_zero|callback_validar_existencia_nro_documento');                        
+        $this->form_validation->set_rules('txtFecNaci', '"Fecha Nacimiento"', 'required|callback_valid_date|callback_validar_mayor_edad');        
         
 
         if($this->input->post('btnAccionTelefono') == "Agregar")
         {
             $data['poscionador']=1;    
-            $this->form_validation->set_rules('txtTelefono', '"Teléfono"', 'trim|callback_validar_telefono_check');
+            $this->form_validation->set_rules('txtTelefono', '"Teléfono"', 'trim|callback_validar_telefono_check|callback_validar_existencia_fono');
             $this->form_validation->set_rules('cboProveedorTelf', '"Proveedor Telefónico"', 'required|is_natural_no_zero');
             
             $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
@@ -110,7 +117,14 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $data['array_telefonos'] = $this->agregarItemTelefono($telefono,$proveedor_fono);
                 if(empty($this->listarTelefono())==false){                    
                     $data['array_telefonos'] = $this->listarTelefono();
-                }                
+                }  
+
+                $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+                $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
+                
+                $this->load->view('trabaja_con_nosotros',$data);   
+                return;
+
             }
                                               
         }else{
@@ -143,6 +157,12 @@ class Trabaja_con_nosotros extends CI_Controller {
                     if(empty($this->listarTelefono())==false){
                             $data['array_telefonos'] = $this->listarTelefono();  
                     }
+
+                    $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
+                    $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
+                    
+                    $this->load->view('trabaja_con_nosotros',$data);   
+                    return;                    
                 
                 }                
                 
@@ -158,6 +178,7 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->form_validation->set_rules('cboPerioDomin', '"Periodo"', 'required|is_natural_no_zero');          
             $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
             $this->form_validation->set_message('is_natural_no_zero','Debe selecionar un ítem.');  
+
             if ($this->form_validation->run() == FALSE) 
             {
                 if(empty($this->listarOficios())==false){       
@@ -173,6 +194,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $data['array_telefonos'] = $this->listarTelefono();
                 $this->load->view('trabaja_con_nosotros',$data);   
                 return;
+
             }else{
                 
                 $id_Oficio = $this->input->post('cboOficiDomin');
@@ -185,7 +207,13 @@ class Trabaja_con_nosotros extends CI_Controller {
                     
                     $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                     $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();     
-                }                
+                }  
+
+                $data['array_telefonos'] = $this->listarTelefono();
+                $this->load->view('trabaja_con_nosotros',$data);   
+                return;
+
+
             }
                                               
         }else{
@@ -231,7 +259,11 @@ class Trabaja_con_nosotros extends CI_Controller {
                             $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                             $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();                             
                         //}
-                    }                  
+                    }        
+                    $data['array_telefonos'] = $this->listarTelefono();
+                    $this->load->view('trabaja_con_nosotros',$data);   
+                    return;
+          
                 }                
                 
             }
@@ -244,8 +276,8 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->form_validation->set_rules('TxtNombres', '"Nombres"', 'required|trim|callback_alpha_dash_space');
         $this->form_validation->set_rules('txtApePa', '"Apellido Paterno"', 'required|trim|callback_alpha_dash_space');
         $this->form_validation->set_rules('txtApeMa', '"Apellidos Materno"', 'required|trim|callback_alpha_dash_space');
-        $this->form_validation->set_rules('txtNroDocumento', '"Número de Documento"', 'required|is_natural_no_zero');                        
-        $this->form_validation->set_rules('txtFecNaci', '"Fecha Nacimiento"', 'required|callback_valid_date');
+        $this->form_validation->set_rules('txtNroDocumento', '"Número de Documento"', 'required|is_natural_no_zero|callback_validar_existencia_nro_documento');                        
+        $this->form_validation->set_rules('txtFecNaci', '"Fecha Nacimiento"', 'required|callback_valid_date|callback_validar_mayor_edad');
 
         $this->form_validation->set_rules('fileReciboResidencia', '"Recibo de Servicios"', 'callback_cargar_archivo_fileReciboResidencia');
         $this->form_validation->set_rules('fileAntecedentePenales', '"Antecedente Penales"', 'callback_cargar_archivo_fileAntecedentePenales');
@@ -254,19 +286,24 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->form_validation->set_rules('FotoCarnet', '"Foto Carnet"', "callback_cargar_archivo_FotoCarnet"); #cargar_archivo_FotoCarnet
 
         $this->form_validation->set_rules('cboDistrito', '"Distrito"', 'required|callback_distrito_no_elegido');
-        $this->form_validation->set_rules('cboOficiosPreferencial', '"Oficios Preferencial"', 'required');
+
         
         $this->form_validation->set_rules('CboTipoDocumento', '"Tipo documento"', 'required|is_natural_no_zero');
         $this->form_validation->set_rules('cboTipoGenero', '"Tipo género"', 'required|is_natural_no_zero');
         #$this->form_validation->set_rules('cboOficios', '"Oficio"', 'required|is_natural_no_zero', array('is_natural_no_zero' => 'Debe seleccionar un Oficio.'));
-        $this->form_validation->set_rules('txtEmail', '"Email"', 'required|valid_email');
+        $this->form_validation->set_rules('txtEmail', '"Email"', 'required|valid_email|callback_validar_existencia_email');
         $this->form_validation->set_rules('txtDireccion', '"Dirección"', 'required');
+
+        $this->form_validation->set_rules('cboOficiosPreferencial', '"Oficios Preferencial"', 'required|is_natural');
+        $this->form_validation->set_rules('cboCompaniaPrincipal', '"Teléfono Principal"', 'required|is_natural');
+
 
         $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
         $this->form_validation->set_message('alpha','El campo %s debe estar compuesto solo por letras.');
         $this->form_validation->set_message('valid_email','El campo %s debe ser un email correcto.');     
         $this->form_validation->set_message('alpha_dash_space','El campo %s debe estar compuesto solo por letras.');  
         $this->form_validation->set_message('is_natural_no_zero','El campo %s es un valor numérico.');  
+        $this->form_validation->set_message('is_natural','Debe seleccionar algún ítem en el campo %s.');  
 
 
         $this->load->model('ubigeo_model');
@@ -278,16 +315,15 @@ class Trabaja_con_nosotros extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
 
             $data['guardado']=FALSE;
-            echo "no pasó por form_validation";
+            //echo "no pasó por form_validation";
             $this->load->view('trabaja_con_nosotros',$data);   
 
         } else {
 
-            echo "sí pasó";
+            #echo "sí pasó";
             $data['guardado']=TRUE;     
             $this->load->model('tmrh');
-            //$this->Solicitud_trabajo_model->insertar_Solicitud_Trabajo();  
-            //$data['COD_TMRH']
+
             $insertar_tmrh['NOM_TMRH']              = $this->input->post('TxtNombres'); 
             $insertar_tmrh['APE_PATERNO']           = $this->input->post('txtApePa');   
             $insertar_tmrh['APE_MATERNO']           = $this->input->post('txtApeMa');
@@ -300,14 +336,18 @@ class Trabaja_con_nosotros extends CI_Controller {
             $insertar_tmrh['FEC_NACIMIENTO']        = $this->input->post('txtFecNaci'); 
             
             $lst_oficio_principal                   = $this->listarOficios();
-            $lst_telefonos_principal                = $this->listarTelefono();
+            $i_telefono                             = $this->retornarTelefono($this->input->post('cboCompaniaPrincipal'));
             
             $insertar_tmrh['COD_OFICIO_PRINCIPAL']  = $lst_oficio_principal[$this->input->post('cboOficiosPreferencial')];
-            $insertar_tmrh['NUM_CELU']              = $lst_telefonos_principal[$this->input->post('cboCompaniaPrincipal')];
+
+            $insertar_tmrh['NUM_CELU']              = $i_telefono['telefono'];
+
+
                                    
-            echo "<pre>";
-            print_r($insertar_tmrh);
-            echo "</pre>";
+            #echo "<pre>";
+            #print_r($insertar_tmrh);
+            #echo "</pre>";
+
             $this->db->trans_begin();
             
             $data['guardado'] = $this->tmrh->guardar_Instancia($insertar_tmrh);
@@ -364,7 +404,6 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $this->load->model('tmrh_oficios_extra_model');
                 foreach($array_id_oficios as $key=>$value){                    
                                                                
-                    #$instancia['COD_TMRH_OFIC_EXTRA']
                     $instancia['COD_TMRH'] = $ultimo_id;
                     $instancia['COD_OFICIO']= $value;
                     #$instancia['FEC_REGISTRO']
@@ -385,6 +424,31 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->load->view('trabaja_con_nosotros',$data);
         }
     }        
+
+
+
+
+    public function agregar_imagenes_tmp($arreglo){
+
+      $_SESSION['matriz_archivos'][]= $arreglo;
+      return true;
+
+    }
+
+    public function borrar_imagenes_tmp($x){    
+
+        if(empty($_SESSION['matriz_archivos'][$x])==false){             
+            unset($_SESSION['matriz_archivos'][$x]);    
+            return true;            
+        }   
+        return false;
+
+    }    
+
+
+
+
+
     function alpha_dash_space($str)
     {
         return ( ! preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;                     
@@ -415,6 +479,71 @@ class Trabaja_con_nosotros extends CI_Controller {
        }
     }     
   
+
+
+    public function validar_mayor_edad($fec_nacimiento){
+
+        $date1 = new DateTime($fec_nacimiento);
+        $date2 = new DateTime();//new DateTime("2009-06-26");
+        $interval = $date1->diff($date2);
+        //echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days ";
+
+        $periodo = $interval->y;
+        #echo "periodo: $periodo";
+
+        if($periodo >18){
+            return true;
+        }else{
+
+            $this->form_validation->set_message('validar_mayor_edad', 'Ud. debe contar con más de 18 años.');
+            return false;
+
+        }
+
+
+    }
+
+    public function validar_existencia_fono($telefono){
+
+        $this->load->model('tmrh_telefono_adjunto_model');
+        $fonos = $this->tmrh_telefono_adjunto_model->buscar_telefono_registrado($telefono);
+
+        foreach ($fonos as $key => $value) {            
+            $this->form_validation->set_message('validar_existencia_fono', 'Este teléfono ya está registrado.');
+            return false;
+        }
+        return true;
+
+    }
+
+
+    public function validar_existencia_nro_documento($nro_documento){
+
+        $this->load->model('tmrh');
+        $nro_docs = $this->tmrh->buscar_documento_identidad($nro_documento);
+
+        foreach ($nro_docs as $key => $value) {            
+            $this->form_validation->set_message('validar_existencia_nro_documento', 'Este número de documento ya está registrado.');
+            return false;
+
+        }
+        return true;
+
+    }    
+
+    public function validar_existencia_email($email){
+
+        $this->load->model('tmrh');
+        $mails = $this->tmrh->buscar_email($email);
+
+        foreach ($mails as $key => $value) {            
+            $this->form_validation->set_message('validar_existencia_email', 'Este correo electrónico ya está registrado.');
+            return false;
+
+        }
+        return true;
+
+    }    
     
     public function validar_telefono_check($telefono)
     {        
@@ -774,6 +903,18 @@ class Trabaja_con_nosotros extends CI_Controller {
         return false;
 
     }
+
+
+    public function retornarTelefono($x)
+    {
+
+        if(empty($_SESSION['matriz_telefonico'])==false || isset($_SESSION['matriz_telefonico'])){
+            return $_SESSION['matriz_telefonico'][$x];
+        }
+        return false;
+
+    }
+
     
     #public function listarProveedorTelefonico()
     #{

@@ -56,7 +56,7 @@ class Tmrh_telefono_adjunto_model extends CI_Model {
         public function buscar_telefono_registrado($telefono)
         {
                $this->load->database();
-               $query = $this->db->query("SELECT * from tb_tmrh_contacto where TELEFONO=trim('$id');");
+               $query = $this->db->query("SELECT * from tb_tmrh_contacto where TELEFONO=trim('$telefono');");
                return $query->result_array();
         }        
 

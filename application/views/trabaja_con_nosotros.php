@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  <script language="javascript">
       
         //variable global para fx AgregarItem
-        var arrayFonos = [];
+
         /*---------------------------------------------------------------------------*/
                     function addCustomItem(id, text, val) {
                         var vlist = document.getElementById(id);
@@ -49,18 +49,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             }
                         }
                     }
-                    function selectAllElements(id,id2) {
-                        var oList = document.getElementById(id);
-                        if (oList != null) {
-                            for (i = 0; i < oList.options.length; i++)
-                                oList.options[i].selected = true;
-                        }
-                        var oList2 = document.getElementById(id2);
-                        if (oList2 != null) {
-                            for (e = 0; e < oList2.options.length; e++)
-                                oList2.options[e].selected = true;
-                        }
-                    }
+
+        function selectAllElements(id,id2) {
+
+            var oList = document.getElementById(id);
+            if (oList != null) {
+            for (i = 0; i < oList.options.length; i++)
+                oList.options[i].selected = true;
+            }
+            var oList2 = document.getElementById(id2);
+            if (oList2 != null) {
+                for (e = 0; e < oList2.options.length; e++)
+                    oList2.options[e].selected = true;
+            }
+
+        }
+
                     //function selectAllElements2(id) {
                     //    var oList = document.getElementById(id);
                     //    if (oList != null) {
@@ -68,6 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     //            oList.options[i].selected = true;
                     //    }
                     //}
+
         function openTab(tab){
             //Obtiene el nombre del UL
             //var tabName2 = $('.nav-tabs .active').text();
@@ -103,109 +108,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
         }
         
-        
-        
-        function AgregarItem(id) {
-            telefono = $.trim($('#txtTelefono').val());
-            codigonItem = $.trim($('#cboProveedorTelf option:selected').val());
-            descripcionItem = $.trim($('#cboProveedorTelf option:selected').text());
-            
-            nuevoCodigo = codigonItem + '-' + telefono;
-            descri = descripcionItem + '-' + telefono;
-        
-            //Validación de Número de Telefono
-            if ($.isNumeric(telefono) == false) {
-                alert("El teléfono '" + telefono + "' no es númerico: .");
-                return;
-            }
-            //Validación de Longitud de Telefono
-            if (telefono.length == 9 && telefono.substring(0, 1) == 9) {
-                //alert("El número descrito es celular correcto.");
-            } else {            
-                if (telefono.length == 7 && (telefono.substring(0, 1) != 9 || telefono.substring(0, 1) != 0)) {
-                    //alert("El número descrito es fono domicilio correcto.");
-                } else {                                
-                    alert("El número telefónico '" + telefono + "' no es correcto.");
-                    return;
-                }            
-            }
-            //Validacion Existencia de teléfono
-            for (var i = 0; i < arrayFonos.length; i++)
-            {
-                if (arrayFonos[i] == telefono)
-                {
-                    alert("Ya existe este teléfono registrado.");
-                    return;
-                }            
-            }
-            arrayFonos.push(telefono);
-            document.getElementById('txtTelefono').value = '';
-            addCustomItem(id, descri, nuevoCodigo);
-        }
-        /*---------------------------------------------------------------------------*/
+
        
-        /////////////////////////
-        var arrayOficios = [];
-        function agregarItemOficio(id) {
-            //declaración de variables
-            //telefono = $.trim($('#txtTelefono').val());
-            codigoPerfilLaboral = $.trim($('#cboOficiosOtros option:selected').val());
-            codigoPeriodolLaboral = $.trim($('#cboPeriodoExpeOtros option:selected').val());
-            descripPerfilLaboral = $.trim($('#cboOficiosOtros option:selected').text());
-            descripPeriodoLaboral = $.trim($('#cboPeriodoExpeOtros option:selected').text());
-            nuevoCodigo = codigoPerfilLaboral + '-' + codigoPeriodolLaboral;
 
-            for (var i = 0; i < arrayOficios.length; i++) {
-                if (arrayOficios[i] == codigoPerfilLaboral) {
-                    alert("Ya existe el oficio '" + descripPerfilLaboral + "' registrado.");
-                    return;
-                }
-            }
-            arrayOficios.push(codigoPerfilLaboral);
-
-            var descriptotal = descripPerfilLaboral + ': ' + descripPeriodoLaboral;
-
-            addCustomItem(id, descriptotal, nuevoCodigo);
-        }
-
-
-
-function validar_idenctidad(){
-
-
-nombre          = $.trim($('#TxtNombres').val());
-ape_paterno     = $.trim($('#txtApePa').val());
-ape_materno     = $.trim($('#txtApeMa').val());
-nro_documento   = $.trim($('#txtNroDocumento').val());
-foto_carnet     = $.trim($('#FotoCarnet').val());
-
-//=$.trim($('#cboTipoGenero').val());
-//=$.trim($('#CboTipoDocumento').val());
-resultado_validacion = true;
-
-    if(document.getElementById("cboTipoGenero").selectedIndex == "0"){
-        rpta[1]= false;
-        rpta[0]="No se seleccionó ningún género.";
-
-        return rpta;
-    }
-
-
-   if(document.getElementById("CboTipoDocumento").selectedIndex = "0"){
-        rpta[1]= false;
-        rpta[0]="No se seleccionó ningún tipo de documento";
-
-        return rpta;
-
-   }
-
-
-
-
-}
-
-
-function fileValidation(nom_input_file,id_imagen){
+function fileValidation(nom_input_file){
 
     var fileInput = document.getElementById(nom_input_file);
     var filePath = fileInput.value;
@@ -213,6 +119,8 @@ function fileValidation(nom_input_file,id_imagen){
 
     if(!allowedExtensions.exec(filePath)){
         alert('Por favor, el archivo debe tener alguna de las extensiones siguientes: .jpeg/.jpg/.png/.gif.');
+        //document.getElementById(id_imagen).src = "";
+        document.getElementById("div_"+nom_input_file).innerHTML="";
         fileInput.value = '';
         return false;
     }else{
@@ -223,7 +131,9 @@ function fileValidation(nom_input_file,id_imagen){
         if(size_file>2097152){
 
             alert('Por favor, el archivo no debe superar de los 2Mb de espacio físico.');
+            //document.getElementById(id_imagen).src = "";
             fileInput.value = '';
+            document.getElementById("div_"+nombre_id).innerHTML="";
             return false;
 
         }
@@ -233,7 +143,10 @@ function fileValidation(nom_input_file,id_imagen){
             var reader = new FileReader();
             reader.onload = function(e) {
                 /*document.getElementById('imagePreview').innerHTML = '<img src="'+e.target.result+'"/>';*/
-                document.getElementById(id_imagen).src = e.target.result;
+                crear_visor_img(nom_input_file);
+                document.getElementById("img_"+nom_input_file).src = e.target.result;
+
+
             };
             reader.readAsDataURL(fileInput.files[0]);
         }
@@ -241,8 +154,361 @@ function fileValidation(nom_input_file,id_imagen){
 }
 
 
+function crear_visor_img(nombre_id){
 
-    </script>
+    objeto = "";
+    objeto = objeto + '<div class="row">';
+    objeto = objeto + '<div class="col-sm-5">';
+    objeto = objeto + '<p align="center"><strong>Archivo Adjunto</strong></p>';
+    objeto = objeto + '</div>';
+    objeto = objeto + '<div class="col-sm-5">';
+    objeto = objeto + '<p align="center"><strong>Remover</strong></p>';
+    objeto = objeto + '</div>';
+    objeto = objeto + '</div>';
+    objeto = objeto + '';
+    objeto = objeto + '<div class="row">';
+    objeto = objeto + '<div class="col-sm-5">';
+    objeto = objeto + '<p align="center">';
+    objeto = objeto + '<img src="" id="img_'+nombre_id+'" width="80px" height="80px" alt="nombre_archivo">';
+    objeto = objeto + '</p>';
+    objeto = objeto + '</div>';
+    objeto = objeto + '<div class="col-sm-5">';
+    objeto = objeto + '<p align="center">';
+    objeto = objeto + '<button type="button" class="btn btn-default" onclick="borrar_visor_img('+"'"+nombre_id+"'"+')">';
+    objeto = objeto + '<span class="glyphicon glyphicon-trash"></span>';
+    objeto = objeto + '</button></p>';
+    objeto = objeto + '</div>';
+    objeto = objeto + '</div>';
+
+    document.getElementById("div_"+nombre_id).innerHTML= objeto;
+
+}
+
+
+function borrar_visor_img(nombre_id){
+
+    document.getElementById("div_"+nombre_id).innerHTML= "";
+    document.getElementById(nombre_id).value= "";
+
+}
+
+function msj_value_vacio(valor, campo){
+
+    if(valor == ""){
+        alert("El '" + campo + "'' está vació.");
+        return false;
+    }else{
+        return true;
+    }
+
+}
+
+
+function msj_value_es_texto(valor,campo){
+    //val= $.isNumeric(
+
+    if(typeof valor === 'string' || valor instanceof String){
+        return true;
+    }else{
+        alert("El '" + campo + "' no es un valor textual.");
+        return false;
+    }
+
+}
+
+
+function msj_value_es_cero(valor,campo){
+    //val= $.isNumeric(
+    if(valor === 0 || valor =="0"){
+        alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
+        return false;
+    }else{
+
+        return true;
+    }
+}
+
+function msj_value_es_negativo(valor,campo){
+    //val= $.isNumeric(
+    if(valor === -1 || valor =="-1"){
+        alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
+        return false;
+    }else{
+
+        return true;
+    }
+}
+
+
+function msj_value_es_entero(valor,campo){
+    //val= $.isNumeric(
+    if(Math.floor(valor) == valor && $.isNumeric(valor)){
+        return true;
+    }else{
+        alert("Debe escribir un número entero en el campo '" + campo + "'.");
+        return false;        
+    }
+
+}
+
+
+function msj_value_longitud_max(valor,max,campo){
+
+    longitud = valor.length;
+    if(longitud>max){
+        alert("La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+max+" caracteres.");
+        return false;
+    }else{
+        return true;
+    }
+
+}
+
+function msj_value_longitud_exacta(valor,nro_exacto,campo){
+
+    longitud = valor.length;
+    if(longitud==nro_exacto){
+
+        return true;
+    }else{
+        alert("La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+nro_exacto+" caracteres.");        
+        return false;
+    }
+
+}
+
+
+function msj_value_es_email(valor,campo) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(re.test(valor)==true){
+        return true;
+    }else{
+        alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
+        return false;
+    }
+
+}
+
+function msj_value_es_texto(valor,campo) {
+    var re = /^[A-Z a-zñáéíóúü]+$/;
+    if(re.test(valor)==true){
+        return true;
+    }else{
+        alert("Debe escribir palabras de caracter textual en el campo '" + campo + "'.");
+        return false;
+    }
+
+}
+
+
+function msj_value_es_fecha(valor, campo){
+
+        alert("Object.prototype.toString.call(valor) = "+Object.prototype.toString.call(valor))
+        if ( Object.prototype.toString.call(valor) === "[object Date]" ) {
+          // it is a date
+          alert("isNaN(valor.getTime()) = "+isNaN(valor.getTime() ) )
+          if ( isNaN(valor.getTime() ) ) {  // d.valueOf() could also work
+            // date is not valid
+            alert("El valor del campo '" + campo + "' no es correcto.");
+            return false;
+          }
+          else {
+            // date is valid
+          }
+        }
+        else {
+          // not a date
+            alert("El valor del campo '" + campo + "' no es correcto.");
+            return false;          
+
+        }
+
+}
+    
+
+function valida_tab_1er(){
+
+    Nombres         = $.trim($('#TxtNombres').val());
+    ApePa           = $.trim($('#txtApePa').val());
+    ApeMa           = $.trim($('#txtApeMa').val());
+    TipoGenero      = $.trim($('#cboTipoGenero').val());
+    TipoDocumento   = $.trim($('#CboTipoDocumento').val());
+    NroDocumento    = $.trim($('#txtNroDocumento').val());
+    FecNaci         = $.trim($('#txtFecNaci').val());
+
+    if (msj_value_vacio(Nombres, 'Nombres')==false){return false;}
+    if (msj_value_vacio(ApePa, 'Apellido Paterno')==false){return false;}
+    if (msj_value_vacio(ApeMa, 'Apellido Materno')==false){return false;}
+    if (msj_value_vacio(FecNaci, 'Fecha Nacimiento')==false){return false;}
+    if (msj_value_vacio(NroDocumento, 'Número de Documento')==false){return false;}
+
+
+    if (msj_value_es_cero(TipoDocumento, 'Tipo documento')==false){return false;}
+    if (msj_value_es_cero(TipoGenero, 'Tipo género')==false){return false;}
+
+    //if (msj_value_es_fecha(FecNaci, 'Fecha Nacimiento')==false){return false;}
+
+    if (msj_value_es_texto(Nombres, 'Nombres')==false){return false;}
+    if (msj_value_es_texto(ApePa, 'Apellido Paterno')==false){return false;}
+    if (msj_value_es_texto(ApeMa, 'Apellido Materno')==false){return false;}
+
+    if (msj_value_es_texto(ApeMa, 'Apellido Materno')==false){return false;}
+
+    valor = NroDocumento.valueOf();
+
+
+    if (msj_value_es_entero(valor, 'Número de Documento')==false){return false;}
+
+    campo = "Número de Documento";
+    //valor = NroDocumento;
+    valor = valor.toString();
+
+    if(TipoDocumento == 1){
+
+        max = 8;
+        if(msj_value_longitud_exacta(valor,max,campo)==false) 
+        {
+            return false;
+        }else{
+            //return true;
+        }
+
+    }else{
+
+        if(TipoDocumento == 2){
+            max = 12;
+            if(msj_value_longitud_exacta(valor,max,campo)==false) 
+            {
+                return false;
+            }else{
+                //return true;
+            }
+        }else{
+            alert("Tipo de documento no definido");
+            return false;
+        }
+
+    }
+
+    openTab('profile');
+    return true;
+
+}
+
+
+function pre_valida_tab_2do(){
+
+    TelefonoPrincipal       = $.trim($('#cboCompaniaPrincipal').val());
+    Distrito                = $.trim($('#cboDistrito').val());
+    Email                   = $.trim($('#txtEmail').val());
+    Direccion               = $.trim($('#txtDireccion').val());
+    nroTelefonoAgregados    = $('#lstTelefonoAgregados option').length;
+
+    //alert('nroTelefonoAgregados:' + nroTelefonoAgregados);
+
+    if(nroTelefonoAgregados != 0){
+        if (msj_value_es_negativo(TelefonoPrincipal, 'Celular Principal de Contacto')==false){return false;}           
+    }
+
+
+    if (msj_value_vacio(Direccion, 'Dirección')==false){return false;}
+    if (msj_value_vacio(Email, 'Correo Electrónico')==false){return false;}
+
+
+    if (msj_value_es_cero(Distrito, 'Distrito')==false){return false;}    
+    if (msj_value_es_email(Email, 'Correo Electrónico')==false){return false;}    
+
+    return true;
+
+}
+
+
+
+function valida_tab_2do(){
+
+    if(pre_valida_tab_2do()==false){return false;}
+
+    openTab('messages');
+    return true;
+
+}
+
+function pre_valida_tab_3er(){
+
+    OficioPreferencial   = $.trim($('#cboOficiosPreferencial').val());
+    nroOficiosAgregados    = $('#lstOficioExperienciAgregados option').length;    
+
+    if(nroOficiosAgregados != 0){
+        if (msj_value_es_negativo(OficioPreferencial, 'Oficio Preferencial')==false){return false;}           
+    }    
+    return true;
+
+}
+
+
+
+function valida_tab_3er(){
+
+    if(pre_valida_tab_3er()==false){return false;}
+ 
+    openTab('settings');
+    return true;
+
+}
+
+
+
+function pre_valida_tab_4to(){
+
+    nroOficiosAgregados    = $('#lstOficioExperienciAgregados option').length;  
+    nroTelefonoAgregados    = $('#lstTelefonoAgregados option').length;
+        
+    ReciboResidencia            = $.trim($('#fileReciboResidencia').val());
+    AntecendentesPoliciales     = $.trim($('#fileAntecendentesPoliciales').val());
+    AntecendentesPenales        = $.trim($('#fileAntecedentePenales').val());
+    DocumentoIdentidad          = $.trim($('#fileDocumentoIdentidad').val());         
+    Foto_Carnet                 = $.trim($('#FotoCarnet').val());       
+
+
+    if(nroOficiosAgregados>0 && nroTelefonoAgregados >0){
+
+        if (msj_value_vacio(ReciboResidencia, 'Recibo Luz o Agua')==false){return false;}
+        if (msj_value_vacio(AntecendentesPoliciales, 'Antecendentes Penales Escaneado')==false){return false;}
+        if (msj_value_vacio(AntecendentesPenales, 'Antecendentes Policiales Escaneado')==false){return false;}
+        if (msj_value_vacio(DocumentoIdentidad, 'Documento de Identidad Escaneado')==false){return false;}
+        if (msj_value_vacio(Foto_Carnet, 'Foto Carnet')==false){return false;}       
+           
+    }
+        
+    return true;
+
+}
+
+function valida_tab_4to(){
+
+    if(pre_valida_tab_4to()==false){return false;}
+    openTab('enviar');
+    return true;
+
+}
+
+
+
+
+function validar_submit(){
+
+    if(valida_tab_1er() == false){ return false;}
+    if(pre_valida_tab_2do() == false){ return false;}
+    if(pre_valida_tab_3er() == false){ return false;}
+    if(pre_valida_tab_4to() == false){ return false;}
+
+    return true;
+
+}
+
+
+
+</script>
 
 
 
@@ -280,10 +546,11 @@ function fileValidation(nom_input_file,id_imagen){
     
 
 <?php //echo form_open('formulario/procesar'); ?>
-<?php echo form_open_multipart('trabaja_con_nosotros/formulario'); ?>
+<?php echo form_open_multipart('trabaja_con_nosotros/formulario', array('onsubmit' => 'return validar_submit();')); ?>
     
     
-    <?php echo validation_errors(); 
+    <?php 
+        #echo validation_errors(); 
         if(empty($guardado)==false){
     ?>
 <!-- Form Name -->
@@ -331,48 +598,41 @@ function fileValidation(nom_input_file,id_imagen){
 
                     <div id="Tabs" role="tabpanel">
                                     <ul  id="foo"  class="nav nav-tabs" role="tablist">
+
                                         <li role="presentation" class="active" >
                                         <a href="#home" aria-controls="home" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-user"></i> 
                                          Identidad
                                         </a>
                                         </li>
+
                                         <li role="presentation">
                                         <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-map-marker" ></i>                                         
                                          Contacto
                                         </a>
                                         </li>
+
                                         <li role="presentation">
-                                        <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"> 
+                                        <a href="#messages"  aria-controls="messages" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-briefcase"></i>                                         
                                         Experiencia
                                         </a>
                                         </li>
 
-
                                         <li role="presentation">
                                         <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"> 
-                                        <i class="glyphicon glyphicon-file"></i>      
-                                        
+                                        <i class="glyphicon glyphicon-file"></i>                                              
                                         Validación
-
                                         </a>
-
                                         </li>
-
 
                                         <li role="Enviar">
                                         <a href="#enviar" aria-controls="enviar" role="tab" data-toggle="tab"> 
-                                        <i class="glyphicon glyphicon-send"></i>      
-                                        
+                                        <i class="glyphicon glyphicon-send"></i>                                              
                                         Enviar
-
                                         </a>
-
                                         </li>
-
-
 
                                     </ul>
         
@@ -495,46 +755,10 @@ function fileValidation(nom_input_file,id_imagen){
 
                                     <!-- Text input-->
       
-                                    <div class="form-group">
 
-                                        <label for="FotoCarnet">Foto Carnet : </label>  
-
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                            <input type="file" id="FotoCarnet" name="FotoCarnet" onchange="return fileValidation('FotoCarnet','img_fotoCarnet')" value="" Class="form-control" placeholder="Foto">
-                                        </div>
-
-                                        <div class="container-fluid" style="background-color:lavenderblush;">
-                                          <div class="row">
-                                            <div class="col-sm-5">
-                                              <p align="center"><strong>Archivo Adjunto</strong></p>
-                                            </div>
-                                            <div class="col-sm-5">
-                                              <p align="center"><strong>Remover</strong></p>
-                                            </div>
-                                          </div>
-
-                                          <div class="row">
-                                            <div class="col-sm-5">
-                                              <p align="center">
-                                                <img src="" id="img_fotoCarnet" width="80px" height="80px" alt="nombre_archivo">
-                                              </p>
-                                            </div>
-                                            <div class="col-sm-5">
-                                              <p align="center">        
-                                                <button type="button" class="btn btn-default">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                </button></p>
-                                            </div>
-                                          </div>
-
-                                        </div>      
-
-                                        <?php echo form_error('FotoCarnet', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
-                                    </div>
                                         
 
-                                    <button type="button"  onclick="openTab('profile');" class="btn btn-primary btn-lg">Siguiente Paso</button>
+                                    <button type="button"  onclick="valida_tab_1er();" class="btn btn-primary btn-lg">Siguiente Paso</button>
 
                                     <!--fin: Tab panes01 -->                                      
                                         
@@ -543,9 +767,8 @@ function fileValidation(nom_input_file,id_imagen){
 
            
                           <div role="tabpanel" class="tab-pane" id="profile">
+
                                         <!--Inicio: Tab panes02-->
-
-
 
                                                     <!-- Select Basic -->
    
@@ -658,7 +881,7 @@ function fileValidation(nom_input_file,id_imagen){
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                                                             <select id="cboCompaniaPrincipal" name="cboCompaniaPrincipal" Class="form-control selectpicker">                                                                                                                              
-                                                                <option value="0">Selecione el teléfono principal</option>
+                                                                <option value="-1">Selecione el teléfono principal</option>
                                                                                                                                                                                                                                                                                                                                                                                              
                                                                 <?php 
                                                                     if(empty($array_telefonos)==false)
@@ -675,15 +898,13 @@ function fileValidation(nom_input_file,id_imagen){
                                                                     }
   
                                                                 ?>                                                                                                                                             
-                                                            </select>
-                                                            <?php echo form_error('cboCompaniaPrincipal', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>   
-
+                                                            </select>                                                            
                                                         </div>
+                                                        <?php echo form_error('cboCompaniaPrincipal', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>   
 
                                              </div>
-                                                    
-                                                    
-                                      <button type="button"  onclick="openTab('messages');" class="btn btn-primary btn-lg">Siguiente Paso</button>
+       
+                                      <button type="button"  onclick="valida_tab_2do();" class="btn btn-primary btn-lg">Siguiente Paso</button>
                                 <!--Fin : Tab panes02-->
                                 </div>
        
@@ -790,7 +1011,7 @@ function fileValidation(nom_input_file,id_imagen){
 
 
 
-                                                    <button type="button"  onclick="openTab('settings');" class="btn btn-primary btn-lg">Siguiente Paso</button>
+                                                    <button type="button"  onclick="valida_tab_3er();" class="btn btn-primary btn-lg">Siguiente Paso</button>
 
 
 
@@ -833,41 +1054,16 @@ function fileValidation(nom_input_file,id_imagen){
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file" id="fileReciboResidencia" name="fileReciboResidencia" value="" Class="form-control" placeholder="Foto">
-                                                    
+                                                    <input type="file" id="fileReciboResidencia" onchange="return fileValidation('fileReciboResidencia')" name="fileReciboResidencia" value="" Class="form-control" placeholder="Foto">                                                    
 
                                                 </div>
 
 
-                                                <div class="container-fluid" style="background-color:lavenderblush;">
-                                                  <div class="row">
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><strong>Archivo Adjunto</strong></p>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><strong>Remover</strong></p>
-                                                    </div>
-                                                  </div>
-
-                                                  <div class="row">
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                      <p align="center">        
-                                                        <button type="button" class="btn btn-default">
-                                                            <span class="glyphicon glyphicon-trash"></span>
-                                                        </button></p>
-                                                    </div>
-                                                  </div>
-
-                                                </div>   
-
+                                                <div class="container-fluid" id="div_fileReciboResidencia" style="background-color:lavenderblush;">
+                                                </div>    
 
                                                 <?php echo form_error('fileReciboResidencia', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                                 
-
-
                                             </div>
 
                                             <!-- Text input-->
@@ -877,33 +1073,12 @@ function fileValidation(nom_input_file,id_imagen){
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file"  id="fileAntecedentePenales" name="fileAntecedentePenales" value="" Class="form-control" placeholder="Antecedentes penales">                                                                                                       
+                                                    <input type="file"  id="fileAntecedentePenales" onchange="return fileValidation('fileAntecedentePenales')" name="fileAntecedentePenales" value="" Class="form-control" placeholder="Antecedentes penales">                                                                                                       
 
                                                 </div>
 
-                                                <div class="container-fluid" style="background-color:lavenderblush;">
-                                                  <div class="row">
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><strong>Archivo Adjunto</strong></p>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><strong>Remover</strong></p>
-                                                    </div>
-                                                  </div>
-
-                                                  <div class="row">
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                      <p align="center">        
-                                                        <button type="button" class="btn btn-default">
-                                                            <span class="glyphicon glyphicon-trash"></span>
-                                                        </button></p>
-                                                    </div>
-                                                  </div>
-
-                                                </div>   
+                                                <div class="container-fluid" id="div_fileAntecedentePenales" style="background-color:lavenderblush;">
+                                                </div>      
 
 
                                                 <?php echo form_error('fileAntecedentePenales', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>  
@@ -917,34 +1092,13 @@ function fileValidation(nom_input_file,id_imagen){
                                                  <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file" id="fileAntecendentesPoliciales"  name="fileAntecendentesPoliciales" value="" Class="form-control" placeholder="Foto">
+                                                    <input type="file" id="fileAntecendentesPoliciales" onchange="return fileValidation('fileAntecendentesPoliciales')" name="fileAntecendentesPoliciales" value="" Class="form-control" placeholder="Foto">
                                                     
                                                 </div>
 
 
-                                                <div class="container-fluid" style="background-color:lavenderblush;">
-                                                  <div class="row">
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><strong>Archivo Adjunto</strong></p>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><strong>Remover</strong></p>
-                                                    </div>
-                                                  </div>
-
-                                                  <div class="row">
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                      <p align="center">        
-                                                        <button type="button" class="btn btn-default">
-                                                            <span class="glyphicon glyphicon-trash"></span>
-                                                        </button></p>
-                                                    </div>
-                                                  </div>
-
-                                                </div>   
+                                                <div class="container-fluid" id="div_fileAntecendentesPoliciales" style="background-color:lavenderblush;">
+                                                </div>     
 
 
 
@@ -962,34 +1116,13 @@ function fileValidation(nom_input_file,id_imagen){
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <input type="file" id="fileDocumentoIdentidad" value="" name="fileDocumentoIdentidad" Class="form-control" placeholder="Foto">
+                                                    <input type="file" id="fileDocumentoIdentidad" onchange="return fileValidation('fileDocumentoIdentidad')" value="" name="fileDocumentoIdentidad" Class="form-control" placeholder="Foto">
                                                     
                                                 </div>
 
 
-                                                <div class="container-fluid" style="background-color:lavenderblush;">
-                                                  <div class="row">
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><strong>Archivo Adjunto</strong></p>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><strong>Remover</strong></p>
-                                                    </div>
-                                                  </div>
-
-                                                  <div class="row">
-                                                    <div class="col-sm-5">
-                                                      <p align="center"><img src="" width="80px" height="80px" alt="nombre_archivo"></p>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                      <p align="center">        
-                                                        <button type="button" class="btn btn-default">
-                                                            <span class="glyphicon glyphicon-trash"></span>
-                                                        </button></p>
-                                                    </div>
-                                                  </div>
-
-                                                </div>   
+                                                <div class="container-fluid" id="div_fileDocumentoIdentidad" style="background-color:lavenderblush;">
+                                                </div>    
 
 
 
@@ -998,9 +1131,25 @@ function fileValidation(nom_input_file,id_imagen){
 
                                             </div>
 
+
+                                    <div class="form-group">
+
+                                        <label for="FotoCarnet">Foto Carnet : </label>  
+
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                            <input type="file" id="FotoCarnet" name="FotoCarnet" onchange="return fileValidation('FotoCarnet')" value="" Class="form-control" placeholder="Foto">
+                                        </div>
+
+                                        <div class="container-fluid" id="div_FotoCarnet" style="background-color:lavenderblush;">
+                                        </div>      
+
+                                        <?php echo form_error('FotoCarnet', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
+                                    </div>
+
                                             <!--Fin: Tab panes05-->
 
-                                        <button type="button"  onclick="openTab('enviar');" class="btn btn-primary btn-lg">Siguiente Paso</button>
+                                        <button type="button"  onclick="valida_tab_4to();" class="btn btn-primary btn-lg">Siguiente Paso</button>
 
 
                                   </div>
