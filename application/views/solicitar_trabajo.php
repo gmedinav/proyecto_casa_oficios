@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"  rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="<?php echo base_url("assets/js/jquery-1.8.3.min.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap.js"); ?>"></script>	
+<script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>"></script>	
 
 <script type="text/javascript">
 
@@ -26,8 +26,13 @@ function fileValidation(nom_input_file){
     var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
 
     if(!allowedExtensions.exec(filePath)){
-        alert('Por favor, el archivo debe tener alguna de las extensiones siguientes: .jpeg/.jpg/.png/.gif.');
+        
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = 'Por favor, el archivo debe tener alguna de las extensiones siguientes: .jpeg/.jpg/.png/.gif.'; 
+        $('#myModal').modal('show');
+        
         //document.getElementById(id_imagen).src = "";
+
         document.getElementById("div_"+nom_input_file).innerHTML="";
         fileInput.value = '';
         return false;
@@ -38,8 +43,11 @@ function fileValidation(nom_input_file){
 
         if(size_file>2097152){
 
-            alert('Por favor, el archivo no debe superar de los 2Mb de espacio físico.');
-            //document.getElementById(id_imagen).src = "";
+            //alert('Por favor, el archivo no debe superar de los 2Mb de espacio físico.');
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = 'Por favor, el archivo no debe superar de los 2Mb de espacio físico.';
+            ('#myModal').modal('show');
+            
             fileInput.value = '';
             document.getElementById("div_"+nombre_id).innerHTML="";
             return false;
@@ -103,13 +111,35 @@ function borrar_visor_img(nombre_id){
 function msj_value_vacio(valor, campo){
 
     if(valor == ""){
-        alert("El '" + campo + "'' está vació.");
+        //alert("El '" + campo + "'' está vació.");
+        btn_aceptar
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = "El '" + campo + "'' está vació.";
         return false;
+
     }else{
         return true;
     }
 
 }
+
+
+function msj_value_select(valor, campo){
+
+    if(valor == "000000000"){
+        //alert("El '" + campo + "'' está vació.");
+        btn_aceptar
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = "Debe seleccionar un tipo en el campo '" + campo + "'.";
+        return false;
+
+    }else{
+        return true;
+    }
+
+}
+
+
 
 
 function msj_value_es_texto(valor,campo){
@@ -118,7 +148,9 @@ function msj_value_es_texto(valor,campo){
     if(typeof valor === 'string' || valor instanceof String){
         return true;
     }else{
-        alert("El '" + campo + "' no es un valor textual.");
+        //alert("El '" + campo + "' no es un valor textual.");
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML="El '" + campo + "' no es un valor textual.";
         return false;
     }
 
@@ -128,7 +160,9 @@ function msj_value_es_texto(valor,campo){
 function msj_value_es_cero(valor,campo){
     //val= $.isNumeric(
     if(valor === 0 || valor =="0"){
-        alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
+        //alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = "Debe seleccionar un tipo en el campo '" + campo + "'.";
         return false;
     }else{
 
@@ -139,8 +173,11 @@ function msj_value_es_cero(valor,campo){
 function msj_value_es_negativo(valor,campo){
     //val= $.isNumeric(
     if(valor === -1 || valor =="-1"){
-        alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
+        //alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML ="Debe seleccionar un tipo en el campo '" + campo + "'.";
         return false;
+
     }else{
 
         return true;
@@ -153,7 +190,9 @@ function msj_value_es_entero(valor,campo){
     if(Math.floor(valor) == valor && $.isNumeric(valor)){
         return true;
     }else{
-        alert("Debe escribir un número entero en el campo '" + campo + "'.");
+        //alert("Debe escribir un número entero en el campo '" + campo + "'.");
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = "Debe escribir un número entero en el campo '" + campo + "'.";
         return false;        
     }
 
@@ -164,8 +203,11 @@ function msj_value_longitud_max(valor,max,campo){
 
     longitud = valor.length;
     if(longitud>max){
-        alert("La longitud de caracteres para el campo '" + campo + "' debe ser como máximo de "+max+" caracteres.");
+        //alert("La longitud de caracteres para el campo '" + campo + "' debe ser como máximo de "+max+" caracteres.");
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = "La longitud de caracteres para el campo '" + campo + "' debe ser como máximo de "+max+" caracteres.";
         return false;
+
     }else{
         return true;
     }
@@ -177,8 +219,11 @@ function msj_value_longitud_min(valor,min,campo){
 
     longitud = valor.length;
     if(longitud<min){
-        alert("La longitud de caracteres para el campo '" + campo + "' debe ser como mínimo de "+min+" caracteres.");
+        //alert("La longitud de caracteres para el campo '" + campo + "' debe ser como mínimo de "+min+" caracteres.");
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = "La longitud de caracteres para el campo '" + campo + "' debe ser como mínimo de "+min+" caracteres.";
         return false;
+
     }else{
         return true;
     }
@@ -192,7 +237,9 @@ function msj_value_longitud_exacta(valor,nro_exacto,campo){
 
         return true;
     }else{
-        alert("La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+nro_exacto+" caracteres.");        
+        //alert("La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+nro_exacto+" caracteres."); 
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = "La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+nro_exacto+" caracteres."
         return false;
     }
 
@@ -204,7 +251,9 @@ function msj_value_es_email(valor,campo) {
     if(re.test(valor)==true){
         return true;
     }else{
-        alert("Debe escribir un correo electrónico correcto en el campo '" + campo + "'.");
+        //alert("Debe escribir un correo electrónico correcto en el campo '" + campo + "'.");
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = "Debe escribir un correo electrónico correcto en el campo '" + campo + "'."
         return false;
     }
 
@@ -215,7 +264,9 @@ function msj_value_es_texto(valor,campo) {
     if(re.test(valor)==true){
         return true;
     }else{
-        alert("Debe escribir palabras de caracter textual en el campo '" + campo + "'.");
+        //alert("Debe escribir palabras de caracter textual en el campo '" + campo + "'.");
+        document.getElementById("btn_aceptar").disabled  = true;
+        document.getElementById("p_mensaje").innerHTML = "Debe escribir palabras de caracter textual en el campo '" + campo + "'.";
         return false;
     }
 
@@ -230,7 +281,9 @@ function msj_value_es_fecha(valor, campo){
           alert("isNaN(valor.getTime()) = "+isNaN(valor.getTime() ) )
           if ( isNaN(valor.getTime() ) ) {  // d.valueOf() could also work
             // date is not valid
-            alert("El valor del campo '" + campo + "' no es correcto.");
+            //alert("El valor del campo '" + campo + "' no es correcto.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML="El valor del campo '" + campo + "' no es correcto.";
             return false;
           }
           else {
@@ -239,7 +292,9 @@ function msj_value_es_fecha(valor, campo){
         }
         else {
           // not a date
-            alert("El valor del campo '" + campo + "' no es correcto.");
+            //alert("El valor del campo '" + campo + "' no es correcto.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML="El valor del campo '" + campo + "' no es correcto.";
             return false;          
 
         }
@@ -257,38 +312,29 @@ function submit_form(){
     Foto                    = $.trim($('#foto').val());
     Distrito                = $.trim($('#cboDistrito').val());
 
-    if (msj_value_es_cero(Oficio, 'Oficio')==false){return false;}  
+    if (msj_value_es_cero(Oficio, 'Oficio')==false) {return false;}   
 
-    if (msj_value_vacio(Contacto, 'Contacto')==false){return false;}
-    if (msj_value_es_texto(Contacto, 'Contacto')==false){return false;}
+    if (msj_value_vacio(Contacto, 'Contacto')==false) {return false;}  
+    if (msj_value_es_texto(Contacto, 'Contacto')==false) {return false;}  
 
-    if (msj_value_vacio(Telefono, 'Teléfono')==false){return false;}
-    if (msj_value_es_entero(Telefono, 'Teléfono')==false){return false;}     
+    if (msj_value_vacio(Telefono, 'Teléfono')==false) {return false;}  
+    if (msj_value_es_entero(Telefono, 'Teléfono')==false) {return false;}  
 
-    if (msj_value_vacio(Email, 'Correo Electrónico')==false){return false;}
-    if (msj_value_es_email(Email, 'Correo Electrónico')==false){return false;}     
+    if (msj_value_vacio(Email, 'Correo Electrónico')==false) {return false;}  
+    if (msj_value_es_email(Email, 'Correo Electrónico')==false) {return false;}  
 
-    if (msj_value_vacio(Direccion, 'Dirección')==false){return false;}
-
-   
+    if (msj_value_vacio(Direccion, 'Dirección')==false) {return false;}  
+    if (msj_value_longitud_min(Direccion,30, 'Dirección')==false) {return false;}      
     
-    if (msj_value_longitud_min(DescripcionUrgencia,30, 'Descripición de Urgencia')==false){return false;}
-    if (msj_value_longitud_max(DescripcionUrgencia,300, 'Descripición de Urgencia')==false){return false;}
+    if (msj_value_select(Distrito, 'Distrito')==false) {return false;}   
 
-    if (msj_value_vacio(Foto, 'Foto')==false){return false;}
+    if (msj_value_longitud_min(DescripcionUrgencia,30, 'Descripición de Urgencia')==false) {return false;}  
+    if (msj_value_longitud_max(DescripcionUrgencia,300, 'Descripición de Urgencia')==false) {return false;}  
 
-
-
-    if(confirm("¿Está seguro que desea registrar su urgencia?")){
-
-        return true;
-
-    }else{
-
-        return false;
-    }
-
-
+    if (msj_value_vacio(Foto, 'Foto')==false) {return false;}  
+        
+    document.getElementById("btn_aceptar").disabled  = false;
+    document.getElementById("p_mensaje").innerHTML="¿Está seguro que desea registrar su urgencia?";    
 
 }
 
@@ -330,7 +376,7 @@ function submit_form(){
 <!-- Form Name -->
 <?php if($guardado==TRUE){ ?>
 
-<div class="alert alert-success">
+<div class="alert alert-success" aria-label="close">
   <strong>Guardado: </strong> Nos contactataremos pronto con Ud.
 </div>
 
@@ -447,9 +493,11 @@ function submit_form(){
 
 <div class="form-group" style="padding-top:10px"> 
   	<div class="col-md-11">
-  		<div class="input-group">
-    	<button type="submit" CssClass="btn btn-primary btn-block" id="btnEnviar"> Enviar</button > 
-    	</div>
+  		
+    	<button onclick="submit_form()" type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myModal">
+        <span class="glyphicon glyphicon-send"></span> Enviar
+        </button >         
+    	
 	</div>
 </div>
 
@@ -457,6 +505,36 @@ function submit_form(){
                 </div>
 
 </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Formulario de la Urgencia</h4>
+        </div>
+        <div class="modal-body">
+          <p id="p_mensaje">Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          
+          <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
+          <button type="submit" class="btn btn-default btn-success pull-right" id="btn_aceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>           
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
 </form>
 </body>
 </html>
