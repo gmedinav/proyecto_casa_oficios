@@ -19,7 +19,7 @@ class Solicitar_trabajo extends CI_Controller {
 		$data['distritos']= $this->ubigeo_model->listDistritosLima(); 
 		$this->load->model('oficio_model');
 		$data['oficios']= $this->oficio_model->listOficios();                 
-		$this->load->view('solicitar_trabajo',$data);
+		$this->load->view('inicio',$data);
 
 	}
 
@@ -58,7 +58,7 @@ class Solicitar_trabajo extends CI_Controller {
             
             if ($this->form_validation->run() == FALSE) {
                 $data['guardado']=FALSE;
-		$this->load->view('solicitar_trabajo',$data);   
+		          $this->load->view('inicio',$data);   
                 
             } else {
                 //$data['guardado']=TRUE;     
@@ -103,7 +103,7 @@ class Solicitar_trabajo extends CI_Controller {
 
                 
                 
-                $this->load->view('solicitar_trabajo',$data);
+                $this->load->view('inicio',$data);
                 //echo "Datos cargador correctamente";
             }
 
@@ -111,7 +111,7 @@ class Solicitar_trabajo extends CI_Controller {
 
         function alpha_dash_space($str)
         {
-            return ( ! preg_match("/^([-a-z_ ])+$/i", $str)) ? FALSE : TRUE;                     
+            return ( ! preg_match("/^([A-Z a-zñáéíóúü])+$/i", $str)) ? FALSE : TRUE;                     
         } 
         
         function distrito_no_elegido($str)

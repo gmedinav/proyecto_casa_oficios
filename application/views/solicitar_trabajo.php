@@ -16,9 +16,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <script type="text/javascript">
 
-
-       
-
 function fileValidation(nom_input_file){
 
     var fileInput = document.getElementById(nom_input_file);
@@ -372,7 +369,7 @@ function submit_form(){
 
 <!--inicio form-->
 <?php //echo form_open('formulario/procesar'); ?>
-<?php echo form_open_multipart('solicitar_trabajo/formulario', array('onsubmit' => 'return submit_form();')); ?>
+
 <!-- Form Name -->
 <?php if($guardado==TRUE){ ?>
 
@@ -383,7 +380,7 @@ function submit_form(){
 <?php } ?>
 
 
-
+<?php echo form_open_multipart('solicitar_trabajo/formulario', array('onsubmit' => 'return submit_form();')); ?>
 <div class="form-group" >
 
     <div class="col-md-11 selectContainer">

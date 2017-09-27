@@ -1,15 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"  CodeBehind="trabajadores.aspx.cs" Inherits="CasaOficiosWeb.trabajadores"  EnableEventValidation="false" %>
-<%@ Implements Interface="System.Web.UI.ICallbackEventHandler" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Services | Bootstrap .net Templates</title>
-    <%-- ------ CSS ------ --%>
+
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="css/animate.min.css" rel="stylesheet" type="text/css" />
@@ -34,68 +31,12 @@
     <script language="javascript">
       
 
-        //variable global para fx AgregarItem
-        var arrayFonos = [];
-
-        /*---------------------------------------------------------------------------*/
-                    function addCustomItem(id, text, val) {
-                        var vlist = document.getElementById(id);
-                        if (vlist != null) {
-                            if (navigator.appName == 'Microsoft Internet Explorer') {
-                                var newOption = document.createElement('OPTION');
-                                newOption.value = val;
-                                newOption.innerText = text;
-                                vlist.options.appendChild(newOption);
-                            }
-                            else {
-                                var newOption = new Option(text, val);
-                                vlist.options.add(newOption);
-                            }
-                        }
-                    }
 
 
-                    function selectAllElements(id,id2) {
-                        var oList = document.getElementById(id);
-                        if (oList != null) {
-                            for (i = 0; i < oList.options.length; i++)
-                                oList.options[i].selected = true;
-                        }
-
-
-                        var oList2 = document.getElementById(id2);
-                        if (oList2 != null) {
-                            for (e = 0; e < oList2.options.length; e++)
-                                oList2.options[e].selected = true;
-                        }
+       
 
 
 
-
-                    }
-
-
-                    //function selectAllElements2(id) {
-                    //    var oList = document.getElementById(id);
-                    //    if (oList != null) {
-                    //        for (i = 0; i < oList.options.length; i++)
-                    //            oList.options[i].selected = true;
-                    //    }
-                    //}
-
-
-<%--               function ReceiveServerData(arg, context)
-                 { 
-                   // arg contains the result of GetCallbackResult()
-                   // No se usa o no es importante para lo que se deseamos obtener
-                    var opts = arg.split(';');
-                    var opt;
-                    for (i=0; i< opts.length;i++)
-                    {
-                        opt = opts[i].split(',');
-                        addCustomItem('<%= lstTelefonoAgregados.ClientID %>', opt[0], opt[1]);
-                    }
-               }--%>
 
 
 
@@ -151,48 +92,6 @@
 
         
 
-        function AgregarItem(id) {
-            telefono = $.trim($('#txtTelefono').val());
-            codigonItem = $.trim($('#cboProveedorTelf option:selected').val());
-            descripcionItem = $.trim($('#cboProveedorTelf option:selected').text());
-            
-            nuevoCodigo = codigonItem + '-' + telefono;
-            descri = descripcionItem + '-' + telefono;
-        
-            //Validación de Número de Telefono
-            if ($.isNumeric(telefono) == false) {
-                alert("El teléfono '" + telefono + "' no es númerico: .");
-                return;
-            }
-
-            //Validación de Longitud de Telefono
-            if (telefono.length == 9 && telefono.substring(0, 1) == 9) {
-                //alert("El número descrito es celular correcto.");
-            } else {            
-                if (telefono.length == 7 && (telefono.substring(0, 1) != 9 || telefono.substring(0, 1) != 0)) {
-                    //alert("El número descrito es fono domicilio correcto.");
-                } else {                                
-                    alert("El número telefónico '" + telefono + "' no es correcto.");
-                    return;
-                }            
-            }
-
-
-            //Validacion Existencia de teléfono
-            for (var i = 0; i < arrayFonos.length; i++)
-            {
-                if (arrayFonos[i] == telefono)
-                {
-                    alert("Ya existe este teléfono registrado.");
-                    return;
-                }            
-            }
-            arrayFonos.push(telefono);
-
-            document.getElementById('txtTelefono').value = '';
-
-            addCustomItem(id, descri, nuevoCodigo);
-        }
 
 
         /*---------------------------------------------------------------------------*/
@@ -204,175 +103,10 @@
 
 
 
-        function borrarItemTelefono()
-        {
-
-            //if( confirm("¿Está seguro que desea eliminar el item seleccionado?") == true)
-            //{                
-            //    $('#lstTelefonoAgregados :selected').each(function (i, selected) {
-            //        if (arrayFonos[i] == telefono) {                        
-            //            $("#lstTelefonoAgregados option:selected").remove();
-            //            arrayFonos.splice(i);
-            //        }                    
-            //    });
-            //}
-
-            if( confirm("¿Está seguro que desea eliminar el item seleccionado?") == true)
-            {  
-                var dropDownListRef = document.getElementById('<%= lstTelefonoAgregados.ClientID %>');
-               
-                var optionsList = '';
-                var itemIndex = dropDownListRef.selectedIndex;
-                if (itemIndex>=0){
-                    var txt= []
-                    txt = (document.getElementById('<%= lstTelefonoAgregados.ClientID %>').value).split("-");
-                   
-
-                
-             
-                    dropDownListRef.remove(itemIndex);
-                    for (var i=0; i<arrayFonos.length; i++){
-                        //alert(arrayFonos[i]);
-                        //alert(txt[1]);
-                        if (arrayFonos[i] == txt[1]){
-                            
-                            arrayFonos.splice(i,1);
-                        }
-                       
-                                    }
-
-               
-                }
-            }
-
-        }
+       
 
 
 
-        function borrarItemOficio()
-        {
-
-            //if( confirm("¿Está seguro que desea eliminar el item seleccionado?") == true)
-            //{                
-            //    $('#lstTelefonoAgregados :selected').each(function (i, selected) {
-            //        if (arrayFonos[i] == telefono) {                        
-            //            $("#lstTelefonoAgregados option:selected").remove();
-            //            arrayFonos.splice(i);
-            //        }                    
-            //    });
-            //}
-
-            if( confirm("¿Está seguro que desea eliminar el item seleccionado?") == true)
-            {  
-                var dropDownListRef = document.getElementById('<%= lstOficioExperienciAgregados.ClientID %>');
-               
-                var optionsList = '';
-                var itemIndex = dropDownListRef.selectedIndex;
-                if (itemIndex>=0){
-                    var txt= []
-                    txt = (document.getElementById('<%= lstOficioExperienciAgregados.ClientID %>').value).split("-");
-                   
-
-                
-             
-                    dropDownListRef.remove(itemIndex);
-                    for (var i=0; i<arrayOficios.length; i++){
-                        //alert(arrayOficios[i]);
-                        //alert(txt[0]);
-                        if (arrayOficios[i] == txt[0]){
-                            
-                            arrayOficios.splice(i,1);
-                        }
-                       
-                                    }
-
-               
-                }
-            }
-
-        }
-
-
-
-        /////////////////////////
-
-        var arrayOficios = [];
-        function agregarItemOficio(id) {
-
-            //declaración de variables
-
-            //telefono = $.trim($('#txtTelefono').val());
-            codigoPerfilLaboral = $.trim($('#cboOficiosOtros option:selected').val());
-            codigoPeriodolLaboral = $.trim($('#cboPeriodoExpeOtros option:selected').val());
-
-            descripPerfilLaboral = $.trim($('#cboOficiosOtros option:selected').text());
-            descripPeriodoLaboral = $.trim($('#cboPeriodoExpeOtros option:selected').text());
-
-            nuevoCodigo = codigoPerfilLaboral + '-' + codigoPeriodolLaboral;
-            //activarSalida = false;
-
-
-
-            //Seleccionar al menos un Perfil Laboral
-
-            //if (codigoPerfilLaboral == '00') {
-            //    alert("Debe seleciconar un perfil laboral.");
-            //    return;
-            //}
-
-            ////Seleccionar al menos un Perfil Laboral
-            //if (codigoPeriodolLaboral == '00') {
-            //    alert("Debe seleciconar un periodo laboral.");
-            //    return;
-            //}
-
-
-
-            //Validacion Existencia de teléfono
-            for (var i = 0; i < arrayOficios.length; i++) {
-
-                if (arrayOficios[i] == codigoPerfilLaboral) {
-                    alert("Ya existe el oficio '" + descripPerfilLaboral + "' registrado.");
-                    return;
-                }
-
-            }
-            arrayOficios.push(codigoPerfilLaboral);
-
-
-            //AgregarItem de Lista
-            //$('#lstOficioExperienciAgregados').append($('<option>', {
-            //    value: nuevoCodigo,
-            //    text: descripPerfilLaboral + ': ' + descripPeriodoLaboral
-            //}));
-
-
-            var descriptotal = descripPerfilLaboral + ': ' + descripPeriodoLaboral;
-
-            //Preparar los controles para la siguientes inserción.
-            //$("#lstPerfilLaboral ").get(0).selectedIndex
-            //$("#listPeriodoExperiencia ").get(0).selectedIndex
-
-            addCustomItem(id, descriptotal, nuevoCodigo);
-
-        }
-
-
-        //function borrarItemOficio() {
-
-        //    if (confirm("¿Está seguro que desea eliminar el item seleccionado?") == true) {
-
-        //        $('#lstOficioExperienciAgregados :selected').each(function (i, selected) {
-        //            if (arrayOficios[i] == codigoPerfilLaboral) {
-        //                $("#lstOficioExperienciAgregados option:selected").remove();
-        //                arrayOficios.splice(i);
-        //            }
-        //        });
-
-
-
-        //    }
-        //}
 
 
 
@@ -402,8 +136,8 @@
     </div>
     </div>
     </div>
-      </div><%--container--%>
-        </div><%--/top-bar--%>
+      </div>
+        </div>
       <nav class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="navbar-header">
@@ -413,14 +147,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="Default.aspx"><img src="images/logo.png" alt="logo"></a>
+                    <a class="navbar-brand" href="#"><img src="images/logo.png" alt="logo"></a>
                 </div>
 				
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
-                        <li><a href="Default.aspx">Inicio</a></li>
-                       <li class="active"><a href="trabajadores.aspx">Trabaje con nosotros</a></li>
-                        <li ><a href="services.aspx">Servicios</a></li>                        
+                        <li><a href="Inicio.html">Inicio</a></li>
+                       <li class="active"><a href="trabajadores.html">Trabaje con nosotros</a></li>
+                        <li ><a href="#">Servicios</a></li>                        
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
@@ -431,7 +165,7 @@
                             </ul>
                         </li>
                         <li><a href="#">Blog</a></li> 
-                        <li><a href="contactus.aspx">Contact</a></li>                        
+                        <li><a href="#">Contact</a></li>                        
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -446,7 +180,7 @@
 
 
 
-<form id="form1" runat="server">
+
 
 
 
@@ -528,8 +262,9 @@
                                         <label for="Nombres">Nombres : </label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                            <asp:TextBox type="text" runat="server" id="TxtNombres" Text="Edgar" CssClass="form-control" PlaceHolder="Nombres"></asp:TextBox>
-                                        </div>
+
+                                            <input type="text" id="TxtNombres" Text="Edgar" Class="form-control" PlaceHolder="Nombres"/>
+                                         </div>
 
 
                                     </div>
@@ -543,23 +278,30 @@
                                         <label for="Apellidos">Apellidos  Paterno: </label>
                                         <div class="input-group">
                                           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                          <asp:TextBox type="text" runat="server" id="txtApePa" Text="Ligarda Estrada" CssClass="form-control" PlaceHolder="Apellidos"></asp:TextBox>
+                                        
+                                            <input type="text" id="txtApePa" Text="Ligarda" Class="form-control" PlaceHolder="Apellidos" />
+
+                                           
                                         </div>
 
                                                   <label for="Apellidos">Apellidos Materno: </label>
                                         <div class="input-group">
                                           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                          <asp:TextBox type="text" runat="server" id="txtApeMa" Text="Ligarda Estrada" CssClass="form-control" PlaceHolder="Apellidos"></asp:TextBox>
-                                        </div>
+                                         
+                                            <input type="text" id="txtApeMa" Text="Estrada" Class="form-control" PlaceHolder="Apellidos" />
+
+                                         </div>
 
 
                                                                  <label for="Apellidos">Genero: </label>
                                         <div class="input-group">
                                           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                                     <asp:DropDownList  ID="cboTipoGenero" runat="server" CssClass="form-control selectpicker">
 
-                                                </asp:DropDownList>
-                                                 </div>
+                                            <select id="cboTipoGenero" name="state" class="form-control selectpicker">
+                                                <option>Masculino</option>
+                                                <option>Felemino</option>
+                                       
+                                            </select></div>
 
 
                                     </div>
@@ -573,11 +315,12 @@
                                             <div class="input-group">
 
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                <asp:DropDownList ID="CboTipoDocumento" runat="server" CssClass="form-control selectpicker">
-
-                                                </asp:DropDownList>
-                                               <!--/select-->
-                                            </div>
+                                                
+                                                <select id="CboTipoDocumento" name="state" class="form-control selectpicker">
+                                                    <option>DNI</option>
+                                                    <option>RUC</option>
+                                      
+                                                </select></div>
 
 
                                     </div>
@@ -590,8 +333,11 @@
                                         <div class="input-group col-md-5">
 
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                                <asp:TextBox type="text" runat="server" id="txtNroDocumento" Text="44953781" CssClass="form-control" PlaceHolder="Nro. Documento"></asp:TextBox>
 
+
+                                            <input type="text" id="txtNroDocumento" Text="44953781" Class="form-control" PlaceHolder="Nro. Documento" />
+
+                                     
                                         </div>
 
                                     </div>
@@ -613,8 +359,9 @@
                                                     <div class="input-group">
                                                     <div class="input-group date form_date col-md-12" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                     
-                                                        <asp:TextBox  class="form-control"  size="16"  ID="txtFecNaci" Text="2017-05-20" runat="server" ReadOnly="true"></asp:TextBox>
-                                                   <%--     <input class="form-control" size="16" type="text" value="ss" readonly>--%>
+                                                        <input type="text" id="txtFecNaci" value="2017-05-20" size="16" Class="form-control"/>
+
+                                                      <!--<input class="form-control" size="16" type="text" value="ss" readonly>-->
                                                         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                                     </div>
@@ -635,8 +382,10 @@
 
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                            <asp:FileUpload ID="FotoCarnet" runat="server" CssClass="form-control" placeholder="Foto"></asp:FileUpload>
-                                        </div>
+
+                                            <input id="FotoCarnet" placeholder="Foto" Class="form-control" type="file" />
+
+                                       </div>
 
                                  
 
@@ -668,12 +417,14 @@
                                                             <div class="input-group">
                                                                 <span class="input-group-addon" ><i class="glyphicon glyphicon-list"></i></span>
 
-                                                                <asp:DropDownList ID="cboDistrito" runat="server" CssClass="form-control">
-                                                                    <asp:ListItem value="value" selected="True">- Seleccione Distrito de Lima -</asp:ListItem>
+                                                                <select id="cboDistrito" class="form-control selectpicker">
 
-                                                                </asp:DropDownList>
+                                                                    <option>Prueba1</option>
+                                                                    <option>Prueba2</option>
 
-                                                            </div>  
+                                                        
+
+                                                                </select></div>  
                                                     </div>
 
                                                     <!-- Text input-->      
@@ -682,7 +433,8 @@
                                                         <label  for="Direccion">Dirección : </label>
                                                         <div class="input-group">
                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                                               <asp:TextBox  runat="server"  Text="Calle Monterrey 341 - Chacarrilla - Santiago de Surco" id="txtDireccion" CssClass="form-control" PlaceHolder="Dirección"></asp:TextBox>
+                                                            <input id="txtDireccion" placeholder="Contacto" class ="form-control" type="text" value="Calle Monterrey 341 - Chacarrilla - Santiago de Surco" />
+                                                               
                                                         </div>
 
                                                     </div>
@@ -694,7 +446,10 @@
                                                         <label for="Email">Correo Electrónico : </label>
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                                            <asp:TextBox type="txtEmail" runat="server" id="txtEmail" Text="atencion@directv.com.pe"  CssClass="form-control" PlaceHolder="Correo Electrónico"></asp:TextBox>
+                                                            
+                                                            <input id="txtEmail" placeholder="Contacto" class="form-control" type="text" value="atencion@directv.com.pe" />
+
+                                                            
                                                         </div>
 
                                                     </div>
@@ -705,14 +460,16 @@
                                                         <div class="input-group">
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                            <asp:DropDownList ID="cboCompaniaPrincipal" runat="server" CssClass="form-control selectpicker">
-                                                                <%--<asp:ListItem value="00" selected="True">- Seleccione Compañía Telefónica -</asp:ListItem>--%>
+                                                            <select id="cboCompaniaPrincipal" class="form-control selectpicker">
+                                                                <option>- Seleccione Compañía Telefónica -</option>
+                                                                </select> 
 
-                                                            </asp:DropDownList>
+                                                   
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                                                            <asp:TextBox  runat="server" id="txtTelfPrinci" CssClass="form-control" PlaceHolder="Teléfono" Text="987379413" ></asp:TextBox>
 
+                                                            <input id="txtTelfPrinci" placeholder="Contacto" class="form-control" type="text" value="987379413"  />
+                                                           
 
 
 
@@ -730,28 +487,41 @@
                                                         <div class="input-group">
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                            <asp:DropDownList ID="cboProveedorTelf" runat="server" CssClass="form-control selectpicker">
-                                                                <asp:ListItem value="00" selected="True">- Seleccione Compañía Telefónica -</asp:ListItem>
+                                                            <select id="cboProveedorTelf" class="form-control selectpicker">
+                                                                <option>- Seleccione Compañía Telefónica -</option>
+                                                            </select> 
 
-                                                            </asp:DropDownList>
+
+
+                                                      
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                                                            <asp:TextBox  runat="server" id="txtTelefono" CssClass="form-control" PlaceHolder="Teléfono"></asp:TextBox>
 
+                                                            <input id="txtTelefono" placeholder="Contacto" class="form-control" type="text"  placeHolder="Teléfono"/>
+
+
+                                                       
 
 
 
 
                                                         </div>
-                                                        <input type="button" class="col-md-6" id="btnEliminar" value="Eliminar" onclick="borrarItemTelefono()">
-                                                   
-                                                        <input type="button" class="col-md-6" id="btnAgregar" value="Agregar" onclick="AgregarItem('<%= lstTelefonoAgregados.ClientID %>');">
+                                                       
+                                                        <input type="button" class="col-md-6" id="btnEliminar" value="Eliminar" />                                                   
+                                                        <input type="button" class="col-md-6" id="btnAgregar" value="Agregar" />
 
-                                                        
-  
+                                
 
-                                                        <asp:ListBox ID="lstTelefonoAgregados" SelectionMode="Multiple"  runat="server" CssClass="form-control selectpicker" >
-                                                        </asp:ListBox>
+                                                        <select ID="lstTelefonoAgregados" multiple="multiple" class="form-control selectpicker">
+                                                            <option>text1</option>
+                                                            <option>text2</option>
+                                                            <option>text3</option>
+                                                            <option>text4</option>
+                                                            <option>text5</option>
+                                                        </select>
+
+
+                                                      
 
 
                                
@@ -776,41 +546,62 @@
                                                         <div class="input-group" style="padding-bottom:50px">
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                            <asp:DropDownList ID="cboOficiDomin" runat="server" CssClass="form-control selectpicker">
-
-                                                            </asp:DropDownList>
-
-                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                            <asp:DropDownList ID="cboPerioDomin" runat="server" CssClass="form-control selectpicker">
-
-                                                            </asp:DropDownList>
 
 
-                                                        </div>
+                                                            <select name="cboOficiDomin" class="form-control selectpicker">
+                                                                <option>Oficios</option>
+
+                                                    
+                                                                </select>
+                                                               
+
+                                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+                                                                <select name="cboPerioDomin" class="form-control selectpicker">
+                                                                    <option>Periodos</option>
+                                                                  
+
+
+                                                                </select></div>
 
 
 
                                                         <label>Agregue Otros Oficios que domina: </label>
                                                         <div class="input-group">
 
-                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                            <asp:DropDownList ID="cboOficiosOtros" runat="server" CssClass="form-control selectpicker">
-
-                                                            </asp:DropDownList>
+                                                              
 
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                                            <asp:DropDownList ID="cboPeriodoExpeOtros" runat="server" CssClass="form-control selectpicker">
+                                                             <select name="cboOficiosOtros" class="form-control selectpicker">
+                                                                 <option>Oficios Otros</option>
+                                                  
 
-                                                            </asp:DropDownList>
+                                                                   </select>
 
+                                                                     
+
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+                                                                    <select name="cboPeriodoExpeOtros" class="form-control selectpicker">
+                                                                        <option>Peridio Experi</option>
+                                                      
+                                                                   </select>
 
                                                         </div>
-                                                        <input type="button" class="col-md-6" id="btnEliminarOficio" value="Eliminar" onclick="borrarItemOficio()">
-                                                        <input type="button" class="col-md-6" id="btnAgregarOficio" value="Agregar" onclick="agregarItemOficio('<%= lstOficioExperienciAgregados.ClientID %>');">  
+                                                        <input type="button" class="col-md-6" id="btnEliminarOficio" value="Eliminar">
+                                                        <input type="button" class="col-md-6" id="btnAgregarOficio" value="Agregar">  
   
 
-                                                        <asp:ListBox ID="lstOficioExperienciAgregados" SelectionMode="Multiple"  runat="server" CssClass="form-control selectpicker" >
-                                                        </asp:ListBox>
+                                                      
+
+
+                                                        <select ID="lstOficioExperienciAgregados" multiple="multiple" class="form-control selectpicker">
+                                                            <option>text1</option>
+                                                            <option>text2</option>
+                                                            <option>text3</option>
+                                                            <option>text4</option>
+                                                            <option>text5</option>
+                                                        </select>
 
 
                                                     </div>
@@ -843,8 +634,9 @@
                                            </ul>
 
                                             </p>
-                                            <asp:Button  OnClick="btnEnviar_Click" runat="server" CssClass="btn btn-primary center-block" id="btnEnviar" Text="Guardar Formulario"> </asp:Button>
 
+                                            <button type="button" class="btn btn-primary center-block">Guardar Formulario</button>
+                                         
                               </div>
 
                               <div role="tabpanel" class="tab-pane" id="settings">
@@ -860,13 +652,11 @@
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <asp:FileUpload ID="fileReciboResidencia" runat="server" CssClass="form-control" placeholder="Foto"></asp:FileUpload>
-                                                    
+                                                    <input  id="fileReciboResidencia" placeholder="Foto" class="form-control" type="file"/>
 
+
+                                                   
                                                 </div>
-                                                <input type="button" class="form-control"  id="btnfileReciboResidencia"  value="Subir" />
-                                                
-
 
                                             </div>
 
@@ -876,11 +666,12 @@
                                                 <label for="fileAntecedentePenales">Antecendentes Penales Escaneado : </label>
                                                 <div class="input-group">
 
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <asp:FileUpload ID="fileAntecedentePenales" runat="server" CssClass="form-control" placeholder="Foto"></asp:FileUpload>                                                                                                        
 
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                                    <input id="fileAntecedentePenales" placeholder="Foto" class="form-control" type="file" />
+
+                                                
                                                 </div>
-                                                    <input type="button" class="form-control"  id="btnfileAntecedentePenales"  value="Subir" />
 
                                             </div>
 
@@ -888,15 +679,14 @@
                                             <div class="form-group">
 
                                                  <label for="fileAntecendentesPoliciales">Antecedentes Policiales Escaneado : </label>
-                                                 <div class="input-group">
+                                                <div class="input-group">
+
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <asp:FileUpload ID="fileAntecendentesPoliciales"  runat="server" CssClass="form-control" placeholder="Foto"></asp:FileUpload>
-                                                    
+                                                    <input id="fileAntecendentesPoliciales" placeholder="Foto" class="form-control" type="file" />
+
+                                              
                                                 </div>
-                                                
-                                                <input type="button" class="form-control"  id="btnfileAntecendentesPoliciales"  value="Subir" />
-                                                
 
                                             </div>
 
@@ -908,11 +698,10 @@
                                                 <div class="input-group">
 
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                                                    <asp:FileUpload ID="fileDocumentoIdentidad" runat="server" CssClass="form-control" placeholder="Foto"></asp:FileUpload>
-                                                    
+                                                    <input id="fileDocumentoIdentidad" placeholder="Foto" class="form-control" type="file" />
+
+                                                  
                                                 </div>
-                                                <input type="button" class="form-control"  id="btnfileDocumentoIdentidad"  value="Subir" />
-                                                
 
                                             </div>
 
@@ -928,7 +717,7 @@
                                     
                                     </div>
        
-                    <asp:HiddenField ID="TabName" runat="server" />
+              
                      </div>
           </div>
 	</div>
@@ -1032,7 +821,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    &copy; 2015 <a target="_blank" href="http://aspxtemplates.com/" title="Free Twitter Bootstrap asp.net templates">aspxtemplates</a>. All Rights Reserved.
+                    &copy; 2015 <a target="_blank" href="#" title="Free Twitter Bootstrap asp.net templates">aspxtemplates</a>. All Rights Reserved.
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
@@ -1097,7 +886,8 @@
                             </h4>
                         </div>
                         <div class="modal-body modal-sm">
-                            <asp:Label ID="lblMessage" runat="server" />
+                            <label>lblMessage</label>
+                          
                         </div>
                         <div class="modal-footer modal-sm">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
@@ -1113,7 +903,7 @@
                 data-toggle="modal" data-target="#myModal">
                 Launch demo modal
             </button>    
-</form>
+
 
 
 
