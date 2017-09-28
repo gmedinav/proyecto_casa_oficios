@@ -391,8 +391,8 @@
 				
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="Inicio.html">Inicio</a></li>
-                       <li><a href="trabajadores.html">Trabaja con Nosotros</a></li>
+                        <li class="active"><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
+                       <li><a href="<?php echo base_url('index.php/trabaja_con_nosotros'); ?>">Trabaja con Nosotros</a></li>
                         <li><a href="#">Servicios</a></li>                        
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
@@ -708,7 +708,7 @@
 
 
                     </div>
-                
+                         <br>      <br>           
 
                 <!--/.col-sm-6-->
 
@@ -826,7 +826,7 @@
 
             </div><!--/.row-->
         </div><!--/.container-->
-
+        <br>
     </section>
         
        <!--Fin de Franja Formulario -->
@@ -1015,7 +1015,7 @@
     </script>
     <!-- /top-link-block -->
     <!-- Jscript -->
-    <script src="<?php echo base_url("assets/js/jquery.js"); ?>" type="text/javascript"></script>
+    <script src="<?php echo base_url("assets/js/Funciones_Val_TMRH.js"); ?>" type="text/javascript"></script>
     <script src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>" type="text/javascript"></script>
     <script src="<?php echo base_url("assets/js/jquery.prettyPhoto.js"); ?>" type="text/javascript"></script>
     <script src="<?php echo base_url("assets/js/jquery.isotope.min.js"); ?>" type="text/javascript"></script>
@@ -1023,38 +1023,35 @@
     <script src="<?php echo base_url("assets/js/wow.min.js"); ?>" type="text/javascript"></script>
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
         function ShowPopup() {
             $("#btnShowPopup").click();
         }
     </script>  
-           </header>
 
 
-
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Formulario de la Urgencia</h4>
-        </div>
-        <div class="modal-body">
-          <p id="p_mensaje">Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          
-          <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
-          <button type="submit" class="btn btn-default btn-success pull-right" id="btn_aceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>           
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Formulario de la Urgencia</h4>
+            </div>
+            <div class="modal-body">
+              <p id="p_mensaje">Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              
+              <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
+              <button type="submit" class="btn btn-default btn-success pull-right" id="btn_aceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>           
+              
+            </div>
+          </div>
           
         </div>
       </div>
-      
-    </div>
-  </div>
-
 
 
     </form>

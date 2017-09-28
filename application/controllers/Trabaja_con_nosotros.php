@@ -12,7 +12,8 @@ class Trabaja_con_nosotros extends CI_Controller {
             $this->load->helper('url');            
             $this->load->library('session');       
             $this->load->helper('file');
-    }    
+    }   
+
 
     public function index()
     {
@@ -39,7 +40,7 @@ class Trabaja_con_nosotros extends CI_Controller {
         $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
         $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();  
                     
-        $this->load->view('trabaja_con_nosotros',$data);
+        $this->load->view('trabajadores',$data);
     }
         
     public function formulario()
@@ -106,7 +107,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                 $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
                 
-                $this->load->view('trabaja_con_nosotros',$data);   
+                $this->load->view('trabajadores',$data);   
                 return;
 
             }else{
@@ -122,7 +123,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                 $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                 $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
                 
-                $this->load->view('trabaja_con_nosotros',$data);   
+                $this->load->view('trabajadores',$data);   
                 return;
 
             }
@@ -145,7 +146,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                     $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();
                     
-                    $this->load->view('trabaja_con_nosotros',$data);   
+                    $this->load->view('trabajadores',$data);   
                     return;
 
                 }else{
@@ -161,7 +162,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                     $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
                     
-                    $this->load->view('trabaja_con_nosotros',$data);   
+                    $this->load->view('trabajadores',$data);   
                     return;                    
                 
                 }                
@@ -192,7 +193,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     
                 //echo $data['poscionador'];
                 $data['array_telefonos'] = $this->listarTelefono();
-                $this->load->view('trabaja_con_nosotros',$data);   
+                $this->load->view('trabajadores',$data);   
                 return;
 
             }else{
@@ -210,7 +211,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                 }  
 
                 $data['array_telefonos'] = $this->listarTelefono();
-                $this->load->view('trabaja_con_nosotros',$data);   
+                $this->load->view('trabajadores',$data);   
                 return;
 
 
@@ -234,7 +235,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                         $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip(); 
                     }                                        
                     //echo $data['poscionador'];
-                    $this->load->view('trabaja_con_nosotros',$data);   
+                    $this->load->view('trabajadores',$data);   
                     return;
                 }else{
                     
@@ -261,7 +262,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                         //}
                     }        
                     $data['array_telefonos'] = $this->listarTelefono();
-                    $this->load->view('trabaja_con_nosotros',$data);   
+                    $this->load->view('trabajadores',$data);   
                     return;
           
                 }                
@@ -316,7 +317,7 @@ class Trabaja_con_nosotros extends CI_Controller {
 
             $data['guardado']=FALSE;
             //echo "no pasó por form_validation";
-            $this->load->view('trabaja_con_nosotros',$data);   
+            $this->load->view('trabajadores',$data);   
 
         } else {
 
@@ -421,7 +422,7 @@ class Trabaja_con_nosotros extends CI_Controller {
             } else {
                 $this->db->trans_commit();
             }
-            $this->load->view('trabaja_con_nosotros',$data);
+            $this->load->view('trabajadores',$data);
         }
     }        
 
