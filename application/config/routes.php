@@ -86,6 +86,14 @@ $route['wsubigeo/ubigeo/(:num)'] = 'wsubigeo/ubigeo/codigo/$1';
 
 $route['wsubigeo']['get'] = 'wsubigeo/distritos'; 
 
+
+/*Ubigeo*/
+
+$route['wstipaveria/averiaidoficio/(:num)'] = 'wstipaveria/averiaidoficio/codigo/$1'; 
+
+$route['wstipaveria']['get'] = 'wsubigeo/averias'; 
+
+
 /*Tipo documento*/
 
 $route['wstip_documento/tipdocumento/(:num)'] = 'wstip_documento/tipdocumento/codigo/$1'; 
