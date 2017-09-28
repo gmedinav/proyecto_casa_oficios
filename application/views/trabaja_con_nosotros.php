@@ -110,401 +110,490 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         
 
        
+    function fileValidation(nom_input_file){
 
-function fileValidation(nom_input_file){
+        var fileInput = document.getElementById(nom_input_file);
+        var filePath = fileInput.value;
+        var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
 
-    var fileInput = document.getElementById(nom_input_file);
-    var filePath = fileInput.value;
-    var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
-
-    if(!allowedExtensions.exec(filePath)){
-        alert('Por favor, el archivo debe tener alguna de las extensiones siguientes: .jpeg/.jpg/.png/.gif.');
-        //document.getElementById(id_imagen).src = "";
-        document.getElementById("div_"+nom_input_file).innerHTML="";
-        fileInput.value = '';
-        return false;
-    }else{
-
-        //alert("size:"+document.getElementById(nom_input_file).files[0].size);
-        size_file= document.getElementById(nom_input_file).files[0].size;
-
-        if(size_file>2097152){
-
-            alert('Por favor, el archivo no debe superar de los 2Mb de espacio físico.');
+        if(!allowedExtensions.exec(filePath)){
+            
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = 'Por favor, el archivo debe tener alguna de las extensiones siguientes: .jpeg/.jpg/.png/.gif.'; 
+            $('#myModal').modal('show');
+            
             //document.getElementById(id_imagen).src = "";
+
+            document.getElementById("div_"+nom_input_file).innerHTML="";
             fileInput.value = '';
-            document.getElementById("div_"+nombre_id).innerHTML="";
-            return false;
-
-        }
-
-        //Image preview
-        if (fileInput.files && fileInput.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                /*document.getElementById('imagePreview').innerHTML = '<img src="'+e.target.result+'"/>';*/
-                crear_visor_img(nom_input_file);
-                document.getElementById("img_"+nom_input_file).src = e.target.result;
-
-
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    }
-}
-
-
-function crear_visor_img(nombre_id){
-
-    objeto = "";
-    objeto = objeto + '<div class="row">';
-    objeto = objeto + '<div class="col-sm-5">';
-    objeto = objeto + '<p align="center"><strong>Archivo Adjunto</strong></p>';
-    objeto = objeto + '</div>';
-    objeto = objeto + '<div class="col-sm-5">';
-    objeto = objeto + '<p align="center"><strong>Remover</strong></p>';
-    objeto = objeto + '</div>';
-    objeto = objeto + '</div>';
-    objeto = objeto + '';
-    objeto = objeto + '<div class="row">';
-    objeto = objeto + '<div class="col-sm-5">';
-    objeto = objeto + '<p align="center">';
-    objeto = objeto + '<img src="" id="img_'+nombre_id+'" width="80px" height="80px" alt="nombre_archivo">';
-    objeto = objeto + '</p>';
-    objeto = objeto + '</div>';
-    objeto = objeto + '<div class="col-sm-5">';
-    objeto = objeto + '<p align="center">';
-    objeto = objeto + '<button type="button" class="btn btn-default" onclick="borrar_visor_img('+"'"+nombre_id+"'"+')">';
-    objeto = objeto + '<span class="glyphicon glyphicon-trash"></span>';
-    objeto = objeto + '</button></p>';
-    objeto = objeto + '</div>';
-    objeto = objeto + '</div>';
-
-    document.getElementById("div_"+nombre_id).innerHTML= objeto;
-
-}
-
-
-function borrar_visor_img(nombre_id){
-
-    document.getElementById("div_"+nombre_id).innerHTML= "";
-    document.getElementById(nombre_id).value= "";
-
-}
-
-function msj_value_vacio(valor, campo){
-
-    if(valor == ""){
-        alert("El '" + campo + "'' está vació.");
-        return false;
-    }else{
-        return true;
-    }
-
-}
-
-
-function msj_value_es_texto(valor,campo){
-    //val= $.isNumeric(
-
-    if(typeof valor === 'string' || valor instanceof String){
-        return true;
-    }else{
-        alert("El '" + campo + "' no es un valor textual.");
-        return false;
-    }
-
-}
-
-
-function msj_value_es_cero(valor,campo){
-    //val= $.isNumeric(
-    if(valor === 0 || valor =="0"){
-        alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
-        return false;
-    }else{
-
-        return true;
-    }
-}
-
-function msj_value_es_negativo(valor,campo){
-    //val= $.isNumeric(
-    if(valor === -1 || valor =="-1"){
-        alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
-        return false;
-    }else{
-
-        return true;
-    }
-}
-
-
-function msj_value_es_entero(valor,campo){
-    //val= $.isNumeric(
-    if(Math.floor(valor) == valor && $.isNumeric(valor)){
-        return true;
-    }else{
-        alert("Debe escribir un número entero en el campo '" + campo + "'.");
-        return false;        
-    }
-
-}
-
-
-function msj_value_longitud_max(valor,max,campo){
-
-    longitud = valor.length;
-    if(longitud>max){
-        alert("La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+max+" caracteres.");
-        return false;
-    }else{
-        return true;
-    }
-
-}
-
-function msj_value_longitud_exacta(valor,nro_exacto,campo){
-
-    longitud = valor.length;
-    if(longitud==nro_exacto){
-
-        return true;
-    }else{
-        alert("La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+nro_exacto+" caracteres.");        
-        return false;
-    }
-
-}
-
-
-function msj_value_es_email(valor,campo) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(re.test(valor)==true){
-        return true;
-    }else{
-        alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
-        return false;
-    }
-
-}
-
-function msj_value_es_texto(valor,campo) {
-    var re = /^[A-Z a-zñáéíóúü]+$/;
-    if(re.test(valor)==true){
-        return true;
-    }else{
-        alert("Debe escribir palabras de caracter textual en el campo '" + campo + "'.");
-        return false;
-    }
-
-}
-
-
-function msj_value_es_fecha(valor, campo){
-
-        alert("Object.prototype.toString.call(valor) = "+Object.prototype.toString.call(valor))
-        if ( Object.prototype.toString.call(valor) === "[object Date]" ) {
-          // it is a date
-          alert("isNaN(valor.getTime()) = "+isNaN(valor.getTime() ) )
-          if ( isNaN(valor.getTime() ) ) {  // d.valueOf() could also work
-            // date is not valid
-            alert("El valor del campo '" + campo + "' no es correcto.");
-            return false;
-          }
-          else {
-            // date is valid
-          }
-        }
-        else {
-          // not a date
-            alert("El valor del campo '" + campo + "' no es correcto.");
-            return false;          
-
-        }
-
-}
-    
-
-function valida_tab_1er(){
-
-    Nombres         = $.trim($('#TxtNombres').val());
-    ApePa           = $.trim($('#txtApePa').val());
-    ApeMa           = $.trim($('#txtApeMa').val());
-    TipoGenero      = $.trim($('#cboTipoGenero').val());
-    TipoDocumento   = $.trim($('#CboTipoDocumento').val());
-    NroDocumento    = $.trim($('#txtNroDocumento').val());
-    FecNaci         = $.trim($('#txtFecNaci').val());
-
-    if (msj_value_vacio(Nombres, 'Nombres')==false){return false;}
-    if (msj_value_vacio(ApePa, 'Apellido Paterno')==false){return false;}
-    if (msj_value_vacio(ApeMa, 'Apellido Materno')==false){return false;}
-    if (msj_value_vacio(FecNaci, 'Fecha Nacimiento')==false){return false;}
-    if (msj_value_vacio(NroDocumento, 'Número de Documento')==false){return false;}
-
-
-    if (msj_value_es_cero(TipoDocumento, 'Tipo documento')==false){return false;}
-    if (msj_value_es_cero(TipoGenero, 'Tipo género')==false){return false;}
-
-    //if (msj_value_es_fecha(FecNaci, 'Fecha Nacimiento')==false){return false;}
-
-    if (msj_value_es_texto(Nombres, 'Nombres')==false){return false;}
-    if (msj_value_es_texto(ApePa, 'Apellido Paterno')==false){return false;}
-    if (msj_value_es_texto(ApeMa, 'Apellido Materno')==false){return false;}
-
-    if (msj_value_es_texto(ApeMa, 'Apellido Materno')==false){return false;}
-
-    valor = NroDocumento.valueOf();
-
-
-    if (msj_value_es_entero(valor, 'Número de Documento')==false){return false;}
-
-    campo = "Número de Documento";
-    //valor = NroDocumento;
-    valor = valor.toString();
-
-    if(TipoDocumento == 1){
-
-        max = 8;
-        if(msj_value_longitud_exacta(valor,max,campo)==false) 
-        {
             return false;
         }else{
-            //return true;
+
+            //alert("size:"+document.getElementById(nom_input_file).files[0].size);
+            size_file= document.getElementById(nom_input_file).files[0].size;
+
+            if(size_file>2097152){
+
+                //alert('Por favor, el archivo no debe superar de los 2Mb de espacio físico.');
+                document.getElementById("btn_aceptar").disabled  = true;
+                document.getElementById("p_mensaje").innerHTML = 'Por favor, el archivo no debe superar de los 2Mb de espacio físico.';
+                ('#myModal').modal('show');
+                
+                fileInput.value = '';
+                document.getElementById("div_"+nombre_id).innerHTML="";
+                return false;
+
+            }
+
+            //Image preview
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    /*document.getElementById('imagePreview').innerHTML = '<img src="'+e.target.result+'"/>';*/
+                    crear_visor_img(nom_input_file);
+                    document.getElementById("img_"+nom_input_file).src = e.target.result;
+
+
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    }
+
+
+    function crear_visor_img(nombre_id){
+
+        objeto = "";
+        objeto = objeto + '<div class="row">';
+        objeto = objeto + '<div class="col-sm-5">';
+        objeto = objeto + '<p align="center"><strong>Archivo Adjunto</strong></p>';
+        objeto = objeto + '</div>';
+        objeto = objeto + '<div class="col-sm-5">';
+        objeto = objeto + '<p align="center"><strong>Remover</strong></p>';
+        objeto = objeto + '</div>';
+        objeto = objeto + '</div>';
+        objeto = objeto + '';
+        objeto = objeto + '<div class="row">';
+        objeto = objeto + '<div class="col-sm-5">';
+        objeto = objeto + '<p align="center">';
+        objeto = objeto + '<img src="" id="img_'+nombre_id+'" width="80px" height="80px" alt="nombre_archivo">';
+        objeto = objeto + '</p>';
+        objeto = objeto + '</div>';
+        objeto = objeto + '<div class="col-sm-5">';
+        objeto = objeto + '<p align="center">';
+        objeto = objeto + '<button type="button" class="btn btn-default" onclick="borrar_visor_img('+"'"+nombre_id+"'"+')">';
+        objeto = objeto + '<span class="glyphicon glyphicon-trash"></span>';
+        objeto = objeto + '</button></p>';
+        objeto = objeto + '</div>';
+        objeto = objeto + '</div>';
+
+        document.getElementById("div_"+nombre_id).innerHTML= objeto;
+
+    }
+
+
+    function borrar_visor_img(nombre_id){
+
+        document.getElementById("div_"+nombre_id).innerHTML= "";
+        document.getElementById(nombre_id).value= "";
+
+    }
+
+    function msj_value_vacio(valor, campo){
+
+        if(valor == ""){
+            //alert("El '" + campo + "'' está vació.");
+            btn_aceptar
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "El '" + campo + "'' está vació.";
+            $('#myModal').modal('show');            
+            return false;
+
+        }else{
+            return true;
         }
 
-    }else{
+    }
 
-        if(TipoDocumento == 2){
-            max = 12;
+
+    function msj_value_select(valor, campo){
+
+        if(valor == "000000000"){
+            //alert("El '" + campo + "'' está vació.");
+            btn_aceptar
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "Debe seleccionar un tipo en el campo '" + campo + "'.";
+            $('#myModal').modal('show');
+            return false;
+
+        }else{
+            return true;
+        }
+
+    }
+
+
+
+
+    function msj_value_es_texto(valor,campo){
+        //val= $.isNumeric(
+
+        if(typeof valor === 'string' || valor instanceof String){
+            return true;
+        }else{
+            //alert("El '" + campo + "' no es un valor textual.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML="El '" + campo + "' no es un valor textual.";
+            $('#myModal').modal('show');            
+            return false;
+        }
+
+    }
+
+
+    function msj_value_es_cero(valor,campo){
+        //val= $.isNumeric(
+        if(valor === 0 || valor =="0"){
+            //alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "Debe seleccionar un tipo en el campo '" + campo + "'.";
+            $('#myModal').modal('show');            
+            return false;
+        }else{
+
+            return true;
+        }
+    }
+
+    function msj_value_es_negativo(valor,campo){
+        //val= $.isNumeric(
+        if(valor === -1 || valor =="-1"){
+            //alert("Debe seleccionar un tipo en el campo '" + campo + "'.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML ="Debe seleccionar un tipo en el campo '" + campo + "'.";
+            $('#myModal').modal('show');            
+            return false;
+
+        }else{
+
+            return true;
+        }
+    }
+
+
+    function msj_value_es_entero(valor,campo){
+        //val= $.isNumeric(
+        if(Math.floor(valor) == valor && $.isNumeric(valor)){
+            return true;
+        }else{
+            //alert("Debe escribir un número entero en el campo '" + campo + "'.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "Debe escribir un número entero en el campo '" + campo + "'.";
+            $('#myModal').modal('show');            
+            return false;        
+        }
+
+    }
+
+
+    function msj_value_longitud_max(valor,max,campo){
+
+        longitud = valor.length;
+        if(longitud>max){
+            //alert("La longitud de caracteres para el campo '" + campo + "' debe ser como máximo de "+max+" caracteres.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "La longitud de caracteres para el campo '" + campo + "' debe ser como máximo de "+max+" caracteres.";
+            $('#myModal').modal('show');            
+            return false;
+
+        }else{
+            return true;
+        }
+
+    }
+
+
+    function msj_value_longitud_min(valor,min,campo){
+
+        longitud = valor.length;
+        if(longitud<min){
+            //alert("La longitud de caracteres para el campo '" + campo + "' debe ser como mínimo de "+min+" caracteres.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "La longitud de caracteres para el campo '" + campo + "' debe ser como mínimo de "+min+" caracteres.";
+            $('#myModal').modal('show');            
+            return false;
+
+        }else{
+            return true;
+        }
+
+    }
+
+    function msj_value_longitud_exacta(valor,nro_exacto,campo){
+
+        longitud = valor.length;
+        if(longitud==nro_exacto){
+
+            return true;
+        }else{
+            //alert("La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+nro_exacto+" caracteres."); 
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+nro_exacto+" caracteres."
+            $('#myModal').modal('show');            
+            return false;
+        }
+
+    }
+
+
+    function msj_value_es_email(valor,campo) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(re.test(valor)==true){
+            return true;
+        }else{
+            //alert("Debe escribir un correo electrónico correcto en el campo '" + campo + "'.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "Debe escribir un correo electrónico correcto en el campo '" + campo + "'."
+            $('#myModal').modal('show');            
+            return false;
+        }
+
+    }
+
+    function msj_value_es_texto(valor,campo) {
+        var re = /^[A-Z a-zñáéíóúü]+$/;
+        if(re.test(valor)==true){
+            return true;
+        }else{
+            //alert("Debe escribir palabras de caracter textual en el campo '" + campo + "'.");
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "Debe escribir palabras de caracter textual en el campo '" + campo + "'.";
+            $('#myModal').modal('show');            
+            return false;
+        }
+
+    }
+
+
+    function msj_value_es_fecha(valor, campo){
+
+            alert("Object.prototype.toString.call(valor) = "+Object.prototype.toString.call(valor))
+            if ( Object.prototype.toString.call(valor) === "[object Date]" ) {
+              // it is a date
+              alert("isNaN(valor.getTime()) = "+isNaN(valor.getTime() ) )
+              if ( isNaN(valor.getTime() ) ) {  // d.valueOf() could also work
+                // date is not valid
+                //alert("El valor del campo '" + campo + "' no es correcto.");
+                document.getElementById("btn_aceptar").disabled  = true;
+                document.getElementById("p_mensaje").innerHTML="El valor del campo '" + campo + "' no es correcto.";
+                $('#myModal').modal('show');                
+                return false;
+              }
+              else {
+                // date is valid
+              }
+            }
+            else {
+              // not a date
+                //alert("El valor del campo '" + campo + "' no es correcto.");
+                document.getElementById("btn_aceptar").disabled  = true;
+                document.getElementById("p_mensaje").innerHTML="El valor del campo '" + campo + "' no es correcto.";
+                $('#myModal').modal('show');                
+                return false;          
+
+            }
+
+    }
+
+    function valida_tab_1er(){
+
+        Nombres         = $.trim($('#TxtNombres').val());
+        ApePa           = $.trim($('#txtApePa').val());
+        ApeMa           = $.trim($('#txtApeMa').val());
+        TipoGenero      = $.trim($('#cboTipoGenero').val());
+        TipoDocumento   = $.trim($('#CboTipoDocumento').val());
+        NroDocumento    = $.trim($('#txtNroDocumento').val());
+        FecNaci         = $.trim($('#txtFecNaci').val());
+
+        if (msj_value_vacio(Nombres, 'Nombres')==false){return false;}
+        if (msj_value_es_texto(Nombres, 'Nombres')==false){return false;}
+
+        if (msj_value_vacio(ApePa, 'Apellido Paterno')==false){return false;}
+        if (msj_value_es_texto(ApePa, 'Apellido Paterno')==false){return false;}
+
+        if (msj_value_vacio(ApeMa, 'Apellido Materno')==false){return false;}
+        if (msj_value_es_texto(ApeMa, 'Apellido Materno')==false){return false;}
+
+        if (msj_value_es_cero(TipoGenero, 'Tipo género')==false){return false;}   
+        if (msj_value_es_cero(TipoDocumento, 'Tipo documento')==false){return false;}             
+
+        if (msj_value_vacio(NroDocumento, 'Número de Documento')==false){return false;}
+
+        //if (msj_value_es_fecha(FecNaci, 'Fecha Nacimiento')==false){return false;}
+
+        valor = NroDocumento.valueOf();
+
+        if (msj_value_es_entero(valor, 'Número de Documento')==false){return false;}
+
+        campo = "Número de Documento";
+        //valor = NroDocumento;
+        valor = valor.toString();
+
+        if(TipoDocumento == 1){
+
+            max = 8;
             if(msj_value_longitud_exacta(valor,max,campo)==false) 
             {
-                return false;
+                    document.getElementById("btn_aceptar").disabled  = true;
+                    document.getElementById("p_mensaje").innerHTML="Tipo de documento 'DNI' debe poseer 8 caracteres.";                   
+                    $('#myModal').modal('show');                    
+                    return false;
             }else{
                 //return true;
             }
+
         }else{
-            alert("Tipo de documento no definido");
-            return false;
+
+            if(TipoDocumento == 2){
+                max = 12;
+                if(msj_value_longitud_exacta(valor,max,campo)==false) 
+                {
+                    document.getElementById("btn_aceptar").disabled  = true;
+                    document.getElementById("p_mensaje").innerHTML="Tipo de documento 'Carnet de Extranjería' debe poseer 12 caracteres.";      
+                    $('#myModal').modal('show');                    
+                    return false;
+                }else{
+                    //return true;
+                }
+            }else{
+                document.getElementById("btn_aceptar").disabled  = true;
+                document.getElementById("p_mensaje").innerHTML="Tipo de documento no definido.";
+                $('#myModal').modal('show');                                
+                //alert("Tipo de documento no definido");
+                return false;
+            }
+
         }
 
-    }
 
-    openTab('profile');
-    return true;
-
-}
+        if (msj_value_vacio(FecNaci, 'Fecha Nacimiento')==false){return false;}
 
 
-function pre_valida_tab_2do(){
+        openTab('profile');
+        return true;
 
-    TelefonoPrincipal       = $.trim($('#cboCompaniaPrincipal').val());
-    Distrito                = $.trim($('#cboDistrito').val());
-    Email                   = $.trim($('#txtEmail').val());
-    Direccion               = $.trim($('#txtDireccion').val());
-    nroTelefonoAgregados    = $('#lstTelefonoAgregados option').length;
-
-    //alert('nroTelefonoAgregados:' + nroTelefonoAgregados);
-
-    if(nroTelefonoAgregados != 0){
-        if (msj_value_es_negativo(TelefonoPrincipal, 'Celular Principal de Contacto')==false){return false;}           
     }
 
 
-    if (msj_value_vacio(Direccion, 'Dirección')==false){return false;}
-    if (msj_value_vacio(Email, 'Correo Electrónico')==false){return false;}
 
 
-    if (msj_value_es_cero(Distrito, 'Distrito')==false){return false;}    
-    if (msj_value_es_email(Email, 'Correo Electrónico')==false){return false;}    
+    function pre_valida_tab_2do(){
 
-    return true;
+        TelefonoPrincipal       = $.trim($('#cboCompaniaPrincipal').val());
+        Distrito                = $.trim($('#cboDistrito').val());
+        Email                   = $.trim($('#txtEmail').val());
+        Direccion               = $.trim($('#txtDireccion').val());
+        nroTelefonoAgregados    = $('#lstTelefonoAgregados option').length;
 
-}
+        //alert('nroTelefonoAgregados:' + nroTelefonoAgregados);
+        if (msj_value_es_cero(Distrito, 'Distrito')==false){return false;}    
 
+        if (msj_value_vacio(Direccion, 'Dirección')==false){return false;}
 
+        if (msj_value_vacio(Email, 'Correo Electrónico')==false){return false;}
+        if (msj_value_es_email(Email, 'Correo Electrónico')==false){return false;}            
 
-function valida_tab_2do(){
+        if(nroTelefonoAgregados != 0){
+            if (msj_value_es_negativo(TelefonoPrincipal, 'Celular Principal de Contacto')==false){return false;}           
+        }
 
-    if(pre_valida_tab_2do()==false){return false;}
+        return true;
 
-    openTab('messages');
-    return true;
-
-}
-
-function pre_valida_tab_3er(){
-
-    OficioPreferencial   = $.trim($('#cboOficiosPreferencial').val());
-    nroOficiosAgregados    = $('#lstOficioExperienciAgregados option').length;    
-
-    if(nroOficiosAgregados != 0){
-        if (msj_value_es_negativo(OficioPreferencial, 'Oficio Preferencial')==false){return false;}           
-    }    
-    return true;
-
-}
-
-
-
-function valida_tab_3er(){
-
-    if(pre_valida_tab_3er()==false){return false;}
- 
-    openTab('settings');
-    return true;
-
-}
-
-
-
-function pre_valida_tab_4to(){
-
-    nroOficiosAgregados    = $('#lstOficioExperienciAgregados option').length;  
-    nroTelefonoAgregados    = $('#lstTelefonoAgregados option').length;
-        
-    ReciboResidencia            = $.trim($('#fileReciboResidencia').val());
-    AntecendentesPoliciales     = $.trim($('#fileAntecendentesPoliciales').val());
-    AntecendentesPenales        = $.trim($('#fileAntecedentePenales').val());
-    DocumentoIdentidad          = $.trim($('#fileDocumentoIdentidad').val());         
-    Foto_Carnet                 = $.trim($('#FotoCarnet').val());       
-
-
-    if(nroOficiosAgregados>0 && nroTelefonoAgregados >0){
-
-        if (msj_value_vacio(ReciboResidencia, 'Recibo Luz o Agua')==false){return false;}
-        if (msj_value_vacio(AntecendentesPoliciales, 'Antecendentes Penales Escaneado')==false){return false;}
-        if (msj_value_vacio(AntecendentesPenales, 'Antecendentes Policiales Escaneado')==false){return false;}
-        if (msj_value_vacio(DocumentoIdentidad, 'Documento de Identidad Escaneado')==false){return false;}
-        if (msj_value_vacio(Foto_Carnet, 'Foto Carnet')==false){return false;}       
-           
     }
-        
-    return true;
-
-}
-
-function valida_tab_4to(){
-
-    if(pre_valida_tab_4to()==false){return false;}
-    openTab('enviar');
-    return true;
-
-}
 
 
 
+    function valida_tab_2do(){
 
-function validar_submit(){
+        if(pre_valida_tab_2do()==false){return false;}
 
-    if(valida_tab_1er() == false){ return false;}
-    if(pre_valida_tab_2do() == false){ return false;}
-    if(pre_valida_tab_3er() == false){ return false;}
-    if(pre_valida_tab_4to() == false){ return false;}
+        openTab('messages');
+        return true;
 
-    return true;
+    }
 
-}
+    function pre_valida_tab_3er(){
+
+        OficioPreferencial   = $.trim($('#cboOficiosPreferencial').val());
+        nroOficiosAgregados    = $('#lstOficioExperienciAgregados option').length;    
+
+        if(nroOficiosAgregados != 0){
+            if (msj_value_es_negativo(OficioPreferencial, 'Oficio Preferencial')==false){return false;}           
+        }    
+        return true;
+
+    }
+
+
+
+    function valida_tab_3er(){
+
+        if(pre_valida_tab_3er()==false){return false;}
+     
+        openTab('settings');
+        return true;
+
+    }
+
+
+
+    function pre_valida_tab_4to(){
+
+        nroOficiosAgregados    = $('#lstOficioExperienciAgregados option').length;  
+        nroTelefonoAgregados    = $('#lstTelefonoAgregados option').length;
+            
+        ReciboResidencia            = $.trim($('#fileReciboResidencia').val());
+        AntecendentesPoliciales     = $.trim($('#fileAntecendentesPoliciales').val());
+        AntecendentesPenales        = $.trim($('#fileAntecedentePenales').val());
+        DocumentoIdentidad          = $.trim($('#fileDocumentoIdentidad').val());         
+        Foto_Carnet                 = $.trim($('#FotoCarnet').val());       
+
+
+        if(nroOficiosAgregados>0 && nroTelefonoAgregados >0){
+
+            if (msj_value_vacio(ReciboResidencia, 'Recibo Luz o Agua')==false){return false;}
+            if (msj_value_vacio(AntecendentesPoliciales, 'Antecendentes Penales Escaneado')==false){return false;}
+            if (msj_value_vacio(AntecendentesPenales, 'Antecendentes Policiales Escaneado')==false){return false;}
+            if (msj_value_vacio(DocumentoIdentidad, 'Documento de Identidad Escaneado')==false){return false;}
+            if (msj_value_vacio(Foto_Carnet, 'Foto Carnet')==false){return false;}       
+               
+        }
+            
+        return true;
+
+    }
+
+    function valida_tab_4to(){
+
+        if(pre_valida_tab_4to()==false){return false;}
+        openTab('enviar');
+        return true;
+
+    }
+
+
+
+
+    function validar_submit(){
+
+        if(valida_tab_1er() == false){ return false;}
+        if(pre_valida_tab_2do() == false){ return false;}
+        if(pre_valida_tab_3er() == false){ return false;}
+        if(pre_valida_tab_4to() == false){ return false;}
+
+        return true;
+
+    }
 
 
 
@@ -1011,7 +1100,7 @@ function validar_submit(){
 
 
 
-                                                    <button type="button"  onclick="valida_tab_3er();" class="btn btn-primary btn-lg">Siguiente Paso</button>
+                                                    <button type="button" onclick="valida_tab_3er();" class="btn btn-primary btn-lg">Siguiente Paso</button>
 
 
 
@@ -1315,34 +1404,29 @@ function validar_submit(){
     </script>  
 
 
-
-             <div class="modal fade" id="myModal">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content modal-sm">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">
-                                <b>Mensaje de Confirmación</b>
-                            </h4>
-                        </div>
-                        <div class="modal-body modal-sm">
-                            <asp:Label ID="lblMessage" runat="server" />
-                        </div>
-                        <div class="modal-footer modal-sm">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Formulario de la Urgencia</h4>
             </div>
-            <!-- /.modal -->  
-
-            <button type="button" style="display: none;" id="btnShowPopup" class="btn btn-primary btn-lg"
-                data-toggle="modal" data-target="#myModal">
-                Launch demo modal
-            </button>    
+            <div class="modal-body">
+              <p id="p_mensaje">Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              
+              <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
+              <button type="submit" class="btn btn-default btn-success pull-right" id="btn_aceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>           
+              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+   
 </form>
 
 
