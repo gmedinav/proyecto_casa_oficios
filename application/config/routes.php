@@ -72,7 +72,10 @@ $route['wsoficios']['get'] = 'wsoficios/oficios';
 /*clientes*/
 
 
-$route['wsvalidarlogin/cliente/(:num)'] = 'wsvalidarlogin/cliente/codigo/$1'; 
+$route['wscliente/cliente/(:num)'] = 'wscliente/cliente/codigo/$1'; 
+
+
+$route['wscliente/clientexuserid/(:num)'] = 'wscliente/clientexuserid/codigo/$1'; 
 
 /*Usuarios*/
 

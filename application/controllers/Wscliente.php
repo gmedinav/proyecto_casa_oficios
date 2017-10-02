@@ -28,7 +28,11 @@ class Wscliente extends REST_Controller{
         $this->methods['cliente_get']['limit'] = 500; // 500 requests per hour per user/key
 //     $this->load->model('wsvalidarlogin');
         
-     
+        $this->methods['clientexuserid_get']['limit'] = 500; // 500 requests per hour per user/key
+        
+        
+        
+        
         }
         
         
@@ -40,6 +44,18 @@ class Wscliente extends REST_Controller{
          
               
           }
+          
+          
+         public function clientexuserid_get(){
+                $codigo = $this->get('codigo');
+              
+                        $data = $this->wscliente_model->clientexID_get($codigo);
+//
+         $this->response(array('response' => $data), 200);
+         
+              
+          }
+          
     
     
 }

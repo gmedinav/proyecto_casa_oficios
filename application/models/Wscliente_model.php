@@ -34,6 +34,37 @@ class Wscliente_model extends CI_Model{
         
           
                 }
+         
+                
+                    public function  clientexID_get($codigo){
+             
+          $this->load->database();
+          
+          
+          $sql = "select c.* from tb_cliente c
+                inner join tb_usuario as o
+                on o.cod_usuario = c.cod_usuario
+                where c.cod_usuario = ".$codigo;
+          
+   
+          
+         // $sql = "select * from tb_cliente where cod_cliente = ".$codigo.'';
+          
+
+          $query = $this->db->query($sql);
+          
+//          echo $sql;
+               return $query->result_array();
+        
+          
+                }
+                
+                
+        /*        select * from tb_cliente c
+inner join tb_usuario as o
+on o.cod_usuario = c.cod_usuario
+where c.cod_usuario = 63 */
+                
         
     }
 
