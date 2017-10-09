@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Home | contactus </title>
+    <title>Casa &amp; Oficios </title>
     <link href="<?php echo base_url("assets/css/bootstrap.min.css"); ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url("assets/css/font-awesome.min.css"); ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url("assets/css/animate.min.css"); ?>" rel="stylesheet" type="text/css" />
@@ -41,8 +41,8 @@
     </div>
     </div>
     </div>
-      </div>
-        </div>
+      </div><!-- container-->
+        </div><!--/top-bar-->
       <nav class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="navbar-header">
@@ -52,136 +52,67 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="Default.aspx"><img src="images/logo.png" alt="logo"></a>
+                    <a class="navbar-brand" href="<?php echo base_url('index.php/solicitar_trabajo'); ?>"><img src="<?php echo base_url("assets/images/logo.png"); ?>" alt="logo"></a>
                 </div>
-				
+                
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
-                        <li><a href="Default.aspx">Inicio</a></li>
-                       <li><a href="portfolio.aspx">Portfolio</a></li>
-                        <li class="active"><a href="services.aspx">Servicios</a></li>                        
+                        <li ><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
+                       <li><a href="<?php echo base_url('index.php/trabaja_con_nosotros'); ?>">Trabaja con Nosotros</a></li>
+                        <!--li><a href="#feature">Servicios</a></li-->                        
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Servicios <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Blog Single</a></li>
-                                <li><a href="#">Pricing</a></li>
-                                <li><a href="#">404</a></li>
-                                <li><a href="#">Shortcodes</a></li>
+                                
+                                <li><a href="<?php echo base_url('index.php/oficio_albanil'); ?>">Albañilería</a></li>
+                                <li><a href="<?php echo base_url('index.php/oficio_carpintero'); ?>">Carpintería</a></li>
+                                <li class="active"><a href="<?php echo base_url('index.php/oficio_gasfitero'); ?>">Gasfitería</a></li>
+                                <li><a href="<?php echo base_url('index.php/oficio_jardinero'); ?>">Jardinería</a></li>
+                                <li><a href="<?php echo base_url('index.php/solicitar_trabajo#feature'); ?>">Otros</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Blog</a></li> 
-                        <li><a href="contactus.aspx">Contact</a></li>                        
+                        <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>                        
                     </ul>
-                </div>
-            </div><!--/.container-->
+                </div><!--/.container-->
         </nav><!--/nav-->
  
     </header>
+
     <section id="feature">
         <div class="container">
-           <div class="center wow fadeInDown">
-                <h2>Prestaciones</h2>
-                <p class="lead">
-                
-                Una manera fácil de encontrar congregados al  <br />especialista que necesita para resolver su problema en el hogar.
-                </p>
+           <div class="wow fadeInDown" >
+
+                <div class="col-sm-7">
+
+                    <h1 style="color:black;">FAQ (Frequently Asked Questions/preguntas respuestas frecuentes)</h1><br>
+                    <p  class="lead" style="color:black;">
+                    
+                    Para las diversas tareas que tiene en mente para su casa.<br>
+                    <ol class="list-group">
+
+                        <li><strong>¿Qué me ofrece el servicio Casa &amp; Oficios?</strong></li>
+                         Un servicio que te propone una relación de candidatos para la nececidad que desea cubrir. <br><br>
+                        
+                        
+                        <li><strong>¿Qué ventajas ofrece este servicio como usuario?</strong></li>
+                        Tener mejor retroalimentación de la experiencia de otros usuarios del servicio. Además, los colaboradores poseen
+                       información´de su datos personales que son cotejados<br><br>
+
+                        <li><strong>¿Cómo puedo inscribirme como trabajador?</strong></li>
+                        Dirijase a la sección de "Trabaje con Nosotros", donde Ud. registrar su datos personales para empeza con el proceso. <br><br>
+
+
+                    </ol>
+
+                    </p>
+
+                </div>                  
+
             </div>
+       
 
-            <div class="row">
-                <div class="features">
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <i class="fa fa-th-list"></i>
-                            <h2>Menu or Navbar</h2>
-                            <h3>A standard navigation class navbar navbar-default</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <i class="fa fa-th"></i>
-                            <h2>Grid System</h2>
-                            <h3>grid system allows up to 12 columns across the page</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <i class="fa fa-cloud-download"></i>
-                            <h2>Easy to customize</h2>
-                            <h3>Bootstrap Grid system has four classes - xs, sm, md & lg</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-                
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <i class="fa fa-comment"></i>
-                            <h2>Modal & Tooltip</h2>
-                            <h3>Modal is a dialog box/popup, Tooltip is small pop-up box</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <i class="fa fa-cogs"></i>
-                            <h2>Grid Settings</h2>
-                            <h3>xs (<768px), sm (>=768px), md (>=992px), lg (>=1200px)</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <i class="fa fa-heart"></i>
-                            <h2>The Carousel Plugin</h2>
-                            <h3>The Carousel plugin is a Slideshow</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-                </div><!--/.services-->
-            </div><!--/.row-->    
         </div><!--/.container-->
     </section>
-    <!--/#feature-->
-    <div class="clients-area center wow fadeInDown">
-        <h2>
-            What our client says</h2>
-        <p class="lead">
-            We pride ourselves on providing superior service but you don't just have to take
-            our word for it.
-            <br>
-            Read what employers in the UK have to say about working with Robert Half in the
-            client testimonials below.</p>
-    </div>
-    <div class="container">
-        <div class="col-md-4 wow fadeInDown">
-            <div class="clients-comments text-center">
-                <img src="images/client1.png" class="img-circle" alt="">
-                <h3>
-                    Marketers, including Unilever, reveal </h3>
-                <h4>
-                    <span>- Will Smith /</span> Director of strap.com</h4>
-            </div>
-        </div>
-        <div class="col-md-4 wow fadeInDown">
-            <div class="clients-comments text-center">
-                <img src="images/client2.png" class="img-circle" alt="">
-                <h3>
-                    Executives from BBH, Euro RSCG.</h3>
-                <h4>
-                    <span>- Will Smith /</span> Director of strap.com</h4>
-            </div>
-        </div>
-        <div class="col-md-4 wow fadeInDown">
-            <div class="clients-comments text-center">
-                <img src="images/client3.png" class="img-circle" alt="">
-                <h3>
-                    Professors from the Kellogg.</h3>
-                <h4>
-                    <span>- Will Smith /</span> Director of strap.com</h4>
-            </div>
-        </div>
-    </div>
-
-
 
     <!--/#contact-page-->
     <section id="bottom">
@@ -191,12 +122,12 @@
                     <div class="widget">
                         <h3>Compañía</h3>
                         <ul>
-                            <li><a href="#">Acerca de Nosotros</a></li>
+                            <li><a href="<?php echo base_url('index.php/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
                             <!--li><a href="#">We are hiring</a></li-->
-                            <li><a href="#">Conozca el equipo</a></li>                            
-                            <li><a href="#">Terminos de uso</a></li>
+                            <!--li><a href="#">Conozca el equipo</a></li-->                            
+                            <li><a href="<?php echo base_url('index.php/terminos_uso'); ?>">Términos de uso</a></li>
                             <!--li><a href="#">Privacy policy</a></li-->
-                            <li><a href="#">Contactenos</a></li>
+                            <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>
                             <li><a href="#">Copyright</a></li>
                         </ul>
                     </div>    
@@ -206,8 +137,8 @@
                     <div class="widget">
                         <h3>Soporte</h3>
                         <ul>
-                            <li><a href="#">Faq</a></li>
-                            <li><a href="#">Documentación</a></li>
+                            <li><a href="<?php echo base_url('index.php/faq'); ?>">Faq</a></li>
+                            <!--li><a href="#">Documentación</a></li-->
                             <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
 
                         </ul>
@@ -218,11 +149,11 @@
                     <div class="widget">
                         <h3>Servicios</h3>
                         <ul>
-                            <li><a href="#">Carpintería</a></li>
-                            <li><a href="#">Albañilería</a></li>
-                            <li><a href="#">Jardinería</a></li>
-                            <li><a href="#">Gasfitería</a></li>
-                            <li><a href="#">Carpintería</a></li>
+                            <li><a href="<?php echo base_url('index.php/oficio_albanil'); ?>">Albañilería</a></li>
+                            <li><a href="<?php echo base_url('index.php/oficio_carpintero'); ?>">Carpintería</a></li>                            
+                            <li><a href="<?php echo base_url('index.php/oficio_jardinero'); ?>">Jardinería</a></li>
+                            <li><a href="<?php echo base_url('index.php/oficio_gasfitero'); ?>">Gasfitería</a></li>
+                            <li><a href="<?php echo base_url('index.php/solicitar_trabajo#feature'); ?>">Otros</a></li>                            
 
                         </ul>
                     </div>    
@@ -233,7 +164,7 @@
                         <h3>Nuestro Equipo</h3>
                         <ul>
                             <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
-                            <li><a href="#">Casa Oficios Corp</a></li>
+                            <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Casa Oficios Corp</a></li>
 
                         </ul>
                     </div>    
@@ -246,12 +177,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    &copy; 2015 <a target="_blank" href="http://aspxtemplates.com/" title="Free Twitter Bootstrap asp.net templates">aspxtemplates</a>. All Rights Reserved.
+                    &copy; 2017 <a target="_blank" href="http://aspxtemplates.com/" title="Free Twitter Bootstrap asp.net templates">aspxtemplates</a>. All Rights Reserved.
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
                         <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
-                        <li><a href="#">Acerca de Nosotros</a></li>
+                        <li><a href="<?php echo base_url('index.php/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
                         <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>
                     </ul>
                 </div>

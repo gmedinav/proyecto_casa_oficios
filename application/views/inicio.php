@@ -386,28 +386,28 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="*"><img src="<?php echo base_url("assets/images/logo.png"); ?>" alt="logo"></a>
+                    <a class="navbar-brand" href="<?php echo base_url('index.php/solicitar_trabajo'); ?>"><img src="<?php echo base_url("assets/images/logo.png"); ?>" alt="logo"></a>
                 </div>
-				
+                
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
                        <li><a href="<?php echo base_url('index.php/trabaja_con_nosotros'); ?>">Trabaja con Nosotros</a></li>
-                        <li><a href="#">Servicios</a></li>                        
+                        <!--li><a href="#feature">Servicios</a></li-->                        
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Servicios <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Blog Single</a></li>
-                                <li><a href="#">Pricing</a></li>
-                                <li><a href="#">404</a></li>
-                                <li><a href="#">Shortcodes</a></li>
+                                
+                                <li><a href="<?php echo base_url('index.php/oficio_albanil'); ?>">Albañilería</a></li>
+                                <li><a href="<?php echo base_url('index.php/oficio_carpintero'); ?>">Carpintería</a></li>
+                                <li><a href="<?php echo base_url('index.php/oficio_gasfitero'); ?>">Gasfitería</a></li>
+                                <li><a href="<?php echo base_url('index.php/oficio_jardinero'); ?>">Jardinería</a></li>
+                                <li><a href="<?php echo base_url('index.php/solicitar_trabajo#feature'); ?>">Otros</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Blog</a></li> 
-                        <li><a href="#">Contact</a></li>                        
+                        <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>                        
                     </ul>
-                </div>
-            </div><!--/.container-->
+                </div><!--/.container-->
         </nav><!--/nav-->
          
  
@@ -434,7 +434,7 @@
                                     <h1 class="animation animated-item-1" style="color:Black">Gasfiteros</h1>
                                     <h2 class="animation animated-item-2" style="color:Black">
                                     Atentos para solucionar la fuga de agua en la tuberías, griferías averiadas, problemas con el desagüe, etc.</h2>
-                                    <a class="btn-slide animation animated-item-3" href="#">Leer Más</a>
+                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('index.php/oficio_gasfitero'); ?>">Leer Más</a>
                                 </div>
                             </div>
 
@@ -457,7 +457,7 @@
                                     <h2 class="animation animated-item-2">
                                     Dispuestos para remover la maleza, podar las ramas del árbol, plantar un nuevo césped, fertilizar la tierra, etc.
                                     </h2>
-                                    <a class="btn-slide animation animated-item-3" href="#">Leer Más</a>
+                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('index.php/oficio_jardinero'); ?>">Leer Más</a>
                                 </div>
                             </div>
 
@@ -480,7 +480,7 @@
                                     <h2 class="animation animated-item-2" style="color:Black">
                                     Desea renovar las puertas de sus habitaciones, reparar la mesa o las sillas del comedor, construir un nuevo estante para su cocina, etc.
                                     </h2>
-                                    <a class="btn-slide animation animated-item-3" href="#">Leer más</a>
+                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('index.php/oficio_carpintero'); ?>">Leer más</a>
                                 </div>
                             </div>
                             <div class="col-sm-6 hidden-xs animation animated-item-4">
@@ -500,9 +500,9 @@
                                 <div class="carousel-content">
                                     <h1 class="animation animated-item-1">Albañilería</h1>
                                     <h2 class="animation animated-item-2">
-                                    In Bootstrap 3, mobile-first styles are part of the core framework
+                                    Desea refaccionar la grieta del muro, tarrajear el muro del exterior de su casa, etc.
                                     </h2>
-                                    <a class="btn-slide animation animated-item-3" href="#">Leer más</a>
+                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('index.php/oficio_albanil'); ?>">Leer más</a>
                                 </div>
                             </div>
                             <div class="col-sm-6 hidden-xs animation animated-item-4">
@@ -813,7 +813,7 @@
                                         <div class="pull-left">
                                             <img class="img-responsive" src="<?php echo base_url("assets/images/accordion4.png"); ?>">
                                         </div>
-                                             <h4>¡Calificalo!</h4>
+                                             <h4>¡Califícalo!</h4>
                                              <p>
                                Haga presente su experiencia y comparta el desempeño del especialista para su futura recomendación.
                               </div>
@@ -913,60 +913,52 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
-                        <h3>Company</h3>
+                        <h3>Compañía</h3>
                         <ul>
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">We are hiring</a></li>
-                            <li><a href="#">Meet the team</a></li>
+                            <li><a href="<?php echo base_url('index.php/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
+                            <!--li><a href="#">We are hiring</a></li-->
+                            <!--li><a href="#">Conozca el equipo</a></li-->                            
+                            <li><a href="<?php echo base_url('index.php/terminos_uso'); ?>">Términos de uso</a></li>
+                            <!--li><a href="#">Privacy policy</a></li-->
+                            <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>
                             <li><a href="#">Copyright</a></li>
-                            <li><a href="#">Terms of use</a></li>
-                            <li><a href="#">Privacy policy</a></li>
-                            <li><a href="#">Contact us</a></li>
                         </ul>
                     </div>    
                 </div><!--/.col-md-3-->
 
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
-                        <h3>Support</h3>
+                        <h3>Soporte</h3>
                         <ul>
-                            <li><a href="#">Faq</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Forum</a></li>
-                            <li><a href="#">Documentation</a></li>
-                            <li><a href="#">Refund policy</a></li>
-                            <li><a href="#">Ticket system</a></li>
-                            <li><a href="#">Billing system</a></li>
+                            <li><a href="<?php echo base_url('index.php/faq'); ?>">Faq</a></li>
+                            <!--li><a href="#">Documentación</a></li-->
+                            <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
+
                         </ul>
                     </div>    
                 </div><!--/.col-md-3-->
 
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
-                        <h3>Developers</h3>
+                        <h3>Servicios</h3>
                         <ul>
-                            <li><a href="#">Web Development</a></li>
-                            <li><a href="#">SEO Marketing</a></li>
-                            <li><a href="#">Theme</a></li>
-                            <li><a href="#">Development</a></li>
-                            <li><a href="#">Email Marketing</a></li>
-                            <li><a href="#">Plugin Development</a></li>
-                            <li><a href="#">Article Writing</a></li>
+                            <li><a href="<?php echo base_url('index.php/oficio_albanil'); ?>">Albañilería</a></li>
+                            <li><a href="<?php echo base_url('index.php/oficio_carpintero'); ?>">Carpintería</a></li>                            
+                            <li><a href="<?php echo base_url('index.php/oficio_jardinero'); ?>">Jardinería</a></li>
+                            <li><a href="<?php echo base_url('index.php/oficio_gasfitero'); ?>">Gasfitería</a></li>
+                            <li><a href="<?php echo base_url('index.php/solicitar_trabajo#feature'); ?>">Otros</a></li>                            
+
                         </ul>
                     </div>    
                 </div><!--/.col-md-3-->
 
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
-                        <h3>Our Partners</h3>
+                        <h3>Nuestro Equipo</h3>
                         <ul>
-                            <li><a href="#">Adipisicing Elit</a></li>
-                            <li><a href="#">Eiusmod</a></li>
-                            <li><a href="#">Tempor</a></li>
-                            <li><a href="#">Veniam</a></li>
-                            <li><a href="#">Exercitation</a></li>
-                            <li><a href="#">Ullamco</a></li>
-                            <li><a href="#">Laboris</a></li>
+                            <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
+                            <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Casa Oficios Corp</a></li>
+
                         </ul>
                     </div>    
                 </div><!--/.col-md-3-->
@@ -978,14 +970,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    &copy; 2017 <a target="_blank" href="#" title="Free Twitter Bootstrap asp.net templates">Decter Soluciones</a>. All Rights Reserved.
+                    &copy; 2017 <a target="_blank" href="http://aspxtemplates.com/" title="Free Twitter Bootstrap asp.net templates">aspxtemplates</a>. All Rights Reserved.
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Faq</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
+                        <li><a href="<?php echo base_url('index.php/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
+                        <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>
                     </ul>
                 </div>
             </div>
@@ -1015,46 +1006,12 @@
     </script>
     <!-- /top-link-block -->
     <!-- Jscript -->
-    <script src="<?php echo base_url("assets/js/Funciones_Val_TMRH.js"); ?>" type="text/javascript"></script>
-    <script src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>" type="text/javascript"></script>
-    <script src="<?php echo base_url("assets/js/jquery.prettyPhoto.js"); ?>" type="text/javascript"></script>
-    <script src="<?php echo base_url("assets/js/jquery.isotope.min.js"); ?>" type="text/javascript"></script>
-    <script src="<?php echo base_url("assets/js/main.js"); ?>" type="text/javascript"></script>
-    <script src="<?php echo base_url("assets/js/wow.min.js"); ?>" type="text/javascript"></script>
-
-
-    <script type="text/javascript">
-        function ShowPopup() {
-            $("#btnShowPopup").click();
-        }
-    </script>  
-
-
-      <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-        
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Formulario de la Urgencia</h4>
-            </div>
-            <div class="modal-body">
-              <p id="p_mensaje">Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-              
-              <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
-              <button type="submit" class="btn btn-default btn-success pull-right" id="btn_aceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>           
-              
-            </div>
-          </div>
-          
-        </div>
-      </div>
-
-
+    <script src="<?php echo base_url("assets/js/jquery.js");?>" type="text/javascript"></script>
+    <script src="<?php echo base_url("assets/js/bootstrap.min.js");?>" type="text/javascript"></script>
+    <script src="<?php echo base_url("assets/js/jquery.prettyPhoto.js");?>" type="text/javascript"></script>
+    <script src="<?php echo base_url("assets/js/jquery.isotope.min.js");?>" type="text/javascript"></script>
+    <script src="<?php echo base_url("assets/js/main.js");?>" type="text/javascript"></script>
+    <script src="<?php echo base_url("assets/js/wow.min.js");?>" type="text/javascript"></script>
     </form>
-
 </body>
 </html>

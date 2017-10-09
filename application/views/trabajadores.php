@@ -595,6 +595,32 @@
 
 
 
+    function cargar_page(){
+
+    <?php
+
+        $array_tab[1]="home";
+        $array_tab[2]="profile";
+        $array_tab[3]="messages";
+
+        echo "openTab('".$array_tab[$tab]."');\n";
+
+        foreach ($array_tab as $key => $value) {
+
+            if($key==$tab){
+                echo "\t$('tab_".$key."').addClass('active');\n";
+
+            }else{
+                echo "\t$('tab_".$key."').removeClass('active');\n";
+            }
+
+        }
+
+    ?>
+
+        
+    }
+
 
     </script>
 
@@ -641,7 +667,7 @@
                         <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
                        <li class="active"><a href=""<?php echo base_url('index.php/trabaja_con_nosotros'); ?>"">Trabaje con nosotros</a></li>
                         <li ><a href="#">Servicios</a></li>                        
-                        <li class="dropdown">
+                        <!--li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Blog Single</a></li>
@@ -649,9 +675,9 @@
                                 <li><a href="#">404</a></li>
                                 <li><a href="#">Shortcodes</a></li>
                             </ul>
-                        </li>
-                        <li><a href="#">Blog</a></li> 
-                        <li><a href="#">Contact</a></li>                        
+                        </li-->
+                        <!--li><a href="#">Blog</a></li--> 
+                        <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>                        
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -660,7 +686,7 @@
     </header>
 
 
-<body>
+<body onload="cargar_page()">
     
 <?php //echo form_open('formulario/procesar'); ?>
 <?php echo form_open_multipart('trabaja_con_nosotros/formulario', array('onsubmit' => 'return validar_submit();')); ?>    
@@ -691,17 +717,8 @@
  ?>
 
 
-
-
-
-
-
-
     <div>
  
-
-  
-
 
     <section id="feature">
         <div class="container">
@@ -715,19 +732,23 @@
                                     <!-- Nav tabs -->
                     <div id="Tabs" role="tabpanel">
                                     <ul  id="foo"  class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active">
+                                        <li role="presentation" id="tab_1"
+                                         class="active" 
+                                         >
                                         <a href="#home" aria-controls="home" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-user"></i> 
                                          Identidad
                                         </a>
                                         </li>
-                                        <li role="presentation">
+
+                                        <li role="presentation"  id="tab_2">
                                         <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-map-marker"></i>                                         
                                          Contacto
                                         </a>
                                         </li>
-                                        <li role="presentation">
+
+                                        <li role="presentation"  id="tab_3">
                                         <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-briefcase"></i>                                         
                                         Experiencia
@@ -735,7 +756,7 @@
                                         </li>
 
 
-                                        <li role="presentation">
+                                        <li role="presentation"  id="tab_4">
                                         <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-file"></i>      
                                         
@@ -746,7 +767,7 @@
                                         </li>
 
 
-                                        <li role="Enviar">
+                                        <li role="Enviar"  id="tab_5">
                                         <a href="#enviar" aria-controls="enviar" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-send"></i>      
                                         

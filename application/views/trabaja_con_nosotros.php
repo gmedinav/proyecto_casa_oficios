@@ -512,6 +512,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
 
+    var salto=false;
 
     function valida_tab_2do(){
 

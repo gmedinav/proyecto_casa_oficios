@@ -1,28 +1,29 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="portfolio.aspx.cs" Inherits="CasaOficiosWeb.portfolio" %>
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Portfolio | Bootstrap .net Templates</title>
-    <%-- ------ CSS ------ --%>
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/animate.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/prettyPhoto.css" rel="stylesheet" type="text/css" />
-    <link href="css/main.css" rel="stylesheet" type="text/css" />
-    <link href="css/responsive.css" rel="stylesheet" type="text/css" />
-     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-        rel="stylesheet" type="text/css" />
+    <title>Casa Oficios</title>
+
+    <script src="<?php echo base_url("assets/js/jquery.js"); ?>" type="text/javascript"></script>
+    <link href="<?php echo base_url("assets/css/bootstrap.min.css"); ?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url("assets/css/font-awesome.min.css"); ?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url("assets/css/animate.min.css"); ?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url("assets/css/prettyPhoto.css"); ?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url("assets/css/main.css"); ?>" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url("assets/css/responsive.css"); ?>" rel="stylesheet" type="text/css">
+    
+     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"  rel="stylesheet" type="text/css" />
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <link href="<?php echo base_url("assets/css/bootstrap-datetimepicker.min.css"); ?>" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap-datetimepicker.js"); ?>" charset="UTF-8"></script>
+    <link rel="shortcut icon" href="<?php echo base_url("assets/images/favicon.ico"); ?>" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -206,7 +207,8 @@
         </div>
     </section>
     <!--/#portfolio-item-->
-    <section id="bottom">
+
+        <section id="bottom">
         <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
             <div class="row">
                 <div class="col-md-3 col-sm-6">
@@ -271,6 +273,8 @@
             </div>
         </div>
     </section>
+
+    
     <!--/#bottom-->
     <!--/#bottom-->
     <footer id="footer" class="midnight-blue">
@@ -314,12 +318,12 @@
     </script>
     <!-- /top-link-block -->
     <!-- Jscript -->
-    <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="js/jquery.prettyPhoto.js" type="text/javascript"></script>
-    <script src="js/jquery.isotope.min.js" type="text/javascript"></script>
-    <script src="js/main.js" type="text/javascript"></script>
-    <script src="js/wow.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="<?php echo base_url("assets/js/jquery-1.8.3.min.js"); ?>" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap.min.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap-datetimepicker.js"); ?>" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/locales/bootstrap-datetimepicker.es.js"); ?>" charset="UTF-8"></script>
+
     </form>
 </body>
 </html>

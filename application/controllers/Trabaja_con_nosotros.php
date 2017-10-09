@@ -39,6 +39,8 @@ class Trabaja_con_nosotros extends CI_Controller {
         $data['array_tiempo_experiencia'] = $this->listarExperiencia();
         $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
         $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip();  
+
+        $data['tab']=1;
                     
         $this->load->view('trabajadores',$data);
     }
@@ -106,6 +108,8 @@ class Trabaja_con_nosotros extends CI_Controller {
                     
                 $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                 $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
+
+                $data['tab']=2;
                 
                 $this->load->view('trabajadores',$data);   
                 return;
@@ -122,6 +126,7 @@ class Trabaja_con_nosotros extends CI_Controller {
 
                 $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                 $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
+                $data['tab']=2;
                 
                 $this->load->view('trabajadores',$data);   
                 return;
@@ -145,6 +150,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     //echo $data['poscionador'];
                     $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                     $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();
+                    $data['tab']=2;
                     
                     $this->load->view('trabajadores',$data);   
                     return;
@@ -158,6 +164,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     if(empty($this->listarTelefono())==false){
                             $data['array_telefonos'] = $this->listarTelefono();  
                     }
+                    $data['tab']=2;
 
                     $data['array_descrip_tiempo_experiencia'] = $this->listarPeriodoExperienciaDescrip();
                     $data['array_descrip_tipo_experiencia'] = $this->listarOficioExperienciaDescrip();  
@@ -193,6 +200,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                     
                 //echo $data['poscionador'];
                 $data['array_telefonos'] = $this->listarTelefono();
+                $data['tab']=3;
                 $this->load->view('trabajadores',$data);   
                 return;
 
@@ -211,6 +219,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                 }  
 
                 $data['array_telefonos'] = $this->listarTelefono();
+                $data['tab']=3;
                 $this->load->view('trabajadores',$data);   
                 return;
 
@@ -235,6 +244,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                         $data['array_descrip_oficio_experiencia'] = $this->listarOficioExperienciaDescrip(); 
                     }                                        
                     //echo $data['poscionador'];
+                    $data['tab']=3;
                     $this->load->view('trabajadores',$data);   
                     return;
                 }else{
@@ -262,6 +272,7 @@ class Trabaja_con_nosotros extends CI_Controller {
                         //}
                     }        
                     $data['array_telefonos'] = $this->listarTelefono();
+                    $data['tab']=3;
                     $this->load->view('trabajadores',$data);   
                     return;
           
@@ -344,10 +355,6 @@ class Trabaja_con_nosotros extends CI_Controller {
             $insertar_tmrh['NUM_CELU']              = $i_telefono['telefono'];
 
 
-                                   
-            #echo "<pre>";
-            #print_r($insertar_tmrh);
-            #echo "</pre>";
 
             $this->db->trans_begin();
             
@@ -422,6 +429,8 @@ class Trabaja_con_nosotros extends CI_Controller {
             } else {
                 $this->db->trans_commit();
             }
+
+            $data['tab']=1;
             $this->load->view('trabajadores',$data);
         }
     }        
