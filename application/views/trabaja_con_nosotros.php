@@ -1287,60 +1287,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
-                        <h3>Company</h3>
+                        <h3>Compañía</h3>
                         <ul>
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">We are hiring</a></li>
-                            <li><a href="#">Meet the team</a></li>
+                            <li><a href="<?php echo base_url('index.php/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
+                            <!--li><a href="#">We are hiring</a></li-->
+                            <!--li><a href="#">Conozca el equipo</a></li-->                            
+                            <li><a href="<?php echo base_url('index.php/terminos_uso'); ?>">Términos de uso</a></li>
+                            <!--li><a href="#">Privacy policy</a></li-->
+                            <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>
                             <li><a href="#">Copyright</a></li>
-                            <li><a href="#">Terms of use</a></li>
-                            <li><a href="#">Privacy policy</a></li>
-                            <li><a href="#">Contact us</a></li>
                         </ul>
                     </div>    
                 </div><!--/.col-md-3-->
 
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
-                        <h3>Support</h3>
+                        <h3>Soporte</h3>
                         <ul>
-                            <li><a href="#">Faq</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Forum</a></li>
-                            <li><a href="#">Documentation</a></li>
-                            <li><a href="#">Refund policy</a></li>
-                            <li><a href="#">Ticket system</a></li>
-                            <li><a href="#">Billing system</a></li>
+                            <li><a href="<?php echo base_url('index.php/faq'); ?>">Faq</a></li>
+                            <!--li><a href="#">Documentación</a></li-->
+                            <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
+
                         </ul>
                     </div>    
                 </div><!--/.col-md-3-->
 
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
-                        <h3>Developers</h3>
+                        <h3>Servicios</h3>
                         <ul>
-                            <li><a href="#">Web Development</a></li>
-                            <li><a href="#">SEO Marketing</a></li>
-                            <li><a href="#">Theme</a></li>
-                            <li><a href="#">Development</a></li>
-                            <li><a href="#">Email Marketing</a></li>
-                            <li><a href="#">Plugin Development</a></li>
-                            <li><a href="#">Article Writing</a></li>
+                            <li><a href="<?php echo base_url('index.php/oficio_albanil'); ?>">Albañilería</a></li>
+                            <li><a href="<?php echo base_url('index.php/oficio_carpintero'); ?>">Carpintería</a></li>                            
+                            <li><a href="<?php echo base_url('index.php/oficio_jardinero'); ?>">Jardinería</a></li>
+                            <li><a href="<?php echo base_url('index.php/oficio_gasfitero'); ?>">Gasfitería</a></li>
+                            <li><a href="<?php echo base_url('index.php/solicitar_trabajo#feature'); ?>">Otros</a></li>                            
+
                         </ul>
                     </div>    
                 </div><!--/.col-md-3-->
 
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
-                        <h3>Our Partners</h3>
+                        <h3>Nuestro Equipo</h3>
                         <ul>
-                            <li><a href="#">Adipisicing Elit</a></li>
-                            <li><a href="#">Eiusmod</a></li>
-                            <li><a href="#">Tempor</a></li>
-                            <li><a href="#">Veniam</a></li>
-                            <li><a href="#">Exercitation</a></li>
-                            <li><a href="#">Ullamco</a></li>
-                            <li><a href="#">Laboris</a></li>
+                            <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
+                            <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Casa Oficios Corp</a></li>
+
                         </ul>
                     </div>    
                 </div><!--/.col-md-3-->
@@ -1348,27 +1340,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </section>
     <!--/#bottom-->
-    <!--/#bottom-->
     <footer id="footer" class="midnight-blue">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    &copy; 2015 <a target="_blank" href="http://aspxtemplates.com/" title="Free Twitter Bootstrap asp.net templates">aspxtemplates</a>. All Rights Reserved.
+                    &copy; 2017 <a target="_blank" href="http://aspxtemplates.com/" title="Free Twitter Bootstrap asp.net templates">aspxtemplates</a>. All Rights Reserved.
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Faq</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
+                        <li><a href="<?php echo base_url('index.php/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
+                        <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <a href="#" class="back-to-top"><i class="fa fa-2x fa-angle-up"></i></a>
-    </footer
-    <!--/#footer-->
-    <!-- Back To Top -->
+    </footer>
     <script type="text/javascript">
         jQuery(document).ready(function () {
             var offset = 300;

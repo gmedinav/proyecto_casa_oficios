@@ -78,7 +78,7 @@
  
     </header>
 
-    <section id="contact-info">
+    <!--section id="contact-info">
      <br /> <br />  
         <div class="center">                
             <h2>¿Cómo encontrarnos?</h2>
@@ -114,7 +114,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section-->
     <!--/gmap_area -->
     <section id="contact-page">
         <div class="container">
