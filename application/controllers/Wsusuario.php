@@ -27,7 +27,7 @@ class Wsusuario extends REST_Controller{
         // Ensure you have created the 'limits' table and enabled 'limits' within application/config/rest.php
         $this->methods['usuario_get']['limit'] = 500; // 500 requests per hour per user/key
 //     $this->load->model('wsvalidarlogin');
-        
+        $this->methods['mailvalida_get']['limit'] = 500; // 500 requests per hour per user/key
      
         }
         
@@ -35,6 +35,19 @@ class Wsusuario extends REST_Controller{
           public function usuario_get(){
                          $codigo = $this->get('codigo');
                         $data = $this->wsusuario_model->getUsuario($codigo);
+//
+         $this->response(array('response' => $data), 200);
+         
+              
+          }
+          
+          
+          public function mailvalida_get(){
+                         $correo = $this->get('correo');
+                         
+                            $mail = str_replace("%40","@",$correo);
+                         
+                        $data = $this->wsusuario_model->getValidaMail($mail);
 //
          $this->response(array('response' => $data), 200);
          

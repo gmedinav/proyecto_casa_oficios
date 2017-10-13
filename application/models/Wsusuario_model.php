@@ -51,6 +51,21 @@ class Wsusuario_model extends CI_Model{
         
           
                 }
+                
+                
+          public function  getValidaMail($correo){
+             
+          $this->load->database();
+          
+          $sql = "select * from tb_usuario where log_usuario = '".$correo."'";
+          
+          $query = $this->db->query($sql);
+          
+     //  echo $sql;
+               return $query->result_array();
+        
+          
+                }
     
      
     

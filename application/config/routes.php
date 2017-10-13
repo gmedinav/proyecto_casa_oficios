@@ -82,6 +82,8 @@ $route['wscliente/clientexuserid/(:num)'] = 'wscliente/clientexuserid/codigo/$1'
 
 $route['wsusuario/usuario/(:num)'] = 'wsusuario/usuario/codigo/$1'; 
 
+$route['wsusuario/mailvalida/(:num)'] = 'wsusuario/mailvalida/correo/$1'; 
+
 
 /*Ubigeo*/
 
