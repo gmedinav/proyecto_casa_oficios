@@ -108,7 +108,7 @@ class Wscliente_model extends CI_Model{
 //            
        //    $query = $this->db->query($call_total);
            // return $query->result();
-          return $query->result_array();
+          return $query->result();
          
     }
     

@@ -137,11 +137,20 @@ class Wsmetodospost extends REST_Controller {
         
         
         if ($result === FALSE) {
-            $this->response(array('status' => 'failed'));
+            $this->response(array('status' => 'failed' , 'mensaje' => 'failed'));
         } else {
            // $this->response(array('status' => 'success'));
             
-            $this->response(array('response' => $result), 200);
+            
+            $resultado = "";
+            
+            foreach($result as $obj){
+                   $resultado = $obj->out_id;
+
+                }
+            
+            
+            $this->response(array('status' => 'success', 'mensaje' => $resultado ), 200);
         }
         
      }
