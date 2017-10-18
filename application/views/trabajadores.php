@@ -664,8 +664,8 @@
 				
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
-                        <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
-                       <li class="active"><a href=""<?php echo base_url('index.php/trabaja_con_nosotros'); ?>"">Trabaje con nosotros</a></li>
+                        <li><a href="<?php echo base_url('solicitar_trabajo'); ?>">Inicio</a></li>
+                       <li class="active"><a href=""<?php echo base_url('trabaja_con_nosotros'); ?>"">Trabaje con nosotros</a></li>
                         <li ><a href="#">Servicios</a></li>                        
                         <!--li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
@@ -677,7 +677,7 @@
                             </ul>
                         </li-->
                         <!--li><a href="#">Blog</a></li--> 
-                        <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>                        
+                        <li><a href="<?php echo base_url('contactenos'); ?>">Contactenos</a></li>                        
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -1400,12 +1400,12 @@
                     <div class="widget">
                         <h3>Compañía</h3>
                         <ul>
-                            <li><a href="<?php echo base_url('index.php/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
+                            <li><a href="<?php echo base_url('acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
                             <!--li><a href="#">We are hiring</a></li-->
                             <!--li><a href="#">Conozca el equipo</a></li-->                            
-                            <li><a href="<?php echo base_url('index.php/terminos_uso'); ?>">Términos de uso</a></li>
+                            <li><a href="<?php echo base_url('terminos_uso'); ?>">Términos de uso</a></li>
                             <!--li><a href="#">Privacy policy</a></li-->
-                            <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>
+                            <li><a href="<?php echo base_url('contactenos'); ?>">Contactenos</a></li>
                             <li><a href="#">Copyright</a></li>
                         </ul>
                     </div>    
@@ -1415,7 +1415,7 @@
                     <div class="widget">
                         <h3>Soporte</h3>
                         <ul>
-                            <li><a href="<?php echo base_url('index.php/faq'); ?>">Faq</a></li>
+                            <li><a href="<?php echo base_url('faq'); ?>">Faq</a></li>
                             <!--li><a href="#">Documentación</a></li-->
                             <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
 
@@ -1427,11 +1427,11 @@
                     <div class="widget">
                         <h3>Servicios</h3>
                         <ul>
-                            <li><a href="<?php echo base_url('index.php/oficio_albanil'); ?>">Albañilería</a></li>
-                            <li><a href="<?php echo base_url('index.php/oficio_carpintero'); ?>">Carpintería</a></li>                            
-                            <li><a href="<?php echo base_url('index.php/oficio_jardinero'); ?>">Jardinería</a></li>
-                            <li><a href="<?php echo base_url('index.php/oficio_gasfitero'); ?>">Gasfitería</a></li>
-                            <li><a href="<?php echo base_url('index.php/solicitar_trabajo#feature'); ?>">Otros</a></li>                            
+                            <li><a href="<?php echo base_url('oficio_albanil'); ?>">Albañilería</a></li>
+                            <li><a href="<?php echo base_url('oficio_carpintero'); ?>">Carpintería</a></li>                            
+                            <li><a href="<?php echo base_url('oficio_jardinero'); ?>">Jardinería</a></li>
+                            <li><a href="<?php echo base_url('oficio_gasfitero'); ?>">Gasfitería</a></li>
+                            <li><a href="<?php echo base_url('solicitar_trabajo#feature'); ?>">Otros</a></li>                            
 
                         </ul>
                     </div>    
@@ -1442,7 +1442,7 @@
                         <h3>Nuestro Equipo</h3>
                         <ul>
                             <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
-                            <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Casa Oficios Corp</a></li>
+                            <li><a href="<?php echo base_url('solicitar_trabajo'); ?>">Casa Oficios Corp</a></li>
 
                         </ul>
                     </div>    
@@ -1459,9 +1459,9 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
-                        <li><a href="<?php echo base_url('index.php/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
-                        <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>
+                        <li><a href="<?php echo base_url('solicitar_trabajo'); ?>">Inicio</a></li>
+                        <li><a href="<?php echo base_url('acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
+                        <li><a href="<?php echo base_url('contactenos'); ?>">Contactenos</a></li>
                     </ul>
                 </div>
             </div>

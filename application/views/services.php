@@ -250,9 +250,9 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="<?php echo base_url('index.php/solicitar_trabajo'); ?>">Inicio</a></li>
+                        <li><a href="<?php echo base_url('solicitar_trabajo'); ?>">Inicio</a></li>
                         <li><a href="#">Acerca de Nosotros</a></li>
-                        <li><a href="<?php echo base_url('index.php/contactenos'); ?>">Contactenos</a></li>
+                        <li><a href="<?php echo base_url('contactenos'); ?>">Contactenos</a></li>
                     </ul>
                 </div>
             </div>

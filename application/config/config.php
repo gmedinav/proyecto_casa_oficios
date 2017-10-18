@@ -38,7 +38,7 @@ $config['base_url'] = 'http://localhost:8081/proyecto_casa_oficios/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

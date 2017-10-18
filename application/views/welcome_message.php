@@ -84,11 +84,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
-    <a href="index.php/trabaja_con_nosotros">Trabaja Con Nosotros</a> || 
-    <a href="index.php/solicitar_trabajo">Solicitud Trabajo</a> || 
-    <a href="index.php/tmrh_contactos">demo</a> || 
-    <a href="index.php/tmrh_oficios">Oficios TMRH</a>
-    <a href="index.php/inicio_plantilla">antigua version</a>
+    <a href="trabaja_con_nosotros">Trabaja Con Nosotros</a> || 
+    <a href="solicitar_trabajo">Solicitud Trabajo</a> || 
+    <a href="tmrh_contactos">demo</a> || 
+    <a href="tmrh_oficios">Oficios TMRH</a>
+    <a href="inicio_plantilla">antigua version</a>
     
 </body>
 </html>
