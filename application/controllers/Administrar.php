@@ -60,8 +60,6 @@ class Administrar extends CI_Controller {
 			'CUENTA_GMAIL',
 			'FEC_NACIMIENTO',
 			'COD_TIPO_CANAL_CONTACTO',
-			'FEC_MODIFICACION',
-			'FEC_REGISTRO',
 			'COD_USUARIO_REGISTRO',
 			'ESTADO'
 				);
@@ -76,7 +74,45 @@ class Administrar extends CI_Controller {
 	}
 
 
+	public function sexo()
+	{
+		try{
+			$crud = new grocery_CRUD();
 
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_sexo');
+			$crud->set_subject('Clientes');
+			$crud->required_fields('NOM_CLIENTE','APE_PATERNO');
+			$crud->columns(
+
+			'COD_CLIENTE',
+			'NOM_CLIENTE',
+			'APE_PATERNO',
+			'APE_MATERNO',
+			'COD_TIPO_DOCUMENTO',
+			'NUM_DOCUMENTO',
+			'COD_TIPO_GENERO',
+			'COD_UBIGEO',
+			'DIRECCION',
+			'CEL_1',
+			'CEL_2',
+			'COD_USUARIO',
+			'CUENTA_FACEBOOK',
+			'CUENTA_GMAIL',
+			'FEC_NACIMIENTO',
+			'COD_TIPO_CANAL_CONTACTO',
+			'COD_USUARIO_REGISTRO',
+			'ESTADO'
+				);
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
 
 
 
