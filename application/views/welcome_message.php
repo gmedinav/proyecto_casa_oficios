@@ -88,7 +88,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <a href="solicitar_trabajo">Solicitud Trabajo</a> || 
     <a href="tmrh_contactos">demo</a> || 
     <a href="tmrh_oficios">Oficios TMRH</a>
-    <a href="inicio_plantilla">antigua version</a>
+    <a href="inicio_plantilla">antigua version</a> ||
+    <a href="Administrar">Módulo de Admninistración</a>
     
 </body>
 </html>

@@ -80,30 +80,19 @@ class Administrar extends CI_Controller {
 			$crud = new grocery_CRUD();
 
 			#$crud->set_theme('datatables');
-			$crud->set_table('tb_sexo');
-			$crud->set_subject('Clientes');
-			$crud->required_fields('NOM_CLIENTE','APE_PATERNO');
+			$crud->set_table('tb_tip_sexo');
+			$crud->set_subject('Tipo Sexo');
+			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
 			$crud->columns(
 
-			'COD_CLIENTE',
-			'NOM_CLIENTE',
-			'APE_PATERNO',
-			'APE_MATERNO',
-			'COD_TIPO_DOCUMENTO',
-			'NUM_DOCUMENTO',
-			'COD_TIPO_GENERO',
-			'COD_UBIGEO',
-			'DIRECCION',
-			'CEL_1',
-			'CEL_2',
-			'COD_USUARIO',
-			'CUENTA_FACEBOOK',
-			'CUENTA_GMAIL',
-			'FEC_NACIMIENTO',
-			'COD_TIPO_CANAL_CONTACTO',
-			'COD_USUARIO_REGISTRO',
-			'ESTADO'
+			'COD_TIPO_MAESTRO',
+			'DES_TIPO_MAESTRO',
+			'COD_USUARIO_REGISTRO'
+
 				);
+			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
+			$crud->display_as('COD_TIPO_MAESTRO','Id Sexo');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');
 
 			$output = $crud->render();
 
@@ -114,6 +103,159 @@ class Administrar extends CI_Controller {
 		}
 	}
 
+	public function tipo_operadora()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tip_operadora');
+			$crud->set_subject('Tipo Operadora');
+			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+			$crud->columns(
+
+			'COD_TIPO_MAESTRO',
+			'DES_TIPO_MAESTRO',
+			'COD_USUARIO_REGISTRO'
+
+				);
+
+			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
+			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Operadora');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+
+	public function tipo_usuario()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tip_usuario');
+			$crud->set_subject('Tipo Usuario');
+			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+			$crud->columns(
+
+			'COD_TIPO_MAESTRO',
+			'DES_TIPO_MAESTRO',
+			'COD_USUARIO_REGISTRO'
+
+				);
+
+			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
+			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Usuario');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}	
+
+	public function tipo_registro()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tip_usuario');
+			$crud->set_subject('Tipo Registro');
+			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+			$crud->columns(
+
+			'COD_TIPO_MAESTRO',
+			'DES_TIPO_MAESTRO',
+			'COD_USUARIO_REGISTRO'
+
+				);
+
+			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
+			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Registro');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}		
+
+
+	public function tiempo_experiencia()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tip_experiencia');
+			$crud->set_subject('Tiempo Experiencia');
+			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+			$crud->columns(
+
+			'COD_TIPO_MAESTRO',
+			'DES_TIPO_MAESTRO',
+			'COD_USUARIO_REGISTRO'
+
+				);
+
+			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
+			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Experiencia');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}	
+
+
+
+	public function oficio_especialidades()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_oficio');
+			$crud->set_subject('Especialidad');
+			$crud->required_fields('COD_OFICIO','DES_OFICIO');
+			$crud->columns(
+
+			'COD_OFICIO',
+			'DES_OFICIO',
+			'COD_USUARIO_REGISTRO'
+
+				);
+
+			$crud->display_as('DES_OFICIO','Descripción');
+			$crud->display_as('COD_OFICIO','Id Especialidad');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}	
 
 
 /*

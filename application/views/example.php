@@ -77,8 +77,8 @@ foreach($css_files as $file): ?>
         <a class="test" tabindex="-1" href="#">Oficio <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li class="dropdown-header">Mantenimiento</li>      
-          <li><a tabindex="-1" href='<?php echo site_url('Administrar/paquete_linea_administrar')?>'>Tiempo Experiencia</a></li>
-          <li><a tabindex="-1" href='<?php echo site_url('Administrar/paquete_tv_administrar')?>'>Especialidades</a></li>    
+          <li><a tabindex="-1" href='<?php echo site_url('Administrar/tiempo_experiencia')?>'>Tiempo Experiencia</a></li>
+          <li><a tabindex="-1" href='<?php echo site_url('Administrar/oficio_especialidades')?>'>Especialidades</a></li>    
         </ul>
       </li>      
 
@@ -126,8 +126,8 @@ foreach($css_files as $file): ?>
         <a class="test" tabindex="-1" href="#">Funcional Sistema &nbsp;<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li class="dropdown-header">Mantenimiento</li>    
-          <li><a tabindex="-1" href='<?php echo site_url('Administrar/cobertura_administrar')?>'>Tipo Usuario</a></li>
-          <li><a tabindex="-1" href='<?php echo site_url('Administrar/tecnologia_administrar')?>'>Tipo Registro</a></li>
+          <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_usuario')?>'>Tipo Usuario</a></li>
+          <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_registro')?>'>Tipo Registro</a></li>
         </ul>
       </li>  
 
@@ -135,8 +135,8 @@ foreach($css_files as $file): ?>
         <a class="test" tabindex="-1" href="#">Info Prestablecido &nbsp;<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li class="dropdown-header">Mantenimiento</li>    
-      <li><a tabindex="-1" href='<?php echo site_url('Administrar/categoria_producto_administrar')?>'>Sexo</a></li>      
-      <li><a tabindex="-1" href='<?php echo site_url('Administrar/categoria_producto_administrar')?>'>Tipo Operadora</a></li>    
+      <li><a tabindex="-1" href='<?php echo site_url('Administrar/sexo')?>'>Sexo</a></li>      
+      <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_operadora')?>'>Tipo Operadora</a></li>    
         </ul>
       </li> 
 
