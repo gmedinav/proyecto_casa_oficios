@@ -14,6 +14,8 @@ class Wsmetodospost extends REST_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('Wscliente_model', 'cm');
+        
+        $this->load->model('Wssolicitud_model', 'de');
     }
 
     function add_contact_post() {
@@ -79,7 +81,7 @@ class Wsmetodospost extends REST_Controller {
              "p_estado_cli":"1"}
          
         
-        /*Parametros*/
+        Parametros*/
         $p_log_usuario = $this->post('p_log_usuario');
         $p_pass_usuario = $this->post('p_pass_usuario'); // varchar(255),
         $p_estado = $this->post('p_estado'); // int,
@@ -134,6 +136,111 @@ class Wsmetodospost extends REST_Controller {
                         $p_fec_registro_cli ,
                         $p_cod_usuario_registro_cli ,
                         $p_estado_cli );
+        
+        
+        if ($result === FALSE) {
+            $this->response(array('status' => 'failed' , 'mensaje' => 'failed'));
+        } else {
+           // $this->response(array('status' => 'success'));
+            
+            
+            $resultado = "";
+            
+            foreach($result as $obj){
+                   $resultado = $obj->out_id;
+
+                }
+            
+            
+            $this->response(array('status' => 'success', 'mensaje' => $resultado ), 200);
+        }
+        
+     }
+    
+    
+     
+      function add_soltrab_post() {
+         
+         //http://localhost:8081/proyecto_casa_oficios/index.php/wsmetodospost/add_soltrab
+         
+
+         
+        // Headers: Add Custom Header as name = Content-Type, value=application/json
+        
+         
+         // JSON :
+         /*
+                     {"p_log_usuario":"jaime.ac8866@gmail.com",
+            "p_pass_usuario":"jaimejose",
+            "p_estado":"0", 
+            "p_cod_tipo_usuario":"2", 
+             "p_fec_registro":"2017-10-10", 
+             "p_fec_modificacion":"2017-10-10", 
+             "p_cod_usuario_registro":"2", 
+             "p_nom_cliente":"Jaime Jose", 
+             "p_ape_paterno":"Aguilar", 
+             "p_ape_materno":"Cabezas", 
+             "p_cod_tipo_documento":"1", 
+             "p_num_documento":"44953781", 
+             "p_cod_tipo_genero":"1", 
+             "p_cod_ubigeo":"001000000", 
+             "p_direccion":"ab", 
+             "p_cel_1":"0", 
+             "p_cel_2":"0", 
+             "p_cuenta_facebook":"0", 
+             "p_cuenta_gmail":"0", 
+             "p_fecha_nacimiento":"2017-10-10", 
+             "p_cod_tipo_canal_contacto":"0", 
+             "p_fec_modificacion_cli":"2017-10-10", 
+             "p_fec_registro_cli":"2017-10-10", 
+             "p_cod_usuario_registro_cli":"1", 
+             "p_estado_cli":"1"}
+         
+        
+        /*Parametros*/
+        $p_cod_cliente = $this->post('p_cod_cliente');
+        $p_cordenadas_registro = $this->post('p_cordenadas_registro'); 
+        $p_cordenadas_ubicacion = $this->post('p_cordenadas_ubicacion'); 
+        $p_cod_tipo_averia = $this->post('p_cod_tipo_averia'); 
+        $p_cod_tipo_prioridad = $this->post('p_cod_tipo_prioridad'); 
+        $p_nombre = $this->post('p_nombre'); 
+        $p_email = $this->post('p_email'); 
+        $p_telefono = $this->post('p_telefono'); 
+        $p_descripcion = $this->post('p_descripcion'); 
+        $p_estado = $this->post('p_estado'); 
+        $p_precio_presupuesto = $this->post('p_precio_presupuesto'); 
+        $p_precio_final = $this->post('p_precio_final'); 
+        $p_cod_tipo_registro = $this->post('p_cod_tipo_registro'); 
+        $p_fec_registro = $this->post('p_fec_registro'); 
+        $p_fec_modificacion = $this->post('p_fec_modificacion'); 
+        $p_cod_usuario_registro = $this->post('p_cod_usuario_registro'); 
+        $p_cod_ubigeo = $this->post('p_cod_ubigeo'); 
+        $p_direccion = $this->post('p_direccion'); 
+        $p_cod_oficio = $this->post('p_cod_oficio'); 
+
+        
+        
+        $result = $this->de->add_soltrab(
+                        $p_cod_cliente,
+                        $p_cordenadas_registro,
+                        $p_cordenadas_ubicacion,
+                        $p_cod_tipo_averia,
+                        $p_cod_tipo_prioridad,
+                        $p_nombre,
+                        $p_email,
+                        $p_telefono,
+                        $p_descripcion,
+                        $p_estado,
+                        $p_precio_presupuesto,
+                        $p_precio_final,
+                        $p_cod_tipo_registro,
+                        $p_fec_registro,
+                        $p_fec_modificacion,
+                        $p_cod_usuario_registro,
+                        $p_cod_ubigeo,
+                        $p_direccion,
+                        $p_cod_oficio
+);
         
         
         if ($result === FALSE) {
