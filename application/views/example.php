@@ -72,7 +72,7 @@ foreach($css_files as $file): ?>
     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Trabajadores &nbsp;<span class="caret"></span></button>
     <ul class="dropdown-menu">
 
-      <li class="dropdown-header">Mantenimiento/li>      
+      <li class="dropdown-header">Mantenimiento</li>      
       <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Oficio <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -135,8 +135,9 @@ foreach($css_files as $file): ?>
         <a class="test" tabindex="-1" href="#">Info Prestablecido &nbsp;<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li class="dropdown-header">Mantenimiento</li>    
-      <li><a tabindex="-1" href='<?php echo site_url('Administrar/sexo')?>'>Sexo</a></li>      
-      <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_operadora')?>'>Tipo Operadora</a></li>    
+            <li><a tabindex="-1" href='<?php echo site_url('Administrar/sexo')?>'>Sexo</a></li>      
+            <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_operadora')?>'>Tipo Operadora</a></li>    
+            <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_documento')?>'>Tipo Documento</a></li>    
         </ul>
       </li> 
 

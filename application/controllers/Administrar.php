@@ -65,6 +65,8 @@ class Administrar extends CI_Controller {
 				);
 
 			$output = $crud->render();
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
 
 			$this->_example_output($output);
 
@@ -90,6 +92,9 @@ class Administrar extends CI_Controller {
 			'COD_USUARIO_REGISTRO'
 
 				);
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
+
 			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
 			$crud->display_as('COD_TIPO_MAESTRO','Id Sexo');
 			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');
@@ -122,7 +127,8 @@ class Administrar extends CI_Controller {
 
 			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
 			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Operadora');
-			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');		
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');	
 
 			$output = $crud->render();
 
@@ -153,7 +159,10 @@ class Administrar extends CI_Controller {
 
 			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
 			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Usuario');
-			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');	
+
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
 
 			$output = $crud->render();
 
@@ -170,7 +179,7 @@ class Administrar extends CI_Controller {
 			$crud = new grocery_CRUD();
 
 			#$crud->set_theme('datatables');
-			$crud->set_table('tb_tip_usuario');
+			$crud->set_table('tb_tip_registro');
 			$crud->set_subject('Tipo Registro');
 			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
 			$crud->columns(
@@ -183,7 +192,11 @@ class Administrar extends CI_Controller {
 
 			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
 			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Registro');
-			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');	
+
+
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
 
 			$output = $crud->render();
 
@@ -194,6 +207,41 @@ class Administrar extends CI_Controller {
 		}
 	}		
 
+
+
+	public function tipo_documento()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tip_documento');
+			$crud->set_subject('Tipo Documento');
+			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+			$crud->columns(
+
+			'COD_TIPO_MAESTRO',
+			'DES_TIPO_MAESTRO',
+			'COD_USUARIO_REGISTRO'
+
+				);
+
+			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
+			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Documento');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');	
+
+
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}	
 
 	public function tiempo_experiencia()
 	{
@@ -214,7 +262,10 @@ class Administrar extends CI_Controller {
 
 			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
 			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Experiencia');
-			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');	
+
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
 
 			$output = $crud->render();
 
@@ -227,14 +278,19 @@ class Administrar extends CI_Controller {
 
 
 
+
+
 	public function oficio_especialidades()
 	{
 		try{
 			$crud = new grocery_CRUD();
 
-			#$crud->set_theme('datatables');
+
 			$crud->set_table('tb_oficio');
 			$crud->set_subject('Especialidad');
+			$crud->fields('COD_OFICIO', 'DES_OFICIO', 'COD_USUARIO_REGISTRO');
+
+
 			$crud->required_fields('COD_OFICIO','DES_OFICIO');
 			$crud->columns(
 
@@ -244,9 +300,12 @@ class Administrar extends CI_Controller {
 
 				);
 
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+
 			$crud->display_as('DES_OFICIO','Descripción');
 			$crud->display_as('COD_OFICIO','Id Especialidad');
-			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');			
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');		
+
 
 			$output = $crud->render();
 
