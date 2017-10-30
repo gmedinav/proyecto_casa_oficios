@@ -62,7 +62,7 @@ foreach($css_files as $file): ?>
       <li><a tabindex="-1" href='<?php echo site_url('Administrar/clientes')?>'>Clientes</a></li>
       <li><a tabindex="-1" href="#">Solicitud Trabajo</a></li>          
       <li class="divider"></li>  
-      <li><a tabindex="-1" href="#">Tipo Avería</a></li>  
+      <li><a tabindex="-1" href="<?php echo site_url('Administrar/tipo_averia')?>">Tipo Avería</a></li>  
     </ul>
   </div>
   <td>
@@ -82,7 +82,7 @@ foreach($css_files as $file): ?>
         </ul>
       </li>      
 
-      <li><a tabindex="-1" href='<?php echo site_url('Administrar/paquete_grupal_administrar')?>'>Paquete Grupal</a></li>      
+      <li><a tabindex="-1" href='<?php echo site_url('Administrar/trabajador')?>'>Trabajadores</a></li>      
 
 
       <li class="divider"></li>  
@@ -128,6 +128,7 @@ foreach($css_files as $file): ?>
           <li class="dropdown-header">Mantenimiento</li>    
           <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_usuario')?>'>Tipo Usuario</a></li>
           <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_registro')?>'>Tipo Registro</a></li>
+          <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_prioridad')?>'>Tipo Prioridad</a></li>          
         </ul>
       </li>  
 

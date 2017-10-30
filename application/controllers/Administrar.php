@@ -108,6 +108,196 @@ class Administrar extends CI_Controller {
 		}
 	}
 
+
+
+
+	public function tipo_averia()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tipo_averia');
+			$crud->set_subject('Tipo Avería');
+			$crud->required_fields('DES_TIPO_AVERIA','COD_TIPAVERIA');
+			$crud->columns(
+
+			'COD_TIPAVERIA',
+			'DES_TIPO_AVERIA',
+			'COD_USUARIO_REGISTRO'
+
+				);
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->fields('COD_TIPAVERIA', 'DES_TIPO_AVERIA', 'COD_USUARIO_REGISTRO');
+
+			$crud->display_as('DES_TIPO_AVERIA','Descripción');
+			$crud->display_as('COD_TIPAVERIA','Id Tipo Avería');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+
+
+
+
+	public function tipo_prioridad()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tip_prioridad');
+			$crud->set_subject('Tipo Avería');
+			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+			$crud->columns(
+
+			'COD_TIPO_MAESTRO',
+			'DES_TIPO_MAESTRO',
+			'COD_USUARIO_REGISTRO'
+
+				);
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
+
+			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
+			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Prioridad');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+
+	public function trabajador()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tmrh');
+			$crud->set_subject('Trabajador (TMRH)');
+			$crud->required_fields(
+
+				'COD_TMRH',
+				'NOM_TMRH',
+				'APE_PATERNO',
+				'APE_MATERNO',
+				'EMAIL',
+				'COD_TIPO_DOCUMENTO',
+				'NUM_DOCUMENTO',
+				'COD_TIPO_GENERO',
+				'COD_UBIGEO',
+				'DIRECCION',
+				'FEC_NACIMIENTO',
+				'COD_OFICIO_PRINCIPAL',
+				'COD_TIEMPO_EXPERIENCIA',
+				'COD_USUARIO_REGISTRO',
+				'NUM_CELU',
+				'COD_TIPO_OPERADORA'
+
+				);
+			$crud->columns(
+
+			'COD_TMRH',
+			'NOM_TMRH',
+			'APE_PATERNO',
+			'APE_MATERNO',
+			'EMAIL',
+			'COD_TIPO_DOCUMENTO',
+			'NUM_DOCUMENTO',
+			'COD_TIPO_GENERO',
+			'COD_UBIGEO',
+			'DIRECCION',
+			'FEC_NACIMIENTO',
+			'COD_OFICIO_PRINCIPAL',
+			'COD_TIEMPO_EXPERIENCIA',
+			'FEC_REGISTRO',
+			'FEC_MODIFICACION',
+			'COD_USUARIO_REGISTRO',
+			'NUM_CELU',
+			'COD_TIPO_OPERADORA'
+
+
+				);
+
+			$crud->fields(
+
+				'COD_TMRH',
+				'NOM_TMRH',
+				'APE_PATERNO',
+				'APE_MATERNO',
+				'EMAIL',
+				'COD_TIPO_DOCUMENTO',
+				'NUM_DOCUMENTO',
+				'COD_TIPO_GENERO',
+				'COD_UBIGEO',
+				'DIRECCION',
+				'FEC_NACIMIENTO',
+				'COD_OFICIO_PRINCIPAL',
+				'COD_TIEMPO_EXPERIENCIA',
+				'COD_USUARIO_REGISTRO',
+				'NUM_CELU',
+				'COD_TIPO_OPERADORA'
+
+				);
+
+			$crud->display_as('COD_TMRH','Id Trabajador');
+			$crud->display_as('NOM_TMRH','Nombres');
+			$crud->display_as('APE_PATERNO','Apelido Paterno');			
+			$crud->display_as('APE_MATERNO','Apelido Materno');	
+			$crud->display_as('NUM_DOCUMENTO','Número Documento');	
+			$crud->display_as('EMAIL','E-mail');	
+			$crud->display_as('COD_TIPO_DOCUMENTO','Tipo Documento');
+			$crud->display_as('COD_UBIGEO','Ubigeo');				
+			$crud->display_as('DIRECCION','Dirección');				
+			$crud->display_as('FEC_NACIMIENTO','Fecha Nacimiento');				
+			$crud->display_as('COD_OFICIO_PRINCIPAL','Oficio Principal');				
+			$crud->display_as('COD_TIEMPO_EXPERIENCIA','Tiempo Experiencia');				
+			$crud->display_as('COD_TIPO_OPERADORA','Tipo Operadora');				
+			$crud->display_as('COD_USUARIO_REGISTRO','Tipo Documento');		
+			$crud->display_as('NUM_CELU','Teléfono Principal');		
+			$crud->display_as('COD_TIPO_GENERO','Género');				
+			$crud->display_as('FEC_REGISTRO','Tipo Documento');		
+			$crud->display_as('COD_TIPO_GENERO','Género');	
+			$crud->display_as('FEC_REGISTRO','Fecha registro');	
+			$crud->display_as('FEC_MODIFICACION','Fecha Modificación');	
+			
+
+
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->set_relation('COD_TIPO_GENERO','tb_tip_sexo','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_TIEMPO_EXPERIENCIA','tb_tip_experiencia','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_TIPO_DOCUMENTO','tb_tip_documento','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_UBIGEO','tb_ubigeo','DES_UBIGEO');
+			$crud->set_relation('COD_OFICIO_PRINCIPAL','tb_oficio','DES_OFICIO');
+			$crud->set_relation('COD_TIPO_OPERADORA','tb_tip_operadora','DES_TIPO_MAESTRO');									
+
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+
+
+
+
 	public function tipo_operadora()
 	{
 		try{
