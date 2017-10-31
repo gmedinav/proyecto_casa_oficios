@@ -64,9 +64,59 @@ class Administrar extends CI_Controller {
 			'ESTADO'
 				);
 
-			$output = $crud->render();
 			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
-			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
+			$crud->set_relation('COD_TIPO_GENERO','tb_tip_sexo','DES_TIPO_MAESTRO');			
+			$crud->set_relation('COD_TIPO_DOCUMENTO','tb_tip_documento','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_UBIGEO','tb_ubigeo','DES_UBIGEO');
+			$crud->set_relation('COD_TIPO_CANAL_CONTACTO','tb_tip_canal_contacto','DES_TIPO_MAESTRO');
+
+
+
+
+			$crud->fields(
+
+			'COD_CLIENTE',
+			'NOM_CLIENTE',
+			'APE_PATERNO',
+			'APE_MATERNO',
+			'COD_TIPO_DOCUMENTO',
+			'NUM_DOCUMENTO',
+			'COD_TIPO_GENERO',
+			'COD_UBIGEO',
+			'DIRECCION',
+			'CEL_1',
+			'CEL_2',
+			'COD_USUARIO',
+			'CUENTA_FACEBOOK',
+			'CUENTA_GMAIL',
+			'FEC_NACIMIENTO',
+			'COD_TIPO_CANAL_CONTACTO',
+			'COD_USUARIO_REGISTRO',
+			'ESTADO'
+
+				);
+
+
+			$crud->display_as('COD_CLIENTE','Id Cliente');	
+			$crud->display_as('NOM_CLIENTE','Nombres');	
+			$crud->display_as('APE_PATERNO','Apellido Paterno');			
+			$crud->display_as('APE_MATERNO','Apellido Materno');	
+			$crud->display_as('NUM_DOCUMENTO','Número Documento');	
+			$crud->display_as('CUENTA_FACEBOOK','Cuenta Facebook');	
+			$crud->display_as('COD_TIPO_DOCUMENTO','Tipo Documento');
+			$crud->display_as('COD_UBIGEO','Ubigeo');				
+			$crud->display_as('DIRECCION','Dirección');			
+			$crud->display_as('FEC_NACIMIENTO','Fecha Nacimiento');		
+			$crud->display_as('CUENTA_GMAIL','Cuenta Gmail');		
+			$crud->display_as('COD_TIPO_CANAL_CONTACTO','Tipo Canal Contacto');		
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');		
+			$crud->display_as('COD_USUARIO','Usuario');	
+			$crud->display_as('COD_TIPO_GENERO','Sexo');				
+			$crud->display_as('CEL_1','Celular 1');		
+			$crud->display_as('CEL_2','Celular 2');		
+			$crud->display_as('ESTADO','Estado');		
+	
+			$output = $crud->render();
 
 			$this->_example_output($output);
 
@@ -109,6 +159,37 @@ class Administrar extends CI_Controller {
 	}
 
 
+	public function tipo_canal_contacto()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tip_canal_contacto');
+			$crud->set_subject('Tipo Canal Contacto');
+			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+			$crud->columns(
+
+			'COD_TIPO_MAESTRO',
+			'DES_TIPO_MAESTRO',
+			'COD_USUARIO_REGISTRO'
+
+				);
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
+
+			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
+			$crud->display_as('COD_TIPO_MAESTRO','Id Canal Contacto');
+			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
 
 
 	public function tipo_averia()
@@ -253,6 +334,17 @@ class Administrar extends CI_Controller {
 
 				);
 
+
+
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->set_relation('COD_TIPO_GENERO','tb_tip_sexo','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_TIEMPO_EXPERIENCIA','tb_tip_experiencia','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_TIPO_DOCUMENTO','tb_tip_documento','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_UBIGEO','tb_ubigeo','DES_UBIGEO');
+			$crud->set_relation('COD_OFICIO_PRINCIPAL','tb_oficio','DES_OFICIO');
+			$crud->set_relation('COD_TIPO_OPERADORA','tb_tip_operadora','DES_TIPO_MAESTRO');
+
+
 			$crud->display_as('COD_TMRH','Id Trabajador');
 			$crud->display_as('NOM_TMRH','Nombres');
 			$crud->display_as('APE_PATERNO','Apelido Paterno');			
@@ -274,15 +366,6 @@ class Administrar extends CI_Controller {
 			$crud->display_as('FEC_REGISTRO','Fecha registro');	
 			$crud->display_as('FEC_MODIFICACION','Fecha Modificación');	
 			
-
-
-			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
-			$crud->set_relation('COD_TIPO_GENERO','tb_tip_sexo','DES_TIPO_MAESTRO');
-			$crud->set_relation('COD_TIEMPO_EXPERIENCIA','tb_tip_experiencia','DES_TIPO_MAESTRO');
-			$crud->set_relation('COD_TIPO_DOCUMENTO','tb_tip_documento','DES_TIPO_MAESTRO');
-			$crud->set_relation('COD_UBIGEO','tb_ubigeo','DES_UBIGEO');
-			$crud->set_relation('COD_OFICIO_PRINCIPAL','tb_oficio','DES_OFICIO');
-			$crud->set_relation('COD_TIPO_OPERADORA','tb_tip_operadora','DES_TIPO_MAESTRO');									
 
 
 			$output = $crud->render();

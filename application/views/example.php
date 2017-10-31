@@ -96,17 +96,6 @@ foreach($css_files as $file): ?>
         </ul>
       </li>      
   
-      <li class="dropdown-submenu">
-        <a class="test" tabindex="-1" href="#">Comercial &nbsp;<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li class="dropdown-header">Mantenimiento</li>    
-          <li><a tabindex="-1" href='<?php echo site_url('Administrar/modalidad_pago_administrar')?>'>Modalidad de Pagos</a></li>      
-          <li><a tabindex="-1" href='<?php echo site_url('Administrar/canal_administrar')?>'>Canal</a></li>
-          <li><a tabindex="-1" href='<?php echo site_url('Administrar/ciudades_dirigidas_administrar')?>'>Ciudades Dirigidas</a></li>
-        </ul>
-      </li>     
-
-
 
     </ul>
   </div>
@@ -128,7 +117,8 @@ foreach($css_files as $file): ?>
           <li class="dropdown-header">Mantenimiento</li>    
           <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_usuario')?>'>Tipo Usuario</a></li>
           <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_registro')?>'>Tipo Registro</a></li>
-          <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_prioridad')?>'>Tipo Prioridad</a></li>          
+          <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_prioridad')?>'>Tipo Prioridad</a></li>         
+          <li><a tabindex="-1" href='<?php echo site_url('Administrar/tipo_canal_contacto')?>'>Tipo Canal Contacto</a></li>   
         </ul>
       </li>  
 
