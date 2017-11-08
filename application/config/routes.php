@@ -69,6 +69,14 @@ $route['wsgenero']['get'] = 'wsgenero/generos';
 $route['wsoficios']['get'] = 'wsoficios/oficios';
 
 
+
+/*Solicitudes*/
+
+
+$route['wssolicitudestrabajo/solicitrab/(:num)'] = 'wssolicitudestrabajo/solicitrab/codigo/$1'; 
+
+
+
 /*clientes*/
 
 
