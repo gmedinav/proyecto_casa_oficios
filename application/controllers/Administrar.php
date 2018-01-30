@@ -6,10 +6,24 @@ class Administrar extends CI_Controller {
 	{
 		parent::__construct();
 
+
 		$this->load->database();
 		$this->load->helper('url');
 
 		$this->load->library('grocery_CRUD');
+
+
+        $this->load->library('session');	    
+        //ini_set('max_execution_time', 65); 
+
+		if($this->sesion_activa()==false){
+
+			$this->load->view('vw_login');
+			die();
+		}   
+
+
+
 	}
 
 	public function _example_output($output = null)
@@ -833,4 +847,16 @@ class Administrar extends CI_Controller {
 
 
 */
+
+    public function sesion_activa(){
+
+        if(!isset($_SESSION['sesion_usuario'])){
+	        #$this->load->view('vw_login');
+            return false;
+        }else{
+                #http_redirect($uri);
+        	return true;
+        }
+
+    }	
 }
