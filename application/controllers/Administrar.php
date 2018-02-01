@@ -10,18 +10,16 @@ class Administrar extends CI_Controller {
 		$this->load->database();
 		$this->load->helper('url');
 
-		$this->load->library('grocery_CRUD');
-
-
         $this->load->library('session');	    
         //ini_set('max_execution_time', 65); 
+
+		$this->load->library('grocery_CRUD');
 
 		if($this->sesion_activa()==false){
 
 			$this->load->view('vw_login');
-			die();
-		}   
-
+			die();			
+		}  
 
 
 	}

@@ -562,6 +562,12 @@
 
                         <?php } ?>
                         <!--inicio form-->
+
+
+
+                        
+
+
                         <?php echo form_open_multipart('solicitar_trabajo/formulario', array('onsubmit' => 'return submit_form();')); ?>
 
                         <!-- Form Name -->
@@ -697,7 +703,7 @@
                             <div class="col-md-11 inputGroupContainer" >
                                 <p align="center">
                                     <button onclick="submit_form()" type="button"  class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                                    <span class="glyphicon glyphicon-send"></span>
+                                    <span class="glyphicon glyphic on-send"></span>
                                         Enviar
                                     </button>
                                 </p>
@@ -1012,6 +1018,34 @@
     <script src="<?php echo base_url("assets/js/jquery.isotope.min.js");?>" type="text/javascript"></script>
     <script src="<?php echo base_url("assets/js/main.js");?>" type="text/javascript"></script>
     <script src="<?php echo base_url("assets/js/wow.min.js");?>" type="text/javascript"></script>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Formulario de la Urgencia</h4>
+        </div>
+        <div class="modal-body">
+          <p id="p_mensaje">Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          
+          <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
+          <button type="submit" class="btn btn-default btn-success pull-right" id="btn_aceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>           
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+    
     </form>
+
+
+
 </body>
 </html>
