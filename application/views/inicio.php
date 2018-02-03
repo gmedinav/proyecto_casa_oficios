@@ -3,6 +3,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js" type="text/javascript"></script>
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
@@ -10,7 +11,8 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Inicio | CasaOficios</title>
-
+    
+    <link href="<?php echo base_url("assets/css/NewStyle.css"); ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url("assets/css/bootstrap.min.css"); ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url("assets/css/font-awesome.min.css"); ?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url("assets/css/animate.min.css"); ?>" rel="stylesheet" type="text/css" />
@@ -25,12 +27,166 @@
     <![endif]-->
 
     <script type="text/javascript">
+    
+    function b64toBlob(b64Data, contentType, sliceSize) {
+  contentType = contentType || '';
+  sliceSize = sliceSize || 512;
 
+  var byteCharacters = atob(b64Data);
+  var byteArrays = [];
+
+  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+    var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+    var byteNumbers = new Array(slice.length);
+    for (var i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+
+    var byteArray = new Uint8Array(byteNumbers);
+
+    byteArrays.push(byteArray);
+  }
+    
+  var blob = new Blob(byteArrays, {type: contentType});
+  return blob;
+}
+    function ini_x(){
+        alert("ESTOY ACA");
+        
+    
+    }
+    
+    function conexionfirebase(){
+                   alert("Hola mundo");
+          var config = {
+    apiKey: "AIzaSyCzzJ2mLmdxaC7EH6rwTUj5EdIYDd9VfDY",
+    authDomain: "proyectocasaoficios.firebaseapp.com",
+    databaseURL: "https://proyectocasaoficios.firebaseio.com",
+    projectId: "proyectocasaoficios",
+    storageBucket: "proyectocasaoficios.appspot.com",
+    messagingSenderId: "146643377224"
+  };
+  firebase.initializeApp(config);
+  // alert(#('foto').);
+             var img = new Image();    
+             var img2 = new Image();    
+             
+             var myReader = new FileReader();
+
+             var codigo = <?php echo $guardado;?>
+             
+            img.src = localStorage.theImage;      
+            img.name = localStorage.theImageName;
+                        
+            
+            if (localStorage.theImage == ""){
+                
+            }else{
+               localStorage.theImage = "";
+
+
+           var filein = sessionStorage.getItem("datanx");
+           var strdata = img.src;
+           
+           var  dataxsa = strdata.split(",");
+           var  extension = localStorage.theImageName.split(".");
+           
+      alert(img.name);
+      alert(dataxsa[1]);
+      
+   //    document.getElementById("copyfoto").setAttribute("src",filein);
+      
+      alert(filein);
+      img2.src = filein;
+           
+           
+           
+        // var fileInput = document.getElementById('foto'); 
+         
+        // var imagenasubir = fileInput.files[0];
+           
+           
+       //    alert(imagenasubir.name);
+           
+  /*Inicio de Storage*/
+  
+ //   var storage = firebase.storage();
+    
+    
+    // Create a root reference
+var storageRef = firebase.storage().ref().child('prueba');
+
+        
+var metadata = {
+  contentType: 'image/'+extension[1],
+};
+
+
+//var uploadTask = storageRef.child('xxsxxa/'+imagenasubir.name).put(imagenasubir);
+var uploadTask = storageRef.child(<?php echo $guardado;?>+"/"+img.name).putString(dataxsa[1],'base64',metadata);
+
+
+
+           /*Iniciamos la barra de progreso*/
+           
+           document.getElementById("progreso").className = ""; 
+
+
+// Register three observers:
+// 1. 'state_changed' observer, called any time the state changes
+// 2. Error observer, called on failure
+// 3. Completion observer, called on successful completion
+uploadTask.on('state_changed', 
+
+
+            function(snapshot){
+             
+             /*     var barraProgreso = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  
+                  
+                  if (barraProgreso == 0 || barraProgreso <= 10){
+                      
+                  document.getElementById("barra-de-progreso").style.width  =   "10%"; 
+                      
+                  }else{
+                      
+                      
+                  document.getElementById("barra-de-progreso").style.width  =  barraProgreso + "%"; 
+                      
+                  }
+       
+        */
+
+             
+           }, function(error) {
+             // Handle unsuccessful uploads
+           }, function() {
+             // Handle successful uploads on complete
+             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+             var downloadURL = uploadTask.snapshot.downloadURL;
+                        /*Iniciamos la barra de progreso*/
+           
+          // document.getElementById("progreso").className = "hidden"; 
+           });
+
+       
+       }
+       
+  
+     
+       
+     
+       
+    }
+    
     function fileValidation(nom_input_file){
 
         var fileInput = document.getElementById(nom_input_file);
         var filePath = fileInput.value;
         var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
+
+       sessionStorage.setItem("datanx",fileInput.value);
 
         if(!allowedExtensions.exec(filePath)){
             
@@ -69,10 +225,29 @@
                     crear_visor_img(nom_input_file);
                     document.getElementById("img_"+nom_input_file).src = e.target.result;
 
-
+             var img = new Image();
+             img.src = reader.result;
+             localStorage.theImage = reader.result;
+             localStorage.theImageName = fileInput.files[0].name;
+ 
+             
+            
+             
                 };
                 reader.readAsDataURL(fileInput.files[0]);
+            
+            
+   
+             
+             
+    
+             
+            //document.getElementById('copyfoto').files = document.getElementById(nom_input_file).files;
+            
             }
+            
+            
+            
         }
     }
 
@@ -309,6 +484,9 @@
     }
 
     function submit_form(){
+        
+
+        
 
         Oficio                  = $.trim($('#cboOficios').val());
         Contacto                = $.trim($('#contacto').val());
@@ -343,6 +521,9 @@
         document.getElementById("btn_aceptar").disabled  = false;
         document.getElementById("p_mensaje").innerHTML="¿Está seguro que desea registrar su urgencia?";    
 
+
+
+    
     }
 
 </script>
@@ -553,11 +734,12 @@
                         </p>
 
 <!-- Select Basic -->
-                        <?php if($guardado==TRUE){ ?>
+                        <?php if($guardado != 0){  echo '<script type="text/javascript">conexionfirebase();</script>'; ?>
 
                         <div class="alert alert-success alert-dismissable" aria-label="close">
                           <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                          <strong>Guardado: </strong> Nos contactataremos pronto con Ud.
+                          <strong>Registro Correcto,  </strong> su codigo de averia generado es el :  <?php echo $guardado;?> .
+                          Nos comunicaremos con usted en unos momentos.
                         </div>
 
                         <?php } ?>
@@ -598,7 +780,7 @@
                           <div class="col-md-11 inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input  name="contacto" id="contacto" placeholder="Contacto" class="form-control" value="<?php echo set_value('contacto'); ?>"  type="text">
+                                <input  name="contacto" id="contacto" placeholder="Contacto" class="form-control" value=""  type="text">
                                 </div>
                                 <?php echo form_error('contacto', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>      
                           </div>
@@ -610,7 +792,7 @@
                             <div class="col-md-11 inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                                <input name="telefono" id="telefono" placeholder="Teléfono" class="form-control"  value="<?php echo set_value('telefono'); ?>" type="text">        
+                                <input name="telefono" id="telefono" placeholder="Teléfono" class="form-control"  value="" type="text">        
                             </div>
                             <?php echo form_error('telefono', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>      
                           </div>
@@ -623,7 +805,7 @@
                             <div class="col-md-11 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                    <input name="email" id="email" placeholder="Correo Electrónico" class="form-control" value="<?php echo set_value('email'); ?>"  type="text">        
+                                    <input name="email" id="email" placeholder="Correo Electrónico" class="form-control" value=""  type="text">        
                                 </div>
                                 <?php echo form_error('email', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>      
                             </div>
@@ -635,7 +817,7 @@
                             <div class="col-md-11 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                    <input name="direccion" id="direccion" placeholder="Dirección" value="<?php echo set_value('direccion'); ?>" class="form-control" type="text">
+                                    <input name="direccion" id="direccion" placeholder="Dirección" value="" class="form-control" type="text">
                                 </div>
                                 <?php echo form_error('direccion', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>  
                           </div>
@@ -671,7 +853,7 @@
                             <div class="col-md-11 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                                        <textarea class="form-control" id="descripcionUrgencia" name="descripcionUrgencia" placeholder="Describenos de urgencia"><?php echo set_value('descripcionUrgencia'); ?></textarea>           
+                                        <textarea class="form-control" id="descripcionUrgencia" name="descripcionUrgencia" placeholder="Describenos de urgencia"></textarea>           
                             </div>
                                  <?php echo form_error('descripcionUrgencia', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>         
                             </div>
@@ -688,6 +870,16 @@
                                 </div>
                                 <?php echo form_error('foto', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>  
                              <div class="container-fluid" id="div_foto" style="background-color:lavenderblush;"></div>  
+                             
+                             
+                                <!--<div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                        <input  name="copyfoto"   id="copyfoto"   class="form-control" type="file">
+                                </div>-->
+                           
+                                 
+                                 
+                             
                             </div>
                                 
                               
@@ -710,6 +902,23 @@
                             </div>
                             
                         </div>
+                        
+                        
+                        <div class="hidden" id="progreso">
+                                
+                                    <div class="col-md-11 inputGroupContainer" >
+                                     
+                            <div class="progress">
+                                <div class="progress-bar-success"  role="progressbar" aria-valuenow="0"
+                                     aria-valuemin="0" aria-valuemax="100"  id="barra-de-progreso">
+                                      espere
+                                </div>
+                              </div>
+                            
+                               </div>
+                            
+                        </div>
+                        
 
 
 
