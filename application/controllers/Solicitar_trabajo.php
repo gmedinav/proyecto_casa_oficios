@@ -14,7 +14,9 @@ class Solicitar_trabajo extends CI_Controller {
 
 	public function index()
 	{
-                $data['guardado']=FALSE;
+
+        $data['guardado']=FALSE;
+
 		$this->load->model('ubigeo_model');
 		$data['distritos']= $this->ubigeo_model->listDistritosLima(); 
 		$this->load->model('oficio_model');
@@ -22,6 +24,24 @@ class Solicitar_trabajo extends CI_Controller {
 		$this->load->view('inicio',$data);
 
 	}
+
+    public function atencion($id_insert)
+    {
+
+        if(isset($id_insert))
+        {
+            $data['guardado']=$id_insert;            
+        }else{
+            $data['guardado']=FALSE;
+        }
+
+        $this->load->model('ubigeo_model');
+        $data['distritos']= $this->ubigeo_model->listDistritosLima(); 
+        $this->load->model('oficio_model');
+        $data['oficios']= $this->oficio_model->listOficios();                 
+        $this->load->view('inicio',$data);
+
+    }
 
         
         public function formulario()
@@ -99,12 +119,10 @@ class Solicitar_trabajo extends CI_Controller {
                 
                 $data['file'] = file_get_contents($_FILES['foto']['tmp_name']);
                 $data['guardado']=$this->solicitud_trabajo_model->insertar_Solicitud_Trabajo($data_insert);
-                //redirect(base_url("comentarios"), "refresh");                
 
-;
                 
-                $this->load->view('inicio',$data);
-                //echo "Datos cargador correctamente";
+                //$this->load->view('inicio',$data);
+                redirect(base_url()."Solicitar_trabajo/atencion/".$data['guardado']);
             }
 
         }        
