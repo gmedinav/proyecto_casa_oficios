@@ -84,17 +84,29 @@ if(isset($js_files)){
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
       <li class="dropdown-header">Mantenimiento</li>
-      <li><a tabindex="-1" href='<?php echo site_url('Administrar/clientes')?>'>Clientes</a></li>
-      <li><a tabindex="-1" href="#">Solicitud Trabajo</a></li>          
+      <li><a tabindex="-1" href='<?php echo site_url('Administrar/asignacion_trabajo')?>'>Asignación de Trabajo</a></li>
+      <li><a tabindex="-1" href='<?php echo site_url('Administrar/solicitud_trabajo')?>'>Solicitud Trabajo</a></li>          
       <li class="divider"></li>  
       <li><a tabindex="-1" href="<?php echo site_url('Administrar/tipo_averia')?>">Tipo Avería</a></li>  
     </ul>
   </div>
   <td>
 
+  <td>                           
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Clientes &nbsp;
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li class="dropdown-header">Mantenimiento</li>
+      <li><a tabindex="-1" href='<?php echo site_url('Administrar/clientes')?>'>Cliente</a></li>
+    </ul>
+  </div>
+  <td>
+
+
   <td>                         
   <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Trabajadores &nbsp;<span class="caret"></span></button>
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">TMRH &nbsp;<span class="caret"></span></button>
     <ul class="dropdown-menu">
 
       <li class="dropdown-header">Mantenimiento</li>      
@@ -171,8 +183,7 @@ if(isset($js_files)){
 
   </table>
 
-      <hr>
-    <a tabindex="-1" href='<?php echo site_url('Administrar/columna_ficha_administrar')?>'>Columna Ficha</a>
+
   <div>
 
 

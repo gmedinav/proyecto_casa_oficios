@@ -17,7 +17,8 @@ class Administrar extends CI_Controller {
 
 		if($this->sesion_activa()==false){
 
-			$this->load->view('vw_login');
+			//$this->load->view('vw_login');
+			redirect(base_url()."Login/");
 			die();			
 		}  
 
@@ -171,6 +172,41 @@ class Administrar extends CI_Controller {
 	}
 
 
+	public function asignacion_trabajo()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_asignacion');
+			$crud->set_subject('Asignación de Trabajo');
+			//$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+			$crud->columns(
+
+			'cod_tmrh',
+			'cod_solicitud_trabajo'
+
+				);
+
+			$crud->set_relation('cod_tmrh','tb_tmrh','{NUM_DOCUMENTO} - {NOM_TMRH} {APE_PATERNO} {APE_MATERNO}');
+			$crud->set_relation('cod_solicitud_trabajo','tb_solicitud_trabajo','{COD_SOLICITUD} - {TITULO}', null,'COD_SOLICITUD ASC');
+
+			$crud->fields('cod_tmrh', 'cod_solicitud_trabajo');
+
+			$crud->display_as('cod_tmrh','Código TMRH');
+			$crud->display_as('cod_solicitud_trabajo','Código Solicitud de Trabajo');
+
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+
 	public function tipo_canal_contacto()
 	{
 		try{
@@ -271,6 +307,80 @@ class Administrar extends CI_Controller {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
+
+
+
+
+
+
+	public function solicitud_trabajo()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_solicitud_trabajo');
+			$crud->set_subject('Solicitud Trabajo');
+			$crud->required_fields('COD_SOLICITUD','COD_SOLICITUD','NOMBRE','EMAIL','TELEFONO','TITULO','DESCRIPCION','COD_UBIGEO');
+			$crud->columns(
+
+			'COD_SOLICITUD',
+			'CORDENADAS_REGISTRO',
+			'CORDENADAS_UBICACION',
+			'NOMBRE',
+			'EMAIL',
+			'TELEFONO',
+			'TITULO',
+			'DESCRIPCION',
+			'FEC_REGISTRO',
+			'COD_UBIGEO',
+			'DIRECCION',
+			'COD_OFICIO'
+
+				);
+
+
+			$crud->set_relation('COD_OFICIO','tb_oficio','DES_OFICIO');
+			$crud->set_relation('COD_UBIGEO','tb_ubigeo','DES_UBIGEO',array('COD_PAIS' => '001','COD_DEPARTAMENTO' => '15','COD_PROVINCIA'=>'01','COD_DISTRITO <>'=>'00'),'COD_UBIGEO ASC');
+
+			$crud->fields('NOMBRE', 'EMAIL', 'TELEFONO','TITULO','DESCRIPCION','FEC_REGISTRO','COD_UBIGEO','COD_OFICIO');
+
+			$crud->display_as('COD_SOLICITUD','Código Solicitud');
+			$crud->display_as('NOMBRE','Nombre Contacto');
+			$crud->display_as('EMAIL','Correo Electrónico');
+			$crud->display_as('TELEFONO','Teléfono');
+
+			$crud->display_as('CORDENADAS_REGISTRO','Coordenada de registro');
+			$crud->display_as('CORDENADAS_UBICACION','Coordenada Ubicación');
+
+
+			$crud->display_as('TITULO','Título de Avería');
+			$crud->display_as('DESCRIPCION','Descripción de Avería');
+			$crud->display_as('FEC_REGISTRO','Fecha Registro');
+			$crud->display_as('DIRECCION','Dirección');
+
+			$crud->display_as('COD_UBIGEO','Ubigeo');
+			$crud->display_as('COD_OFICIO','Oficio');
+
+			$crud->field_type('DESCRIPCION', 'textarea');
+
+
+
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+
+
+
+
+
 
 
 	public function trabajador()

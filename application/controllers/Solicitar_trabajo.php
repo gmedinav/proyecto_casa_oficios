@@ -61,6 +61,12 @@ class Solicitar_trabajo extends CI_Controller {
             $this->form_validation->set_rules('email', '"Email"', 'required|valid_email');
             $this->form_validation->set_rules('direccion', '"Dirección"', 'required');
             $this->form_validation->set_rules('foto', '"Subir Archivo"', 'callback_cargar_archivo');
+
+            $this->form_validation->set_rules('titulo', '"Título"', 'required|min_length[5]|max_length[20]',
+                                                array('min_length' => 'El campo "Título" debe escribir al menos 5 caracteres en su descripción',
+                                                      'max_length' => 'El campo "Título" debe tener menos de 20 caracteres en su descripción.' 
+                                                        )
+                );
             
 
             $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
@@ -68,6 +74,9 @@ class Solicitar_trabajo extends CI_Controller {
             $this->form_validation->set_message('valid_email','El campo %s debe ser un email correcto.');     
             $this->form_validation->set_message('alpha_dash_space','El campo %s debe estar compuesto solo por letras.');  
             $this->form_validation->set_message('is_natural_no_zero','El campo %s es un valor numérico.');  
+
+
+
 
             $this->load->model('ubigeo_model');
             $data['distritos']= $this->ubigeo_model->listDistritosLima();   
@@ -113,7 +122,8 @@ class Solicitar_trabajo extends CI_Controller {
                 $data_insert['TELEFONO'] = $this->input->post('telefono');							
                 $data_insert['DIRECCION'] = $this->input->post('direccion');                
                 $data_insert['DESCRIPCION']= $this->input->post('descripcionUrgencia');		
-                $data_insert['COD_UBIGEO'] = $this->input->post('cboDistrito');							
+                $data_insert['COD_UBIGEO'] = $this->input->post('cboDistrito');		
+                $data_insert['TITULO'] = $this->input->post('titulo'); 					
                 //$data_insert['FOTO'] = base64_encode( addslashes(file_get_contents($_FILES['foto']['tmp_name'])));                 
                 $data_insert['FOTO'] = null;
                 

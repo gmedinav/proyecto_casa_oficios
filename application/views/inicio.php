@@ -501,6 +501,8 @@ uploadTask.on('state_changed',
         DescripcionUrgencia     = $.trim($('#descripcionUrgencia').val());
         Foto                    = $.trim($('#foto').val());
         Distrito                = $.trim($('#cboDistrito').val());
+        Titulo                  = $.trim($('#titulo').val());
+
 
         if (msj_value_es_cero(Oficio, 'Oficio')==false) {return false;}   
 
@@ -520,6 +522,11 @@ uploadTask.on('state_changed',
 
         if (msj_value_longitud_min(DescripcionUrgencia,30, 'Descripición de Urgencia')==false) {return false;}  
         if (msj_value_longitud_max(DescripcionUrgencia,300, 'Descripición de Urgencia')==false) {return false;}  
+
+
+        if (msj_value_longitud_min(Titulo,5, 'Título')==false) {return false;}  
+        if (msj_value_longitud_max(Titulo,20, 'Título')==false) {return false;}  
+
 
         if (msj_value_vacio(Foto, 'Foto')==false) {return false;}  
             
@@ -743,16 +750,13 @@ uploadTask.on('state_changed',
 
                         <div class="alert alert-success alert-dismissable" aria-label="close">
                           <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                          <strong>Registro Correcto:  </strong> su código de avería generado es el :  <?php echo $guardado;?> .
+                          <strong>Registro Correcto:  </strong> su código de avería generado es el  <?php echo $guardado;?> .
                           Nos comunicaremos con usted en unos momentos.
                         </div>
 
                         <?php } ?>
                         <!--inicio form-->
 
-
-
-                        
 
 
                         <?php echo form_open_multipart('solicitar_trabajo/formulario', array('onsubmit' => 'return submit_form();')); ?>
@@ -850,6 +854,20 @@ uploadTask.on('state_changed',
                                 <?php echo form_error('cboDistrito', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>   
                             </div>
                         </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group" style="padding-top:10px   "> 
+                            <div class="col-md-11 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                    <input name="titulo" id="titulo" maxlength="20" placeholder="Título" value="" class="form-control" type="text">
+                                </div>
+                                <?php echo form_error('titulo', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>  
+                          </div>
+                        </div>      
+
 
 
 

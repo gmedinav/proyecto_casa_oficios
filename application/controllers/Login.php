@@ -54,7 +54,8 @@ class Login extends CI_Controller {
             	if($rpta){
 
             		$_SESSION['sesion_usuario'] = $rpta->DES_USUARIO .' '.$rpta->LOG_USUARIO ;
-            		$this->load->view('example');
+                    redirect(base_url()."Administrar");
+            		//$this->load->view('example');
             		return ;
 
             	}
@@ -75,7 +76,10 @@ class Login extends CI_Controller {
 
 	        $this->session->sess_destroy();
 	        $this->session->userdata('sesion_usuario');
+
+            //redirect(base_url()."Administrar");
 	        $this->load->view('vw_login');
+            //redirect(base_url()."login");
 
         }
 
