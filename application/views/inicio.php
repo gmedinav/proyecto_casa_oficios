@@ -56,14 +56,10 @@ header ("Pragma: no-cache");
   var blob = new Blob(byteArrays, {type: contentType});
   return blob;
 }
-    function ini_x(){
-        alert("ESTOY ACA");
-        
-    
-    }
+
     
     function conexionfirebase(){
-                   alert("Hola mundo");
+        
           var config = {
     apiKey: "AIzaSyCzzJ2mLmdxaC7EH6rwTUj5EdIYDd9VfDY",
     authDomain: "proyectocasaoficios.firebaseapp.com",
@@ -73,7 +69,7 @@ header ("Pragma: no-cache");
     messagingSenderId: "146643377224"
   };
   firebase.initializeApp(config);
-  // alert(#('foto').);
+
              var img = new Image();    
              var img2 = new Image();    
              
@@ -97,12 +93,12 @@ header ("Pragma: no-cache");
            var  dataxsa = strdata.split(",");
            var  extension = localStorage.theImageName.split(".");
            
-      alert(img.name);
-      alert(dataxsa[1]);
+     // alert(img.name);
+     // alert(dataxsa[1]);
       
    //    document.getElementById("copyfoto").setAttribute("src",filein);
       
-      alert(filein);
+     // alert(filein);
       img2.src = filein;
            
            
