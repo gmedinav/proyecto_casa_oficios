@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -80,6 +80,8 @@
             var tabName2 = $(".tab-content").find(".active").attr('id');
             // CON ESTE SWITCH VALIDAS LOS DATOS POR CADA TAB
             var bol = true;
+
+            /*
             switch (tabName2) {
                 case 'home':
                     //Este metodo esta en Funciones_Val_TMRH.js que esta en la Carpeta js....
@@ -94,10 +96,25 @@
                     tabName2 = 'profile';
                     break;
 
+
+                case 'profile':
+                    ValidarElementosContacto();
+                    tabName2 = 'profile';
+                    break;
+
+                case 'profile':
+                    ValidarElementosContacto();
+                    tabName2 = 'profile';
+                    break;                                        
+
             }
             if(bol == false){
                 return;           
             }
+
+            */
+
+
             // LUEGO DE ESTO SI TODO ESTA BIEN PASA A EL TAB QUE REQUIERA EL BOTON..
             $('#Tabs a[href="#' + tab + '"]').tab('show');
             $("#Tabs a").click(function () {
@@ -343,6 +360,43 @@
 
     }
 
+/*******************************************************************************/
+
+    function msj_no_items(valor, campo){
+
+        //nro_item = $('#'+obj+' option').length;   
+
+        if(valor != 0){
+
+            return true;
+
+        }else{
+            //alert("La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+nro_exacto+" caracteres."); 
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "No se agregó ningún ítem en el campo '" + campo + "'."
+            $('#myModal').modal('show');            
+            return false;
+        }
+
+    }
+
+    function msj_no_selected(valor, campo){
+
+        //item = $.trim($('#'+obj).find('option:selected').text());  
+
+        if(valor != -1){
+            return true;
+
+        }else{
+            //alert("La longitud de caracteres para el campo '" + campo + "' no es correcta, debería ser "+nro_exacto+" caracteres."); 
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = "Debe selecionar un ítem del campo '" + campo + "'."
+            $('#myModal').modal('show');            
+            return false;
+        }
+
+    }
+
 
     function msj_value_es_email(valor,campo) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -403,7 +457,7 @@
 
     }
 
-    function valida_tab_1er(){
+    function pre_valida_tab_1er(){
 
         Nombres         = $.trim($('#TxtNombres').val());
         ApePa           = $.trim($('#txtApePa').val());
@@ -476,13 +530,19 @@
 
         if (msj_value_vacio(FecNaci, 'Fecha Nacimiento')==false){return false;}
 
+        return true;
+
+    }
+
+    function valida_tab_1er(){
+
+        
+        if(pre_valida_tab_1er() == false){return false;}
 
         openTab('profile');
         return true;
 
     }
-
-
 
 
     function pre_valida_tab_2do(){
@@ -491,19 +551,46 @@
         Distrito                = $.trim($('#cboDistrito').val());
         Email                   = $.trim($('#txtEmail').val());
         Direccion               = $.trim($('#txtDireccion').val());
-        nroTelefonoAgregados    = $('#lstTelefonoAgregados option').length;
 
-        //alert('nroTelefonoAgregados:' + nroTelefonoAgregados);
+
+        nroTelefonoAgregados    = $('#lstTelefonoAgregados option').length;
+        //alert("TelefonoPrincipal : "+TelefonoPrincipal)
+
+        //nro_item = $('#lstTelefonoAgregados option').length;  
+        //item = $.trim($('#cboCompaniaPrincipal').find('option:selected').val());
+
+        
+
         if (msj_value_es_cero(Distrito, 'Distrito')==false){return false;}    
 
         if (msj_value_vacio(Direccion, 'Dirección')==false){return false;}
 
         if (msj_value_vacio(Email, 'Correo Electrónico')==false){return false;}
+
         if (msj_value_es_email(Email, 'Correo Electrónico')==false){return false;}            
+
+
+
+        //if(msj_no_items(nro_item,'Lista de Teléfonos')==false){
+
+        //    return false;
+                  
+        //}else{
+
+        //    if (msj_value_es_negativo(TelefonoPrincipal, 'Celular Principal de Contacto') == false)
+        //    { 
+        //        return false; 
+        //    }     
+
+        //}
+
+
 
         if(nroTelefonoAgregados != 0){
             if (msj_value_es_negativo(TelefonoPrincipal, 'Celular Principal de Contacto')==false){return false;}           
         }
+
+
 
         return true;
 
@@ -511,12 +598,20 @@
 
 
 
+
+
     function valida_tab_2do(){
+        
+        if (valida_tab_1er()){
 
-        if(pre_valida_tab_2do()==false){return false;}
+            if(pre_valida_tab_2do()==false) {return false;}
 
-        openTab('messages');
-        return true;
+            openTab('messages');
+            return true;
+
+        }
+
+        return false;
 
     }
 
@@ -536,10 +631,17 @@
 
     function valida_tab_3er(){
 
-        if(pre_valida_tab_3er()==false){return false;}
-     
-        openTab('settings');
-        return true;
+        if (valida_tab_2do())
+        {
+
+            if(pre_valida_tab_3er()==false)
+            {
+                return false;
+            }         
+            openTab('settings');
+            return true;
+
+        }
 
     }
 
@@ -560,8 +662,8 @@
         if(nroOficiosAgregados>0 && nroTelefonoAgregados >0){
 
             if (msj_value_vacio(ReciboResidencia, 'Recibo Luz o Agua')==false){return false;}
-            if (msj_value_vacio(AntecendentesPoliciales, 'Antecendentes Penales Escaneado')==false){return false;}
-            if (msj_value_vacio(AntecendentesPenales, 'Antecendentes Policiales Escaneado')==false){return false;}
+            if (msj_value_vacio(AntecendentesPenales, 'Antecendentes Penales Escaneado')==false){return false;}
+            if (msj_value_vacio(AntecendentesPoliciales, 'Antecendentes Policiales Escaneado')==false){return false;}
             if (msj_value_vacio(DocumentoIdentidad, 'Documento de Identidad Escaneado')==false){return false;}
             if (msj_value_vacio(Foto_Carnet, 'Foto Carnet')==false){return false;}       
                
@@ -573,24 +675,55 @@
 
     function valida_tab_4to(){
 
-        if(pre_valida_tab_4to()==false){return false;}
-        openTab('enviar');
-        return true;
-
+        if (valida_tab_3er())
+        {
+            if(pre_valida_tab_4to()==false){return false;}
+            openTab('enviar');
+            return true;
+        }
     }
 
+
+    var posicion=1;
+    function cambiar_posicion(asignacion){
+        posicion = asignacion;
+    }
 
 
 
     function validar_submit(){
 
-        if(valida_tab_1er() == false){ return false;}
-        if(pre_valida_tab_2do() == false){ return false;}
-        if(pre_valida_tab_3er() == false){ return false;}
-        if(pre_valida_tab_4to() == false){ return false;}
+        //alert('posicion : '+posicion);
+
+        if(valida_tab_1er() == false)
+        { 
+            openTab('home');
+            return false;
+        }
+        if (posicion==1){ return true}
+
+        if(pre_valida_tab_2do() == false)
+        { 
+            openTab('profile');
+            return false;
+        }
+        if (posicion==2){ return true}
+
+        if(pre_valida_tab_3er() == false)
+        { 
+            openTab('messages');
+            return false;
+        }
+        if (posicion==3){ return true}
+        
+        if(pre_valida_tab_4to() == false)
+        {   
+            openTab('settings');
+            return false;
+        }
 
         return true;
-
+    
     }
 
 
@@ -599,27 +732,75 @@
 
     <?php
 
+        $prim_bloque[1] = "TxtNombres";
+        $prim_bloque[2] = "txtApePa";
+        $prim_bloque[3] = "txtApeMa";
+        $prim_bloque[4] = "cboTipoGenero";
+        $prim_bloque[5] = "txtNroDocumento";
+        $prim_bloque[6] = "CboTipoDocumento";
+        $prim_bloque[7] = "txtFecNaci";
+
+        $seg_bloque[1]="cboDistrito";
+        $seg_bloque[2]="txtDireccion";
+        $seg_bloque[3]="txtEmail";
+        $seg_bloque[4]="cboCompaniaPrincipal";
+        $seg_bloque[5]="lstTelefonoAgregados";
+        $seg_bloque[6]="lstTelefonoAgregados";
+        $seg_bloque[7]="cboCompaniaPrincipal";
+
+        $tercer_bloque[1]="lstOficioExperienciAgregados";
+        $tercer_bloque[2]="cboOficiosPreferencial";
+
+        $cuarto_bloque[1]="fileReciboResidencia";
+        $cuarto_bloque[2]="fileAntecedentePenales";
+        $cuarto_bloque[3]="fileAntecendentesPoliciales";
+        $cuarto_bloque[4]="fileDocumentoIdentidad";
+        $cuarto_bloque[5]="FotoCarnet";
+
+        foreach ($cuarto_bloque as $key => $value) {
+            if(form_error($cuarto_bloque[$key])){ $tab=4; break;}     
+        }
+
+        foreach ($tercer_bloque as $key => $value) {
+            if(form_error($tercer_bloque[$key])){ $tab=3; break;}     
+        }
+
+        foreach ($seg_bloque as $key => $value) {
+            if(form_error($seg_bloque[$key])){ $tab=2; break;}     
+        }
+
+        foreach ($prim_bloque as $key => $value) {
+            if(form_error($prim_bloque[$key])){ $tab=1; break;}     
+        }
+
         $array_tab[1]="home";
         $array_tab[2]="profile";
         $array_tab[3]="messages";
-
-        echo "openTab('".$array_tab[$tab]."');\n";
-
+        $array_tab[4]="settings";
+        $array_tab[5]="Enviar";
+        
+        #echo "alert('inicio: array_tab[tab]=".$array_tab[$tab]."');\n";
         foreach ($array_tab as $key => $value) {
 
             if($key==$tab){
-                echo "\t$('tab_".$key."').addClass('active');\n";
+                echo "\tdocument.getElementById('tab_".$key."').className = 'active';\n";
+                echo "\tdocument.getElementById('".$array_tab[$key]."').className = 'tab-pane active';\n";
 
             }else{
-                echo "\t$('tab_".$key."').removeClass('active');\n";
+                echo "\tdocument.getElementById('tab_".$key."').className = '';\n";
+                echo "\tdocument.getElementById('".$array_tab[$key]."').className = 'tab-pane';\n";     
+                           
             }
 
         }
-
+        #echo "alert('fin: array_tab[tab]=".$array_tab[$tab]."');\n";
     ?>
-
         
     }
+
+
+
+
 
 
     </script>
@@ -732,9 +913,8 @@
                                     <!-- Nav tabs -->
                     <div id="Tabs" role="tabpanel">
                                     <ul  id="foo"  class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" id="tab_1"
-                                         class="active" 
-                                         >
+
+                                        <li role="presentation" id="tab_1" class="active">
                                         <a href="#home" aria-controls="home" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-user"></i> 
                                          Identidad
@@ -758,16 +938,13 @@
 
                                         <li role="presentation"  id="tab_4">
                                         <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"> 
-                                        <i class="glyphicon glyphicon-file"></i>      
-                                        
+                                        <i class="glyphicon glyphicon-file"></i>                                              
                                         Validación
-
                                         </a>
-
                                         </li>
 
 
-                                        <li role="Enviar"  id="tab_5">
+                                        <li role="presentation"  id="tab_5">
                                         <a href="#enviar" aria-controls="enviar" role="tab" data-toggle="tab"> 
                                         <i class="glyphicon glyphicon-send"></i>      
                                         
@@ -910,7 +1087,7 @@
                           </div>
                            
            
-                          <div role="tabpanel" class="tab-pane" id="profile">
+                          <div role="tabpanel" class="tab-pane " id="profile">
                                        <!--Inicio: Tab panes02-->
 
                                                     <!-- Select Basic -->
@@ -991,8 +1168,8 @@
                                                         <?php echo form_error('cboProveedorTelf', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>
                                                         
                                                         <div class="input-group">
-                                                            <input type="submit" class="col-md-6" id="btnEliminarTelefono" name="btnAccionTelefono" value="Eliminar">                                                   
-                                                            <input type="submit" class="col-md-6" id="btnAgregarTelefono" name="btnAccionTelefono" value="Agregar">
+                                                            <input type="submit" class="col-md-6" id="btnEliminarTelefono" onclick="cambiar_posicion(2)" name="btnAccionTelefono" value="Eliminar">                                                   
+                                                            <input type="submit" class="col-md-6" id="btnAgregarTelefono" onclick="cambiar_posicion(2)" name="btnAccionTelefono" value="Agregar">
                                                         </div>        
                                                         
   
@@ -1100,8 +1277,8 @@
                                                         
 
                                                         <div class="input-group">
-                                                            <input type="submit" class="col-md-6 " name="btnAccionOficio" id="btnEliminarOficio" value="Eliminar">
-                                                            <input type="submit" class="col-md-6" name="btnAccionOficio" id="btnAgregarOficio" value="Agregar" >  
+                                                            <input type="submit" class="col-md-6 " onclick="cambiar_posicion(3)" name="btnAccionOficio" id="btnEliminarOficio" value="Eliminar">
+                                                            <input type="submit" class="col-md-6" onclick="cambiar_posicion(3)" name="btnAccionOficio" id="btnAgregarOficio" value="Agregar" >  
                                                         </div>
 
                                                         <select id="lstOficioExperienciAgregados"  size="6" name="lstOficioExperienciAgregados" Class="form-control selectpicker" >
@@ -1519,7 +1696,7 @@
             </div>
             <div class="modal-footer">
               
-              <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
+              <button type="submit" class="btn btn-danger btn-default " id="btnVolver" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
               <button type="submit" class="btn btn-default btn-success pull-right" id="btn_aceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>           
               
             </div>

@@ -89,7 +89,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!--a href="tmrh_contactos">demo</a> || 
     <!--a href="tmrh_oficios">Oficios TMRH</a-->
     <!--a href="inicio_plantilla">antigua version</a--> 
-    <a href="Login">Módulo de Admninistración</a>
+    <a href="Login">Módulo de Admninistración</a> || 
+
+        <!--a href="trabaja_con_nosotros_alterno">Trabajadores Alterno</a--> 
     
 </body>
 </html>
+

@@ -89,7 +89,7 @@ class Trabaja_con_nosotros extends CI_Controller {
         $this->form_validation->set_rules('txtApeMa', '"Apellidos Materno"', 'required|trim|callback_alpha_dash_space');
         $this->form_validation->set_rules('txtNroDocumento', '"Número de Documento"', 'required|is_natural_no_zero|callback_validar_existencia_nro_documento');                        
         $this->form_validation->set_rules('txtFecNaci', '"Fecha Nacimiento"', 'required|callback_valid_date|callback_validar_mayor_edad');        
-        
+        $data['tab']=1;
 
         if($this->input->post('btnAccionTelefono') == "Agregar")
         {
@@ -282,9 +282,10 @@ class Trabaja_con_nosotros extends CI_Controller {
         }
      
         #$this->load->library('form_validation');
-
+        $data['tab']=1;
         $this->form_validation->reset_validation();
 
+        
         $this->form_validation->set_rules('TxtNombres', '"Nombres"', 'required|trim|callback_alpha_dash_space');
         $this->form_validation->set_rules('txtApePa', '"Apellido Paterno"', 'required|trim|callback_alpha_dash_space');
         $this->form_validation->set_rules('txtApeMa', '"Apellidos Materno"', 'required|trim|callback_alpha_dash_space');
