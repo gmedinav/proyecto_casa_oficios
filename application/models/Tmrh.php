@@ -13,7 +13,19 @@ class Tmrh extends CI_Model {
 
                $this->load->database();                  
                $rpta= $this->db->insert('tb_tmrh', $data_array);
-               return $rpta;
+               
+               $codigo = 0;
+               
+                if ($rpta == true){
+                        $codigo = $this->db->insert_id();
+               return $codigo;//->result_array();
+                }ELSE{
+                    
+               return $codigo;//->result_array();
+                }
+               
+               
+               
 
         }
         

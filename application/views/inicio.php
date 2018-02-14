@@ -116,7 +116,7 @@ header ("Pragma: no-cache");
     
     
     // Create a root reference
-var storageRef = firebase.storage().ref().child('prueba');
+var storageRef = firebase.storage().ref().child('tb_solicitud_trabajo_documento');
 
         
 var metadata = {
@@ -251,6 +251,12 @@ uploadTask.on('state_changed',
             
         }
     }
+    
+    
+    
+     
+    
+   
 
 
     function crear_visor_img(nombre_id){

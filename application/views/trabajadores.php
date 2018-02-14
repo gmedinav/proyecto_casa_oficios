@@ -8,6 +8,7 @@
     <title>Casa Oficios</title>
 
     <script src="<?php echo base_url("assets/js/jquery.js"); ?>" type="text/javascript"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <link href="<?php echo base_url("assets/css/bootstrap.min.css"); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url("assets/css/font-awesome.min.css"); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url("assets/css/animate.min.css"); ?>" rel="stylesheet" type="text/css">
@@ -47,6 +48,299 @@
                             }
                         }
                     }
+                    
+                    
+                      function conexionfirebase(){
+        
+          var config = {
+    apiKey: "AIzaSyCzzJ2mLmdxaC7EH6rwTUj5EdIYDd9VfDY",
+    authDomain: "proyectocasaoficios.firebaseapp.com",
+    databaseURL: "https://proyectocasaoficios.firebaseio.com",
+    projectId: "proyectocasaoficios",
+    storageBucket: "proyectocasaoficios.appspot.com",
+    messagingSenderId: "146643377224"
+  };
+  firebase.initializeApp(config);
+
+       /*Definimos las 5 imagenes*/
+             var img = new Image();   
+             var img2 = new Image();   
+             var img3 = new Image();   
+             var img4= new Image();   
+             var img5 = new Image();    
+             
+
+
+             var codigo = <?php echo $guardado;?>
+             
+            img.src = localStorage.imgluz;      
+            img.name = localStorage.imgluzname;
+            
+            
+            img2.src = localStorage.penales;      
+            img2.name = localStorage.penalesname;
+            
+            
+            img3.src = localStorage.policiales;      
+            img3.name = localStorage.policialesname;
+            
+            
+            img4.src = localStorage.idenescaneado;      
+            img4.name = localStorage.idenescaneadoname;
+            
+            
+            img5.src = localStorage.fotcarnet;      
+            img5.name = localStorage.fotcarnetname;
+                        
+            
+            alert(img2.src);
+            
+            
+            
+            
+            
+/*Img Luz*/
+            if (localStorage.imgluz == ""){
+                
+            }else{
+               localStorage.imgluz = "";
+
+
+           //var filein = sessionStorage.getItem("datanx");
+           var strdata = img.src;
+           
+           var  dataxsa = strdata.split(",");
+           var  extension = localStorage.imgluz.split(".");
+
+            /*Inicio de Storage*/
+
+           //   var storage = firebase.storage();
+
+
+              // Create a root reference
+          var storageRef = firebase.storage().ref().child('tb_tmrh_recibo_residen');
+
+
+          var metadata = {
+            contentType: 'image/'+extension[1],
+          };
+
+
+            //Subir los archivos
+            var uploadTask = storageRef.child(codigo+"/"+img.name).putString(dataxsa[1],'base64',metadata);
+          }
+                   
+                   
+                   
+                   
+                   
+                   
+
+/*Penales*/
+
+            if (localStorage.penales == ""){
+            }else{
+               localStorage.penales = "";
+
+        //var filein = sessionStorage.getItem("datanx");
+           var strdata2 = img2.src;
+
+           var  dataxsa2 = strdata2.split(",");
+           var  extension2 = localStorage.penales.split(".");
+
+            /*Inicio de Storage*/
+
+           //   var storage = firebase.storage();
+
+
+              // Create a root reference
+          var storageRef2 = firebase.storage().ref().child('tb_tmrh_antecedente_penales');
+
+
+          var metadata2 = {
+            contentType: 'image/'+extension2[1],
+          };
+
+            var uploadTask2 = storageRef2.child(codigo+"/"+img2.name).putString(dataxsa2[1],'base64',metadata2);  
+          }
+                   
+                   
+
+
+               
+
+/*Antecedentes policiales*/
+
+            if (localStorage.policiales == ""){
+            }else{
+               localStorage.policiales = "";
+
+        //var filein = sessionStorage.getItem("datanx");
+           var strdata3 = img3.src;
+
+           var  dataxsa3 = strdata2.split(",");
+           var  extension3 = localStorage.policiales.split(".");
+
+            /*Inicio de Storage*/
+
+           //   var storage = firebase.storage();
+
+
+              // Create a root reference
+          var storageRef3 = firebase.storage().ref().child('tb_tmrh_fileAntecendentes_policiales');
+
+
+          var metadata3 = {
+            contentType: 'image/'+extension3[1],
+          };
+
+            var uploadTask3 = storageRef3.child(codigo+"/"+img3.name).putString(dataxsa3[1],'base64',metadata3);  
+          }
+             
+             
+             
+             
+                            
+
+/*Docu identidad*/
+
+            if (localStorage.idenescaneado == ""){
+            }else{
+               localStorage.idenescaneado = "";
+
+           var strdata4 = img4.src;
+
+           var  dataxsa4 = strdata4.split(",");
+           var  extension4 = localStorage.idenescaneado.split(".");
+
+            /*Inicio de Storage*/
+
+           //   var storage = firebase.storage();
+
+
+              // Create a root reference
+          var storageRef4 = firebase.storage().ref().child('tb_tmrh_doc_identidad');
+
+
+          var metadata4 = {
+            contentType: 'image/'+extension4[1],
+          };
+
+            var uploadTask4 = storageRef4.child(codigo+"/"+img4.name).putString(dataxsa4[1],'base64',metadata4);  
+          }
+             
+             
+             
+             
+                            
+
+/*Foto carnet*/
+
+            if (localStorage.fotcarnet == ""){
+            }else{
+               localStorage.fotcarnet = "";
+
+        //var filein = sessionStorage.getItem("datanx");
+           var strdata5 = img5.src;
+
+           var  dataxsa5 = strdata5.split(",");
+           var  extension5 = localStorage.fotcarnet.split(".");
+
+            /*Inicio de Storage*/
+
+           //   var storage = firebase.storage();
+
+
+              // Create a root reference
+          var storageRef5 = firebase.storage().ref().child('tb_tmrh_foto_carnet');
+
+
+          var metadata5 = {
+            contentType: 'image/'+extension5[1],
+          };
+
+            var uploadTask5 = storageRef5.child(codigo+"/"+img5.name).putString(dataxsa5[1],'base64',metadata5);  
+          }
+             
+      
+     
+     
+       
+     
+       
+    }
+    
+    function fileValidation(nom_input_file){
+
+        var fileInput = document.getElementById(nom_input_file);
+        var filePath = fileInput.value;
+        var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
+
+       sessionStorage.setItem("datanx",fileInput.value);
+
+        if(!allowedExtensions.exec(filePath)){
+            
+            document.getElementById("btn_aceptar").disabled  = true;
+            document.getElementById("p_mensaje").innerHTML = 'Por favor, el archivo debe tener alguna de las extensiones siguientes: .jpeg/.jpg/.png/.gif.'; 
+            $('#myModal').modal('show');
+            
+            //document.getElementById(id_imagen).src = "";
+
+            document.getElementById("div_"+nom_input_file).innerHTML="";
+            fileInput.value = '';
+            return false;
+        }else{
+
+            //alert("size:"+document.getElementById(nom_input_file).files[0].size);
+            size_file= document.getElementById(nom_input_file).files[0].size;
+
+            if(size_file>2097152){
+
+                //alert('Por favor, el archivo no debe superar de los 2Mb de espacio físico.');
+                document.getElementById("btn_aceptar").disabled  = true;
+                document.getElementById("p_mensaje").innerHTML = 'Por favor, el archivo no debe superar de los 2Mb de espacio físico.';
+                ('#myModal').modal('show');
+                
+                fileInput.value = '';
+                document.getElementById("div_"+nombre_id).innerHTML="";
+                return false;
+
+            }
+
+            //Image preview
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    /*document.getElementById('imagePreview').innerHTML = '<img src="'+e.target.result+'"/>';*/
+                    crear_visor_img(nom_input_file);
+                    document.getElementById("img_"+nom_input_file).src = e.target.result;
+
+             var img = new Image();
+             img.src = reader.result;
+             localStorage.theImage = reader.result;
+             localStorage.theImageName = fileInput.files[0].name;
+ 
+             
+            
+             
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            
+            
+   
+             
+             
+    
+             
+            //document.getElementById('copyfoto').files = document.getElementById(nom_input_file).files;
+            
+            }
+            
+            
+            
+        }
+    }
+                    
 
         function selectAllElements(id,id2) {
 
@@ -168,12 +462,36 @@
                     crear_visor_img(nom_input_file);
                     document.getElementById("img_"+nom_input_file).src = e.target.result;
 
-
+                     var img = new Image();
+                     img.src = reader.result;
+                     
+                     if (nom_input_file == "fileReciboResidencia"){
+                         localStorage.imgluz = reader.result;
+                         localStorage.imgluzname = fileInput.files[0].name;
+                     }else if (nom_input_file == "fileAntecedentePenales"){
+                         localStorage.penales = reader.result;
+                         
+                         localStorage.penalesname = fileInput.files[0].name;
+                     }else if (nom_input_file == "fileAntecendentesPoliciales"){
+                         localStorage.policiales = reader.result;
+                         
+                         localStorage.policialesname = fileInput.files[0].name;
+                     }else if (nom_input_file == "fileDocumentoIdentidad"){
+                         localStorage.idenescaneado = reader.result;
+                         
+                         localStorage.idenescaneadoname = fileInput.files[0].name;
+                     }else if (nom_input_file == "FotoCarnet"){
+                         localStorage.fotcarnet = reader.result;
+                         
+                         localStorage.fotcarnetname = fileInput.files[0].name;
+                     }
+                     
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             }
         }
     }
+  
 
 
     function crear_visor_img(nombre_id){
@@ -878,11 +1196,12 @@
     ?>
 <!-- Form Name -->
         <?php 
-        if($guardado==TRUE){ 
+        if($guardado != 0){ echo '<script type="text/javascript">conexionfirebase();</script>'; 
         ?>
 
         <div class="alert alert-success">
-          <strong>Guardado: </strong> Nos contactataremos pronto con Ud.
+          <strong>Guardado: </strong> Enviamos un correo de confirmación , su codigo de trabajador es el <?php echo $guardado;?>.
+          Nos comunicaremos con usted en unos momentos.
         </div>
 
         <?php

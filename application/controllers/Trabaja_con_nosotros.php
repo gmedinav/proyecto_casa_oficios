@@ -363,7 +363,7 @@ class Trabaja_con_nosotros extends CI_Controller {
             
             #echo "rpta insercion: ".$data['guardado'];
             
-            if($data['guardado']){
+            if($data['guardado'] != 0){
                 
                 $ultimo_id = $this->db->insert_id();
                                 
@@ -383,8 +383,8 @@ class Trabaja_con_nosotros extends CI_Controller {
                     unset($instancia);
                 }
                 
-               #inicio
-                $this->load->model('Tmrh_documento_adjunto_model');
+               #inicio Ya no se guardara archivos adjuntos
+                /*$this->load->model('Tmrh_documento_adjunto_model');
                 
                 $array_files[1] = $_FILES["FotoCarnet"];                 
                 $array_files[2] = $_FILES["fileDocumentoIdentidad"];
@@ -400,10 +400,16 @@ class Trabaja_con_nosotros extends CI_Controller {
                     $instancia['IMAGEN']                = base64_encode( addslashes(file_get_contents($value['tmp_name'])));
                     $instancia['LENGHT_D']              = $value['size'];
                                                             
-                    $this->Tmrh_documento_adjunto_model->guardar_Instancia($instancia);                     
-                    unset($instancia);
-                }                
+                    //$this->Tmrh_documento_adjunto_model->guardar_Instancia($instancia);                     
+                    //unset($instancia);
+                }    
+                */
+                   unset($instancia);
+                
                #fin
+                
+             
+                
                 
                 //recorrer el bucle de  array session de Oficios  
                 $array_id_oficios = $this->listarOficios();
