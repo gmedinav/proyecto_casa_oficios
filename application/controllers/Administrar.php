@@ -178,7 +178,7 @@ class Administrar extends CI_Controller {
 			$crud = new grocery_CRUD();
 
 			#$crud->set_theme('datatables');
-			$crud->set_table('tb_asignacion');
+			$crud->set_table('tb_asignacion_tmrh');
 			$crud->set_subject('Asignación de Trabajo');
 			//$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
 			$crud->columns(
@@ -205,6 +205,44 @@ class Administrar extends CI_Controller {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
+
+	public function asignacion_estado()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_asignacion_estado');
+			$crud->set_subject('Cambiar Estado');
+			//$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+			$crud->columns(
+
+			'cod_estado',
+			'cod_solicitud_trabajo'
+
+				);
+
+			$crud->set_relation('cod_estado','tb_estado_solicitud_trabajo','descripcion');
+			$crud->set_relation('cod_solicitud_trabajo','tb_solicitud_trabajo','{COD_SOLICITUD} - {TITULO}', null,'COD_SOLICITUD ASC');
+
+			$crud->fields('cod_estado', 'cod_solicitud_trabajo');
+
+			$crud->display_as('cod_estado','Código Estado');
+			$crud->display_as('cod_solicitud_trabajo','Código Solicitud de Trabajo');
+
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+
+
+
 
 
 	public function tipo_canal_contacto()
