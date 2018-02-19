@@ -495,7 +495,7 @@ uploadTask.on('state_changed',
 
         
 
-        Oficio                  = $.trim($('#cboOficios').val());
+        Averia                  = $.trim($('#cboTipAveria').val());
         Contacto                = $.trim($('#contacto').val());
         Telefono                = $.trim($('#telefono').val());
         Direccion               = $.trim($('#direccion').val());
@@ -503,10 +503,10 @@ uploadTask.on('state_changed',
         DescripcionUrgencia     = $.trim($('#descripcionUrgencia').val());
         Foto                    = $.trim($('#foto').val());
         Distrito                = $.trim($('#cboDistrito').val());
-        Titulo                  = $.trim($('#titulo').val());
+        //Titulo                  = $.trim($('#titulo').val());
 
 
-        if (msj_value_es_cero(Oficio, 'Oficio')==false) {return false;}   
+        if (msj_value_es_cero(Averia, 'Averia')==false) {return false;}   
 
         if (msj_value_vacio(Contacto, 'Contacto')==false) {return false;}  
         if (msj_value_es_texto(Contacto, 'Contacto')==false) {return false;}  
@@ -526,8 +526,8 @@ uploadTask.on('state_changed',
         if (msj_value_longitud_max(DescripcionUrgencia,300, 'Descripición de Urgencia')==false) {return false;}  
 
 
-        if (msj_value_longitud_min(Titulo,5, 'Título')==false) {return false;}  
-        if (msj_value_longitud_max(Titulo,20, 'Título')==false) {return false;}  
+      // if (msj_value_longitud_min(Titulo,5, 'Título')==false) {return false;}  
+      //  if (msj_value_longitud_max(Titulo,20, 'Título')==false) {return false;}  
 
 
         if (msj_value_vacio(Foto, 'Foto')==false) {return false;}  
@@ -769,19 +769,19 @@ uploadTask.on('state_changed',
                             <div class="col-md-11 selectContainer">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                <select name="cboOficios" id="cboOficios" Class="form-control selectpicker">        
-                                    <option value="0">Necesito un...</option>
-                                    <?php foreach ($oficios as $key => $value) { 
-                                            if(set_value('cboOficios')==$value['COD_OFICIO']){
-                                                echo "\t\t\t\t\t<option value='".$value['COD_OFICIO']."' selected>".$value['DES_OFICIO']."</option>\n";
+                                <select name="cboTipAveria" id="cboTipAveria" Class="form-control selectpicker">        
+                                    <option value="0">Tengo una ...</option>
+                                    <?php foreach ($tipaveria as $key => $value) { 
+                                            if(set_value('cboTipAveria')==$value['COD_TIPAVERIA']){
+                                                echo "\t\t\t\t\t<option value='".$value['COD_TIPAVERIA']."' selected>".$value['DES_TIPO_AVERIA']."</option>\n";
                                             }else{
-                                                echo "\t\t\t\t\t<option value='".$value['COD_OFICIO']."'>".$value['DES_OFICIO']."</option>\n";
+                                                echo "\t\t\t\t\t<option value='".$value['COD_TIPAVERIA']."'>".$value['DES_TIPO_AVERIA']."</option>\n";
                                             }
                                       } 
                                     ?>        
                             </select>
                             </div>
-                            <?php echo form_error('cboOficios', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>      
+                            <?php echo form_error('cboTipAveria', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>      
                         </div>
                         </div>
 
@@ -858,17 +858,6 @@ uploadTask.on('state_changed',
                         </div>
 
 
-
-                        <!-- Text input-->
-                        <div class="form-group" style="padding-top:10px   "> 
-                            <div class="col-md-11 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
-                                    <input name="titulo" id="titulo" maxlength="20" placeholder="Título" value="" class="form-control" type="text">
-                                </div>
-                                <?php echo form_error('titulo', '<div class="alert alert-danger"><strong>Advertencia:</strong> ', '</div>'); ?>  
-                          </div>
-                        </div>      
 
 
 
