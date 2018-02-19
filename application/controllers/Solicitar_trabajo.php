@@ -19,8 +19,8 @@ class Solicitar_trabajo extends CI_Controller {
 
 		$this->load->model('ubigeo_model');
 		$data['distritos']= $this->ubigeo_model->listDistritosLima(); 
-		$this->load->model('oficio_model');
-		$data['oficios']= $this->oficio_model->listOficios();                 
+		$this->load->model('tipo_averia_model');
+		$data['tipaveria']= $this->tipo_averia_model->listTipAveria();                 
 		$this->load->view('inicio',$data);
 
 	}
@@ -37,8 +37,8 @@ class Solicitar_trabajo extends CI_Controller {
 
         $this->load->model('ubigeo_model');
         $data['distritos']= $this->ubigeo_model->listDistritosLima(); 
-        $this->load->model('oficio_model');
-        $data['oficios']= $this->oficio_model->listOficios();                 
+        $this->load->model('tipo_averia_model');
+        $data['tipaveria']= $this->tipo_averia_model->listTipAveria();                 
         $this->load->view('inicio',$data);
 
     }
@@ -56,8 +56,8 @@ class Solicitar_trabajo extends CI_Controller {
             $this->form_validation->set_rules('telefono', '"Teléfono"', 'required|is_natural_no_zero');
             
             $this->form_validation->set_rules('cboDistrito', '"Distrito"', 'required|callback_distrito_no_elegido');
-            $this->form_validation->set_rules('cboOficios', '"Oficio"', 'required|is_natural_no_zero', array('is_natural_no_zero' => 'Debe seleccionar un Oficio.'));
-
+            $this->form_validation->set_rules('cboTipAveria', '"Averia"', 'required|is_natural_no_zero', array('is_natural_no_zero' => 'Debe seleccionar su tipo de Averia.'));
+         
             $this->form_validation->set_rules('email', '"Email"', 'required|valid_email');
             $this->form_validation->set_rules('direccion', '"Dirección"', 'required');
             $this->form_validation->set_rules('foto', '"Subir Archivo"', 'callback_cargar_archivo');
@@ -77,17 +77,19 @@ class Solicitar_trabajo extends CI_Controller {
 
 
 
-
             $this->load->model('ubigeo_model');
             $data['distritos']= $this->ubigeo_model->listDistritosLima();   
             
-            $this->load->model('oficio_model');
-            $data['oficios']= $this->oficio_model->listOficios();               
+            $this->load->model('tipo_averia_model');
+            $data['tipaveria']= $this->tipo_averia_model->listTipAveria();               
+            
             
             
             if ($this->form_validation->run() == FALSE) {
                 $data['guardado']=FALSE;
-		          $this->load->view('inicio',$data);   
+		$this->load->view('inicio',$data);
+                
+                echo('INGRESO EN EL ELSE que valida el form validation');
                 
             } else {
                 //$data['guardado']=TRUE;     
@@ -95,7 +97,7 @@ class Solicitar_trabajo extends CI_Controller {
                 
                 //$this->Solicitud_trabajo_model->insertar_Solicitud_Trabajo();  
                 
-                $cboOficios = $this->input->post('cboOficios');	                
+                $cboTipAveria = $this->input->post('cboTipAveria');	                
                 $nombre_apellidos = $this->input->post('contacto');	
                 $email = $this->input->post('email');		
                 $telefono = $this->input->post('telefono');							
@@ -115,15 +117,17 @@ class Solicitar_trabajo extends CI_Controller {
                                     $cboDistrito,
                                     $foto
                 );*/
-                
-                $data_insert['COD_OFICIO']=$this->input->post('cboOficios');                
+
+                //$data_insert['COD_OFICIO']=1;    
+                $data_insert['COD_TIPO_AVERIA']=$this->input->post('cboTipAveria');  
                 $data_insert['NOMBRE'] = $this->input->post('contacto');	
                 $data_insert['EMAIL'] = $this->input->post('email');		
                 $data_insert['TELEFONO'] = $this->input->post('telefono');							
                 $data_insert['DIRECCION'] = $this->input->post('direccion');                
                 $data_insert['DESCRIPCION']= $this->input->post('descripcionUrgencia');		
                 $data_insert['COD_UBIGEO'] = $this->input->post('cboDistrito');		
-                $data_insert['TITULO'] = $this->input->post('titulo'); 					
+                //$data_insert['TITULO'] = $this->input->post('titulo'); 
+                $data_insert['TITULO'] = ''; 					
                 //$data_insert['FOTO'] = base64_encode( addslashes(file_get_contents($_FILES['foto']['tmp_name'])));                 
                 $data_insert['FOTO'] = null;
                 
