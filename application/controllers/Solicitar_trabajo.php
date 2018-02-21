@@ -62,11 +62,11 @@ class Solicitar_trabajo extends CI_Controller {
             $this->form_validation->set_rules('direccion', '"Dirección"', 'required');
             $this->form_validation->set_rules('foto', '"Subir Archivo"', 'callback_cargar_archivo');
 
-            $this->form_validation->set_rules('titulo', '"Título"', 'required|min_length[5]|max_length[20]',
+            /*$this->form_validation->set_rules('titulo', '"Título"', 'required|min_length[5]|max_length[20]',
                                                 array('min_length' => 'El campo "Título" debe escribir al menos 5 caracteres en su descripción',
                                                       'max_length' => 'El campo "Título" debe tener menos de 20 caracteres en su descripción.' 
                                                         )
-                );
+                );*/
             
 
             $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
@@ -87,9 +87,9 @@ class Solicitar_trabajo extends CI_Controller {
             
             if ($this->form_validation->run() == FALSE) {
                 $data['guardado']=FALSE;
-		$this->load->view('inicio',$data);
+		        $this->load->view('inicio',$data);
                 
-                echo('INGRESO EN EL ELSE que valida el form validation');
+                //echo('INGRESO EN EL ELSE que valida el form validation');
                 
             } else {
                 //$data['guardado']=TRUE;     

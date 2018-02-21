@@ -1165,16 +1165,17 @@
                     <ul class="nav navbar-nav">
                         <li><a href="<?php echo base_url('solicitar_trabajo'); ?>">Inicio</a></li>
                        <li class="active"><a href=""<?php echo base_url('trabaja_con_nosotros'); ?>"">Trabaje con nosotros</a></li>
-                        <li ><a href="#">Servicios</a></li>                        
-                        <!--li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
+                        <!--li ><a href="#">Servicios</a></li-->                        
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Servicios <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Blog Single</a></li>
-                                <li><a href="#">Pricing</a></li>
-                                <li><a href="#">404</a></li>
-                                <li><a href="#">Shortcodes</a></li>
+                            <li><a href="<?php echo base_url('oficio_albanil'); ?>">Albañilería</a></li>
+                            <li><a href="<?php echo base_url('oficio_carpintero'); ?>">Carpintería</a></li>                            
+                            <li><a href="<?php echo base_url('oficio_jardinero'); ?>">Jardinería</a></li>
+                            <li><a href="<?php echo base_url('oficio_gasfitero'); ?>">Gasfitería</a></li>
+                            <li><a href="<?php echo base_url('solicitar_trabajo#feature'); ?>">Otros</a></li>  
                             </ul>
-                        </li-->
+                        </li>
                         <!--li><a href="#">Blog</a></li--> 
                         <li><a href="<?php echo base_url('contactenos'); ?>">Contactenos</a></li>                        
                     </ul>

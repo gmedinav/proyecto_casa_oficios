@@ -22,12 +22,12 @@ class Solicitud_trabajo_model extends CI_Model {
                $codigo = 0;
                if ($query == true){
                
-               $codigo = $this->db->insert_id();
-               return $codigo;//->result_array();
+                  $codigo = $this->db->insert_id();
+                  return $codigo;//->result_array();
+
                }else{
-               
-               
-               return $codigo;//->result_array();
+                              
+                  return $codigo;//->result_array();
                }
                
         }
