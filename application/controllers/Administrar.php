@@ -30,19 +30,12 @@ class Administrar extends CI_Controller {
 		$this->load->view('example.php',(array)$output);
 	}
 
-	public function offices()
-	{
-		$output = $this->grocery_crud->render();
 
-		$this->_example_output($output);
-	}
 
 	public function index()
 	{
 		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
 	}
-
-
 
 
 
@@ -131,6 +124,7 @@ class Administrar extends CI_Controller {
 	
 			$output = $crud->render();
 
+
 			$this->_example_output($output);
 
 		}catch(Exception $e){
@@ -144,7 +138,6 @@ class Administrar extends CI_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
-			#$crud->set_theme('datatables');
 			$crud->set_table('tb_tip_sexo');
 			$crud->set_subject('Tipo Sexo');
 			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
@@ -171,7 +164,7 @@ class Administrar extends CI_Controller {
 		}
 	}
 
-
+/*
 	public function asignacion_trabajo()
 	{
 		try{
@@ -205,6 +198,17 @@ class Administrar extends CI_Controller {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
+*/
+
+
+	public function asignacion_trabajo($codigo_solicitud, $codigo_trabajador){
+
+
+
+		
+	}
+
+
 
 	public function asignacion_estado()
 	{
@@ -212,23 +216,7 @@ class Administrar extends CI_Controller {
 			$crud = new grocery_CRUD();
 
 			#$crud->set_theme('datatables');
-			$crud->set_table('tb_asignacion_estado');
-			$crud->set_subject('Cambiar Estado');
-			//$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
-			$crud->columns(
 
-			'cod_estado',
-			'cod_solicitud_trabajo'
-
-				);
-
-			$crud->set_relation('cod_estado','tb_estado_solicitud_trabajo','descripcion');
-			$crud->set_relation('cod_solicitud_trabajo','tb_solicitud_trabajo','{COD_SOLICITUD} - {TITULO}', null,'COD_SOLICITUD ASC');
-
-			$crud->fields('cod_estado', 'cod_solicitud_trabajo');
-
-			$crud->display_as('cod_estado','Código Estado');
-			$crud->display_as('cod_solicitud_trabajo','Código Solicitud de Trabajo');
 
 
 			$output = $crud->render();
@@ -359,64 +347,73 @@ class Administrar extends CI_Controller {
 			#$crud->set_theme('datatables');
 			$crud->set_table('tb_solicitud_trabajo');
 			$crud->set_subject('Solicitud Trabajo');
-			$crud->required_fields('COD_SOLICITUD','COD_SOLICITUD','NOMBRE','EMAIL','TELEFONO','TITULO','DESCRIPCION','COD_UBIGEO');
+			//$crud->required_fields('COD_SOLICITUD','COD_SOLICITUD','NOMBRE','EMAIL','TELEFONO','TITULO','DESCRIPCION','COD_UBIGEO');
+		
 			$crud->columns(
 
 			'COD_SOLICITUD',
-			'CORDENADAS_REGISTRO',
-			'CORDENADAS_UBICACION',
 			'NOMBRE',
-			'EMAIL',
-			'TELEFONO',
-			'TITULO',
-			'DESCRIPCION',
-			'FEC_REGISTRO',
-			'COD_UBIGEO',
-			'DIRECCION',
-			'COD_OFICIO'
+			'COD_UBIGEO',			
+			'DIRECCION',		
+			'COD_TIPO_AVERIA',
+			'ESTADO',
+			'FEC_REGISTRO'
 
 				);
 
 
+			$crud->add_action('Asignar Trabajador', site_url('assets/grocery_crud/themes/flexigrid/css/images/worker.png'), 'Administrar/trabajador_por_asignar');
+
+			$crud->fields('NOMBRE', 'EMAIL', 'TELEFONO','TITULO','DESCRIPCION','FEC_REGISTRO','COD_UBIGEO','COD_OFICIO');	
+
 			$crud->set_relation('COD_OFICIO','tb_oficio','DES_OFICIO');
+			$crud->set_relation('COD_TIPO_AVERIA','tb_tipo_averia','DES_TIPO_AVERIA');
+			$crud->set_relation('ESTADO','tb_estado_solicitud_trabajo','descripcion');
 			$crud->set_relation('COD_UBIGEO','tb_ubigeo','DES_UBIGEO',array('COD_PAIS' => '001','COD_DEPARTAMENTO' => '15','COD_PROVINCIA'=>'01','COD_DISTRITO <>'=>'00'),'COD_UBIGEO ASC');
 
-			$crud->fields('NOMBRE', 'EMAIL', 'TELEFONO','TITULO','DESCRIPCION','FEC_REGISTRO','COD_UBIGEO','COD_OFICIO');
+			$crud->edit_fields('NOMBRE', 'EMAIL', 'TELEFONO','TITULO','DESCRIPCION','FEC_REGISTRO','COD_UBIGEO','COD_OFICIO');
 
 			$crud->display_as('COD_SOLICITUD','Código Solicitud');
 			$crud->display_as('NOMBRE','Nombre Contacto');
-			$crud->display_as('EMAIL','Correo Electrónico');
+			$crud->display_as('COD_TIPO_AVERIA','Tipo Avería');
 			$crud->display_as('TELEFONO','Teléfono');
-
-			$crud->display_as('CORDENADAS_REGISTRO','Coordenada de registro');
-			$crud->display_as('CORDENADAS_UBICACION','Coordenada Ubicación');
-
-
-			$crud->display_as('TITULO','Título de Avería');
 			$crud->display_as('DESCRIPCION','Descripción de Avería');
 			$crud->display_as('FEC_REGISTRO','Fecha Registro');
 			$crud->display_as('DIRECCION','Dirección');
-
-			$crud->display_as('COD_UBIGEO','Ubigeo');
+			$crud->display_as('ESTADO','Estado');
+			$crud->display_as('COD_UBIGEO','Distrito');
 			$crud->display_as('COD_OFICIO','Oficio');
 
 			$crud->field_type('DESCRIPCION', 'textarea');
 
 
-
+			$crud->unset_add();
+			$crud->unset_edit();
+			$crud->unset_delete();
+			$crud->unset_read();
+			
 
 			$output = $crud->render();
-
 			$this->_example_output($output);
+
 
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
 
+/*
+	function _just_a_test2($primary_key , $row)
+	{
+		return '<a href="Administrar/trabajador_por_asignar/'.$row->id.'"><img src="http://www.grocerycrud.com/assets/uploads/general/smiley.png"></a>';
+	}
 
-
-
+	function vincular_tmrh($primary_key , $row)
+	{
+	return site_url('Administrar/trabajador_por_asignar/').$row->country;
+	}
+ 
+*/
 
 
 
@@ -535,6 +532,137 @@ class Administrar extends CI_Controller {
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
+	}
+
+
+	public function trabajador_por_asignar($id_solicitud)
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			#$crud->set_theme('datatables');
+			$crud->set_table('tb_tmrh');
+			$crud->set_subject('Trabajador (TMRH)');
+			$crud->required_fields(
+
+				'COD_TMRH',
+				'NOM_TMRH',
+				'APE_PATERNO',
+				'APE_MATERNO',
+				'EMAIL',
+				'COD_TIPO_DOCUMENTO',
+				'NUM_DOCUMENTO',
+				'COD_TIPO_GENERO',
+				'COD_UBIGEO',
+				'DIRECCION',
+				'FEC_NACIMIENTO',
+				'COD_OFICIO_PRINCIPAL',
+				'COD_TIEMPO_EXPERIENCIA',
+				'COD_USUARIO_REGISTRO',
+				'NUM_CELU',
+				'COD_TIPO_OPERADORA'
+
+				);
+			$crud->columns(
+
+			'COD_TMRH',
+			'NOM_TMRH', 'APE_PATERNO', 'APE_MATERNO',
+			'COD_TIPO_GENERO',
+			'COD_UBIGEO',
+			'FEC_NACIMIENTO',
+			'NUM_CELU'
+
+				);
+
+			$crud->fields(
+
+				'COD_TMRH',
+				'NOM_TMRH',
+				'APE_PATERNO',
+				'APE_MATERNO',
+				'EMAIL',
+				'COD_TIPO_DOCUMENTO',
+				'NUM_DOCUMENTO',
+				'COD_TIPO_GENERO',
+				'COD_UBIGEO',
+				'DIRECCION',
+				'FEC_NACIMIENTO',
+				'COD_OFICIO_PRINCIPAL',
+				'COD_TIEMPO_EXPERIENCIA',
+				'COD_USUARIO_REGISTRO',
+				'NUM_CELU',
+				'COD_TIPO_OPERADORA'
+
+				);
+
+
+
+			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
+			$crud->set_relation('COD_TIPO_GENERO','tb_tip_sexo','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_TIEMPO_EXPERIENCIA','tb_tip_experiencia','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_TIPO_DOCUMENTO','tb_tip_documento','DES_TIPO_MAESTRO');
+			$crud->set_relation('COD_UBIGEO','tb_ubigeo','DES_UBIGEO');
+			$crud->set_relation('COD_OFICIO_PRINCIPAL','tb_oficio','DES_OFICIO');
+			$crud->set_relation('COD_TIPO_OPERADORA','tb_tip_operadora','DES_TIPO_MAESTRO');
+
+
+			$crud->display_as('COD_TMRH','Código Trabajador');
+			$crud->display_as('NOM_TMRH','Nombres');
+			$crud->display_as('APE_PATERNO','Apelido Paterno');			
+			$crud->display_as('APE_MATERNO','Apelido Materno');	
+			$crud->display_as('NUM_DOCUMENTO','Número Documento');	
+			$crud->display_as('EMAIL','E-mail');	
+			$crud->display_as('COD_TIPO_DOCUMENTO','Tipo Documento');
+			$crud->display_as('COD_UBIGEO','Distrito');				
+			$crud->display_as('DIRECCION','Dirección');				
+			$crud->display_as('FEC_NACIMIENTO','Fecha Nacimiento');				
+			$crud->display_as('COD_OFICIO_PRINCIPAL','Oficio Principal');				
+			$crud->display_as('COD_TIEMPO_EXPERIENCIA','Tiempo Experiencia');				
+			$crud->display_as('COD_TIPO_OPERADORA','Tipo Operadora');				
+			$crud->display_as('COD_USUARIO_REGISTRO','Tipo Documento');		
+			$crud->display_as('NUM_CELU','Teléfono Principal');		
+			$crud->display_as('COD_TIPO_GENERO','Género');				
+			$crud->display_as('FEC_REGISTRO','Tipo Documento');		
+			$crud->display_as('COD_TIPO_GENERO','Género');	
+			$crud->display_as('FEC_REGISTRO','Fecha registro');	
+			$crud->display_as('FEC_MODIFICACION','Fecha Modificación');	
+			
+			$crud->unset_add();
+			$crud->unset_edit();
+			$crud->unset_delete();
+			//$crud->unset_read();
+
+			$crud->add_action('Asignar Trabajador', site_url('assets/grocery_crud/themes/flexigrid/css/images/users.png'), 'demo/action_smiley/'.$id_solicitud,'',array($this, 'botaoExcluir'));
+			$output = $crud->render();
+
+
+
+			$data['id_asignacion'] = $id_solicitud;
+
+
+			$this->load->model('solicitud_trabajo_model');
+			$solicitud = $this->solicitud_trabajo_model->detalle_simple_solicitud($id_solicitud); 
+
+			$data['COD_SOLICITUD'] = $solicitud['COD_SOLICITUD'] ;
+			$data['DES_TIPO_AVERIA'] = $solicitud['DES_TIPO_AVERIA'] ;
+			$data['DESCRIPCION'] = $solicitud['DESCRIPCION'] ;
+			$data['DES_UBIGEO'] = $solicitud['DES_UBIGEO'] ;
+			$data['DIRECCION'] = $solicitud['DIRECCION'] ;
+
+
+			$output->data = $data;
+
+			$this->_example_output($output);
+
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+
+
+	function botaoExcluir($primary_key, $row) {
+	     return "javascript:confirmar_asignacion(".$row->COD_TMRH.")";
 	}
 
 

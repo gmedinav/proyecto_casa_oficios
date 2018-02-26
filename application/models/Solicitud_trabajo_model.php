@@ -33,6 +33,32 @@ class Solicitud_trabajo_model extends CI_Model {
         }
 
 
+        public function detalle_simple_solicitud($id_solicitud){
+
+               $this->load->database();
+               $query = $this->db->query("SELECT "
+                       . "  t_st.COD_SOLICITUD,
+                            t_st.DESCRIPCION,
+                            t_st.DIRECCION,
+                            t_st.COD_UBIGEO,
+                            t_u.DES_UBIGEO,
+
+                            t_st.COD_TIPO_AVERIA,
+                            t_ta.DES_TIPO_AVERIA"
+
+                       . " from tb_solicitud_trabajo t_st
+                          left join  tb_tipo_averia t_ta
+                          on t_ta.COD_TIPAVERIA= t_st.COD_TIPO_AVERIA
+                          inner join tb_ubigeo t_u
+                          on t_u.COD_UBIGEO = t_st.COD_UBIGEO"
+
+                       ." WHERE t_st.COD_SOLICITUD='$id_solicitud';");
+               
+               return $query->row_array();
+
+
+        }
+
 }
 
 

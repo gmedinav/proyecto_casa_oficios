@@ -13,6 +13,36 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
+   <?php
+
+      if(isset($data['id_asignacion'])){
+   ?>
+
+    <script type="text/javascript">
+
+    function confirmar_asignacion(codigo){
+
+
+      rpta=confirm('¿Está seguro de asignar al trabajador?');
+
+      if(rpta==true){
+
+        window.location.href = "<?php 
+            echo site_url('asignacion_trabajo/').$data['id_asignacion'].'/';
+        ?>"+codigo;
+
+      }
+
+
+
+    }
+    </script>
+
+    <?php
+    }
+    ?>
+
   <style>
   .dropdown-submenu {
       position: relative;
@@ -196,6 +226,43 @@ if(isset($js_files)){
 
    </div>
    <div style='height:20px;'></div>  
+
+   <?php
+
+      if(isset($data['id_asignacion'])){
+   ?>
+
+   <table width="750px">
+      <tr>
+        <td width="20%"><strong>Código de Solicitud:</strong></td>        
+        <td align="center"><?php echo $data['COD_SOLICITUD']; ?></td>
+        <td width="20%"> </td>     
+        <td><strong>Distrito:</strong></td>     
+        <td><?php echo $data['DES_UBIGEO']; ?></td>   
+      </tr>
+
+      <tr>
+        <td><strong>Tipo Avería:</strong></td>        
+        <td><?php echo $data['DES_TIPO_AVERIA']; ?></td>
+        <td> </td>     
+        <td><strong>Dirección:</strong></td>     
+        <td><?php echo $data['DIRECCION']; ?></td>           
+      </tr>
+
+      <tr>
+        <td><strong>Descripción:</strong></td>        
+        <td colspan="3"><?php echo $data['DESCRIPCION']; ?></td>
+      </tr>
+                      
+   </table>
+ </p>
+
+
+   <?php
+      }
+
+   ?>
+
     <div>
     <?php 
 
@@ -225,8 +292,29 @@ $(document).ready(function(){
 </script>
 
 
- 
-
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Confirmar</h4>
+        </div>
+        <div class="modal-body">
+          <p id="p_mensaje">Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          
+          <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
+          <button type="submit" class="btn btn-default btn-success pull-right" id="btn_aceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>           
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 
 </body>

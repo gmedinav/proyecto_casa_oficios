@@ -23,9 +23,6 @@ class Tmrh extends CI_Model {
                     
                return $codigo;//->result_array();
                 }
-               
-               
-               
 
         }
         
