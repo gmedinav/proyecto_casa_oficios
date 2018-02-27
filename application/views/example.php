@@ -115,7 +115,7 @@ if(isset($js_files)){
     <ul class="dropdown-menu">
       <li class="dropdown-header">Mantenimiento</li>
       <li><a tabindex="-1" href='<?php echo site_url('Administrar/solicitud_trabajo')?>'>Solicitud Trabajo</a></li> 
-      <li><a tabindex="-1" href='<?php echo site_url('Administrar/asignacion_trabajo')?>'>Asignación de Trabajo</a></li>
+      <li><a tabindex="-1" href='<?php echo site_url('Administrar/monitor_solicitudes')?>'>Monitoreo de Solicitudes</a></li>
       <li><a tabindex="-1" href='<?php echo site_url('Administrar/asignacion_estado')?>'>Cambiar Estado</a></li> 
       <li class="divider"></li>  
       <li><a tabindex="-1" href="<?php echo site_url('Administrar/tipo_averia')?>">Tipo Avería</a></li>  

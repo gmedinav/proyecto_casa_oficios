@@ -54,6 +54,7 @@ class Login extends CI_Controller {
             	if($rpta){
 
             		$_SESSION['sesion_usuario'] = $rpta->DES_USUARIO .' '.$rpta->LOG_USUARIO ;
+                    $_SESSION['sesion_id_usuario']= $rpta->COD_USUARIO;
                     redirect(base_url()."Administrar");
             		//$this->load->view('example');
             		return ;

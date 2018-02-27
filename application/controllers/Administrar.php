@@ -77,8 +77,6 @@ class Administrar extends CI_Controller {
 			$crud->set_relation('COD_TIPO_CANAL_CONTACTO','tb_tip_canal_contacto','DES_TIPO_MAESTRO');
 
 
-
-
 			$crud->fields(
 
 			'COD_CLIENTE',
@@ -203,7 +201,10 @@ class Administrar extends CI_Controller {
 
 	public function asignacion_trabajo($codigo_solicitud, $codigo_trabajador){
 
+		
 
+
+		$this->solicitud_trabajo();
 
 		
 	}
@@ -459,6 +460,7 @@ class Administrar extends CI_Controller {
 			'COD_UBIGEO',
 			'DIRECCION',
 			'FEC_NACIMIENTO',
+			'EDAD',
 			'COD_OFICIO_PRINCIPAL',
 			'COD_TIEMPO_EXPERIENCIA',
 			'FEC_REGISTRO',
@@ -523,7 +525,7 @@ class Administrar extends CI_Controller {
 			$crud->display_as('FEC_REGISTRO','Fecha registro');	
 			$crud->display_as('FEC_MODIFICACION','Fecha Modificación');	
 			
-
+			$crud->callback_column('EDAD', array($this,'busca_edad'));
 
 			$output = $crud->render();
 
@@ -533,6 +535,43 @@ class Administrar extends CI_Controller {
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
+
+
+
+	public function busca_edad($primary_key, $row){
+
+		$fecha_nacimiento = $row->FEC_NACIMIENTO;
+
+		$dia=date("d");
+		$mes=date("m");
+		$ano=date("Y");
+
+
+		$dianaz=date("d",strtotime($fecha_nacimiento));
+		$mesnaz=date("m",strtotime($fecha_nacimiento));
+		$anonaz=date("Y",strtotime($fecha_nacimiento));
+
+
+		//si el mes es el mismo pero el día inferior aun no ha cumplido años, le quitaremos un año al actual
+
+		if (($mesnaz == $mes) && ($dianaz > $dia)) {
+		$ano=($ano-1); }
+
+		//si el mes es superior al actual tampoco habrá cumplido años, por eso le quitamos un año al actual
+
+		if ($mesnaz > $mes) {
+		$ano=($ano-1);}
+
+		 //ya no habría mas condiciones, ahora simplemente restamos los años y mostramos el resultado como su edad
+
+		$edad=($ano-$anonaz);
+
+
+		return $edad;
+
+
+	}
+
 
 
 	public function trabajador_por_asignar($id_solicitud)
