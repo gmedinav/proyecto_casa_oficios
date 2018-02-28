@@ -201,7 +201,7 @@ class Administrar extends CI_Controller {
 
 	public function asignacion_trabajo($codigo_solicitud, $codigo_trabajador){
 
-		
+
 
 
 		$this->solicitud_trabajo();
@@ -671,7 +671,7 @@ class Administrar extends CI_Controller {
 			$crud->unset_delete();
 			//$crud->unset_read();
 
-			$crud->add_action('Asignar Trabajador', site_url('assets/grocery_crud/themes/flexigrid/css/images/users.png'), 'demo/action_smiley/'.$id_solicitud,'',array($this, 'botaoExcluir'));
+			$crud->add_action('Asignar Trabajador', site_url('assets/grocery_crud/themes/flexigrid/css/images/users.png'), 'Asignacion_solicitud_trabajador/asignacion/'.$id_solicitud,'',array($this, 'botaoExcluir'));
 			$output = $crud->render();
 
 

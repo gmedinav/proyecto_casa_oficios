@@ -9,10 +9,13 @@
 <meta http-equiv="pragma" content="no-cache" />
 
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
 
+  <link href="<?php echo base_url("assets/css/bootstrap.min.css"); ?>" rel="stylesheet" type="text/css" />
+  <!--link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+        rel="stylesheet" type="text/css" /-->
 
    <?php
 
@@ -20,7 +23,7 @@
    ?>
 
     <script type="text/javascript">
-
+    /*
     function confirmar_asignacion(codigo){
 
 
@@ -29,15 +32,51 @@
       if(rpta==true){
 
         window.location.href = "<?php 
-            echo site_url('asignacion_trabajo/').$data['id_asignacion'].'/';
+            echo site_url('Asignacion_solicitud_trabajador/asignacion/').$data['id_asignacion'].'/';
         ?>"+codigo;
 
       }
 
 
+    }*/
+    </script>
 
+    <script>
+    function confirmar_asignacion(codigo){
+
+
+      rpta=confirm('¿Está seguro de asignar al trabajador?');
+
+      if(rpta==true){
+          
+            var parametros = {
+                    "valorCaja1" : 1,
+                    "valorCaja2" : 2
+            };
+            $.ajax({
+                    data:  parametros, //datos que se envian a traves de ajax
+                    url:   "<?php 
+                              echo site_url('Asignacion_solicitud_trabajador/asignacion/').$data['id_asignacion'].'/';
+                            ?>"+codigo, //archivo que recibe la peticion
+
+                    type:  'post', //método de envio
+                    beforeSend: function () {
+                            $("#p_mensaje").html("Procesando, espere por favor...");
+                    },
+                    success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                            $("#p_mensaje").html(response);
+                    }
+            });
+
+            $('#myModal').modal('show');
+
+
+      }
     }
     </script>
+
+
+
 
     <?php
     }
@@ -291,6 +330,8 @@ $(document).ready(function(){
 });
 </script>
 
+    <script src="<?php echo base_url("assets/js/bootstrap.min.js");?>" type="text/javascript"></script>
+    <link href="<?php echo base_url("assets/css/bootstrap.min.css"); ?>" rel="stylesheet" type="text/css" />
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -306,16 +347,13 @@ $(document).ready(function(){
           <p id="p_mensaje">Some text in the modal.</p>
         </div>
         <div class="modal-footer">
-          
-          <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               &nbsp; &nbsp;           
-          <button type="submit" class="btn btn-default btn-success pull-right" id="btn_aceptar"><span class="glyphicon glyphicon-ok"></span> Aceptar</button>           
-          
+          <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               
         </div>
       </div>
       
     </div>
   </div>
-
+  <strong><div id="resultado"></div></strong>
 
 </body>
 </html>

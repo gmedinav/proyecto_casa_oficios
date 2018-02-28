@@ -77,7 +77,7 @@ class Asignacion_solicitud_tmrh_model extends CI_Model {
                               `fec_registro`,
                               `fec_modificacion`"
 
-                       . " from tb_asignacion_tmrh ";
+                       . " from tb_asignacion_tmrh ");
                
                return $query->row_array();
 
