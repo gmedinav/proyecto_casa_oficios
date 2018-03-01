@@ -23,12 +23,31 @@ class Asignacion_solicitud_trabajador extends CI_Controller {
     {
 
         $this->load->model('Asignacion_solicitud_tmrh_model');
+        $this->load->model('Solicitud_trabajo_model');
+
         $rpta = $this->Asignacion_solicitud_tmrh_model->obtener_asignacion_por_solicitud($cod_solicitud_trabajo);
 
         if(isset($rpta)){
 
-            $id=$this->Asignacion_solicitud_tmrh_model->actualizar_asignacion_solicitud_tmrh($cod_tmrh,$cod_solicitud_trabajo);                   
-            echo "Se asignó correctamente. con el número de transacción".$id;
+            $id = $this->Asignacion_solicitud_tmrh_model->actualizar_asignacion_solicitud_tmrh($cod_tmrh,$cod_solicitud_trabajo);                   
+            
+            if(isset($id)){
+
+                $ok=$this->Solicitud_trabajo_model->cambiar_estado_solicitud_por_administrativo($cod_solicitud_trabajo);
+
+                if(isset($ok)){
+                   echo "Se reasignó a un trabajador correctamente con el número de transacción. ".$id;  
+                }else{
+                    echo "Se reasignó a nuevo trabajador, pero no se cambio el estado de la solicitud. ".$id;                    
+                }
+                return;
+                //echo "Se reasignó correctamente al trabajador con el número de transacción.".$id;                
+
+            }else{
+                echo "No se pudo reasignar al trabajador. Por favor, vuelva intentarlo.";                
+
+            }
+            return;
 
         }else{
 
@@ -41,16 +60,27 @@ class Asignacion_solicitud_trabajador extends CI_Controller {
 
             $id=$this->Asignacion_solicitud_tmrh_model->insertar_Asignacion_solicitud_tmrh($data);
 
-            echo "Se reasignó correctamente. con el número de transacción ".$id;
+            if(isset($id)){
 
+                $ok = $this->Solicitud_trabajo_model->cambiar_estado_solicitud_por_administrativo($cod_solicitud_trabajo);
+                
+                if(isset($ok) ){
+                   echo "Se asignó a un trabajador correctamente con el número de transacción. ".$id;  
+                }else{
+                    echo "Se asignó a nuevo trabajador, pero no se cambio el estado de la solicitud. ".$id;                    
+                }
+                return;
+                
+            }else{
+
+                echo "No se pudo asignar a un trabajador."; 
+                return;
+            }
+
+            
 
 
         }
-
-        //$this->ubigeo_model->actualizar_asignacion_solicitud_tmrh(); 
-
-
-        //$this->load->view('example');
 
     }
 

@@ -56,6 +56,20 @@ class Solicitud_trabajo_model extends CI_Model {
                
                return $query->row_array();
 
+        }
+
+        public function cambiar_estado_solicitud_por_administrativo($id_solicitud){
+
+               $this->load->database();
+
+                $data = array(
+                        'ESTADO' => 2
+                );
+
+                return $this->db->update('tb_solicitud_trabajo',
+                                    $data, 
+                                    array('COD_SOLICITUD'=>$id_solicitud));
+
 
         }
 
