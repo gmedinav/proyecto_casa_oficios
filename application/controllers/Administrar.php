@@ -345,6 +345,12 @@ class Administrar extends CI_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
+
+
+		    $crud->or_where('ESTADO',1);
+		    $crud->or_where('ESTADO',5);
+
+
 			#$crud->set_theme('datatables');
 			$crud->set_table('tb_solicitud_trabajo');
 			$crud->set_subject('Solicitud Trabajo');
