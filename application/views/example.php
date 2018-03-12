@@ -73,6 +73,14 @@
 
       }
     }
+
+
+    function regresar()
+      {
+        document.location.href="<?php 
+                              echo site_url('Asignacion_solicitud_trabajador/solicitud_trabajo/');
+                            ?>";
+      }    
     </script>
 
 
@@ -110,9 +118,7 @@ foreach($css_files as $file): ?>
 <?php endforeach; ?>
 
 <?php
-
 }
-
 ?>    
 
 
@@ -121,16 +127,12 @@ foreach($css_files as $file): ?>
 if(isset($js_files)){
 ?>
 
-
 <?php foreach($js_files as $file): ?>
 	<script src="<?php echo $file; ?>"></script>
 <?php endforeach; ?>
 
-
 <?php
-
 }
-
 ?>    
 
 
@@ -285,12 +287,12 @@ if(isset($js_files)){
         <td><?php echo $data['DES_TIPO_AVERIA']; ?></td>
         <td> </td>     
         <td><strong>Dirección:</strong></td>     
-        <td><?php echo $data['DIRECCION']; ?></td>           
+        <td><textarea><?php echo $data['DIRECCION']; ?></textarea></td>           
       </tr>
 
       <tr>
         <td><strong>Descripción:</strong></td>        
-        <td colspan="3"><?php echo $data['DESCRIPCION']; ?></td>
+        <td colspan="3"><textarea><?php echo $data['DESCRIPCION']; ?></textarea></td>
       </tr>
                       
    </table>
@@ -340,14 +342,14 @@ $(document).ready(function(){
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close"  onclick="regresar()" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Confirmar</h4>
         </div>
         <div class="modal-body">
           <p id="p_mensaje">Some text in the modal.</p>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default " data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               
+          <button type="submit" class="btn btn-danger btn-default " onclick="regresar()" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>               
         </div>
       </div>
       

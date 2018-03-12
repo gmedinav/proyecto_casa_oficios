@@ -25,9 +25,11 @@ class Administrar extends CI_Controller {
 
 	}
 
+
 	public function _example_output($output = null)
 	{
-		$this->load->view('example.php',(array)$output);
+		$this->load->view('admin_panel.php',(array)$output);
+		//$this->load->view('example.php',(array)$output);
 	}
 
 
@@ -120,7 +122,9 @@ class Administrar extends CI_Controller {
 			$crud->display_as('CEL_2','Celular 2');		
 			$crud->display_as('ESTADO','Estado');		
 	
+			$data['titulo'] = "Clientes";
 			$output = $crud->render();
+			$output->data = $data;
 
 
 			$this->_example_output($output);
@@ -153,7 +157,9 @@ class Administrar extends CI_Controller {
 			$crud->display_as('COD_TIPO_MAESTRO','Id Sexo');
 			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');
 
+			$data['titulo'] = "Tipo de Sexo";
 			$output = $crud->render();
+			$output->data = $data;
 
 			$this->_example_output($output);
 
@@ -257,7 +263,9 @@ class Administrar extends CI_Controller {
 			$crud->display_as('COD_TIPO_MAESTRO','Id Canal Contacto');
 			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');
 
+			$data['titulo'] = "Tipo de Canal de Contacto";
 			$output = $crud->render();
+			$output->data = $data;
 
 			$this->_example_output($output);
 
@@ -290,7 +298,9 @@ class Administrar extends CI_Controller {
 			$crud->display_as('COD_TIPAVERIA','Id Tipo Avería');
 			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');
 
+			$data['titulo'] = "Tipo de Avería";
 			$output = $crud->render();
+			$output->data = $data;
 
 			$this->_example_output($output);
 
@@ -326,7 +336,9 @@ class Administrar extends CI_Controller {
 			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Prioridad');
 			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');
 
+			$data['titulo'] = "Tipo Prioridad";
 			$output = $crud->render();
+			$output->data = $data;
 
 			$this->_example_output($output);
 
@@ -337,18 +349,13 @@ class Administrar extends CI_Controller {
 
 
 
-
-
-
 	public function solicitud_trabajo()
 	{
 		try{
 			$crud = new grocery_CRUD();
 
-
-
-		    $crud->or_where('ESTADO',1);
-		    $crud->or_where('ESTADO',5);
+		    $crud->or_where('cod_estado',1);
+		    $crud->or_where('cod_estado',5);
 
 
 			#$crud->set_theme('datatables');
@@ -363,7 +370,7 @@ class Administrar extends CI_Controller {
 			'COD_UBIGEO',			
 			'DIRECCION',		
 			'COD_TIPO_AVERIA',
-			'ESTADO',
+			'asig_estado',
 			'FEC_REGISTRO'
 
 				);
@@ -376,6 +383,12 @@ class Administrar extends CI_Controller {
 			$crud->set_relation('COD_OFICIO','tb_oficio','DES_OFICIO');
 			$crud->set_relation('COD_TIPO_AVERIA','tb_tipo_averia','DES_TIPO_AVERIA');
 			$crud->set_relation('ESTADO','tb_estado_solicitud_trabajo','descripcion');
+
+
+			$crud->set_relation_n_n('asig_estado', 'tb_asignacion_estado', 'tb_estado_solicitud_trabajo', 'cod_solicitud_trabajo', 'cod_estado', 'descripcion','priority');
+			$crud->set_relation_n_n('cod_estado', 'tb_asignacion_estado', 'tb_estado_solicitud_trabajo', 'cod_solicitud_trabajo', 'cod_estado', 'cod_estado','priority');
+
+
 			$crud->set_relation('COD_UBIGEO','tb_ubigeo','DES_UBIGEO',array('COD_PAIS' => '001','COD_DEPARTAMENTO' => '15','COD_PROVINCIA'=>'01','COD_DISTRITO <>'=>'00'),'COD_UBIGEO ASC');
 
 			$crud->edit_fields('NOMBRE', 'EMAIL', 'TELEFONO','TITULO','DESCRIPCION','FEC_REGISTRO','COD_UBIGEO','COD_OFICIO');
@@ -387,7 +400,8 @@ class Administrar extends CI_Controller {
 			$crud->display_as('DESCRIPCION','Descripción de Avería');
 			$crud->display_as('FEC_REGISTRO','Fecha Registro');
 			$crud->display_as('DIRECCION','Dirección');
-			$crud->display_as('ESTADO','Estado');
+			//$crud->display_as('ESTADO','Estado');
+			$crud->display_as('asig_estado','Estado');
 			$crud->display_as('COD_UBIGEO','Distrito');
 			$crud->display_as('COD_OFICIO','Oficio');
 
@@ -400,7 +414,10 @@ class Administrar extends CI_Controller {
 			$crud->unset_read();
 			
 
+			$data['titulo'] = "Solicitudes de Trabajo";
 			$output = $crud->render();
+			$output->data = $data;
+
 			$this->_example_output($output);
 
 
@@ -533,7 +550,9 @@ class Administrar extends CI_Controller {
 			
 			$crud->callback_column('EDAD', array($this,'busca_edad'));
 
+			$data['titulo'] = "Trabajadores";
 			$output = $crud->render();
+			$output->data = $data;
 
 			$this->_example_output($output);
 
@@ -683,6 +702,7 @@ class Administrar extends CI_Controller {
 
 
 			$data['id_asignacion'] = $id_solicitud;
+			$data['titulo'] = "Trabajador por Asignar";
 
 
 			$this->load->model('solicitud_trabajo_model');
@@ -736,7 +756,9 @@ class Administrar extends CI_Controller {
 			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');		
 			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');	
 
+			$data['titulo'] = "Tipo Operadora";
 			$output = $crud->render();
+			$output->data = $data;
 
 			$this->_example_output($output);
 
@@ -770,7 +792,9 @@ class Administrar extends CI_Controller {
 			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
 			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
 
+			$data['titulo'] = "Tipo de Usuario";
 			$output = $crud->render();
+			$output->data = $data;
 
 			$this->_example_output($output);
 
@@ -804,7 +828,9 @@ class Administrar extends CI_Controller {
 			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
 			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
 
+			$data['titulo'] = "Tipo de Registro";
 			$output = $crud->render();
+			$output->data = $data;
 
 			$this->_example_output($output);
 
@@ -815,32 +841,66 @@ class Administrar extends CI_Controller {
 
 
 
-	public function tipo_documento()
+	public function monitor_solicitudes()
 	{
 		try{
 			$crud = new grocery_CRUD();
 
-			#$crud->set_theme('datatables');
-			$crud->set_table('tb_tip_documento');
-			$crud->set_subject('Tipo Documento');
-			$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
+
+			$crud->set_table('tb_solicitud_trabajo');
+			$crud->set_subject('Monitor de Solicitudes');
+			//$crud->required_fields('cod_asig_estado','COD_TIPO_MAESTRO');
+
+		    //$crud->where('','5');
+
+
+		    $crud->fields(			
+
+		    'COD_SOLICITUD',
+			'NOMBRE',
+			'asig_tmrh',
+			'asig_estado',
+			'cod_asig_tmrh',
+			'cod_asig_estado');
+
 			$crud->columns(
 
-			'COD_TIPO_MAESTRO',
-			'DES_TIPO_MAESTRO',
-			'COD_USUARIO_REGISTRO'
+			'COD_SOLICITUD',
+			'NOMBRE',
+			'asig_tmrh',
+			'asig_estado',
+			'cod_asig_tmrh',
+			'cod_asig_estado'
 
-				);
+			);
 
-			$crud->display_as('DES_TIPO_MAESTRO','Descripción');
-			$crud->display_as('COD_TIPO_MAESTRO','Id Tipo Documento');
-			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');	
+			$crud->set_relation_n_n('asig_tmrh', 'tb_asignacion_tmrh', 'tb_tmrh', 'cod_solicitud_trabajo', 'cod_tmrh', '{NUM_DOCUMENTO} - {NOM_TMRH} {APE_PATERNO} {APE_MATERNO}','priority');
+			$crud->set_relation_n_n('asig_estado', 'tb_asignacion_estado', 'tb_estado_solicitud_trabajo', 'cod_solicitud_trabajo', 'cod_estado', 'descripcion','priority');
+			
+			$crud->set_relation_n_n('cod_asig_estado', 'tb_asignacion_estado', 'tb_estado_solicitud_trabajo', 'cod_solicitud_trabajo', 'cod_estado', 'cod_estado');
+			$crud->set_relation_n_n('cod_asig_tmrh', 'tb_asignacion_tmrh', 'tb_tmrh', 'cod_solicitud_trabajo', 'cod_tmrh', 'cod_tmrh','priority');
+			
+
+			//$crud->set_relation('cod_solicitud_trabajo','tb_asignacion_estado','cod_estado');
 
 
-			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
-			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
+			$crud->display_as('COD_SOLICITUD','Código de Solictud');
+			$crud->display_as('NOMBRE','Cliente');
 
+			$crud->display_as('asig_estado','Estado Solicitud');	
+			$crud->display_as('asig_tmrh','Trabajador Asignado');	
+			
+			$crud->display_as('cod_asig_tmrh','Código Estado Solicitud');	
+			$crud->display_as('cod_asig_estado','Código Estado Asignado');	
+
+			$crud->unset_add();
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_read();
+
+			$data['titulo'] = "Monitoreo de Solicitudes";
 			$output = $crud->render();
+			$output->data = $data;
 
 			$this->_example_output($output);
 
@@ -873,7 +933,10 @@ class Administrar extends CI_Controller {
 			$crud->set_relation('COD_USUARIO_REGISTRO','tb_usuario','DES_USUARIO');
 			$crud->fields('COD_TIPO_MAESTRO', 'DES_TIPO_MAESTRO', 'COD_USUARIO_REGISTRO');
 
+			$data['titulo'] = "Tiempo Experiencia";
 			$output = $crud->render();
+			$output->data = $data;
+
 
 			$this->_example_output($output);
 
@@ -912,8 +975,10 @@ class Administrar extends CI_Controller {
 			$crud->display_as('COD_OFICIO','Id Especialidad');
 			$crud->display_as('COD_USUARIO_REGISTRO','Usuario Registro');		
 
-
+			$data['titulo'] = "Oficios/Especialidades";
 			$output = $crud->render();
+			$output->data = $data;
+
 
 			$this->_example_output($output);
 
@@ -923,249 +988,6 @@ class Administrar extends CI_Controller {
 	}	
 
 
-/*
-
-	public function offices_management()
-	{
-		try{
-			$crud = new grocery_CRUD();
-
-			$crud->set_theme('datatables');
-			$crud->set_table('offices');
-			$crud->set_subject('Office');
-			$crud->required_fields('city');
-			$crud->columns('city','country','phone','addressLine1','postalCode');
-
-			$output = $crud->render();
-
-			$this->_example_output($output);
-
-		}catch(Exception $e){
-			show_error($e->getMessage().' --- '.$e->getTraceAsString());
-		}
-	}
-
-
-
-
-	public function offices_management()
-	{
-		try{
-			$crud = new grocery_CRUD();
-
-			$crud->set_theme('datatables');
-			$crud->set_table('offices');
-			$crud->set_subject('Office');
-			$crud->required_fields('city');
-			$crud->columns('city','country','phone','addressLine1','postalCode');
-
-			$output = $crud->render();
-
-			$this->_example_output($output);
-
-		}catch(Exception $e){
-			show_error($e->getMessage().' --- '.$e->getTraceAsString());
-		}
-	}
-
-	public function employees_management()
-	{
-			$crud = new grocery_CRUD();
-
-			$crud->set_theme('datatables');
-			$crud->set_table('employees');
-			$crud->set_relation('officeCode','offices','city');
-			$crud->display_as('officeCode','Office City');
-			$crud->set_subject('Employee');
-
-			$crud->required_fields('lastName');
-
-			$crud->set_field_upload('file_url','assets/uploads/files');
-
-			$output = $crud->render();
-
-			$this->_example_output($output);
-	}
-
-	public function customers_management()
-	{
-			$crud = new grocery_CRUD();
-
-			$crud->set_table('customers');
-			$crud->columns('customerName','contactLastName','phone','city','country','salesRepEmployeeNumber','creditLimit');
-			$crud->display_as('salesRepEmployeeNumber','from Employeer')
-				 ->display_as('customerName','Name')
-				 ->display_as('contactLastName','Last Name');
-			$crud->set_subject('Customer');
-			$crud->set_relation('salesRepEmployeeNumber','employees','lastName');
-
-			$output = $crud->render();
-
-			$this->_example_output($output);
-	}
-
-	public function orders_management()
-	{
-			$crud = new grocery_CRUD();
-
-			$crud->set_relation('customerNumber','customers','{contactLastName} {contactFirstName}');
-			$crud->display_as('customerNumber','Customer');
-			$crud->set_table('orders');
-			$crud->set_subject('Order');
-			$crud->unset_add();
-			$crud->unset_delete();
-
-			$output = $crud->render();
-
-			$this->_example_output($output);
-	}
-
-	public function products_management()
-	{
-			$crud = new grocery_CRUD();
-
-			$crud->set_table('products');
-			$crud->set_subject('Product');
-			$crud->unset_columns('productDescription');
-			$crud->callback_column('buyPrice',array($this,'valueToEuro'));
-
-			$output = $crud->render();
-
-			$this->_example_output($output);
-	}
-
-	public function valueToEuro($value, $row)
-	{
-		return $value.' &euro;';
-	}
-
-	public function film_management()
-	{
-		$crud = new grocery_CRUD();
-
-		$crud->set_table('film');
-		$crud->set_relation_n_n('actors', 'film_actor', 'actor', 'film_id', 'actor_id', 'fullname','priority');
-		$crud->set_relation_n_n('category', 'film_category', 'category', 'film_id', 'category_id', 'name');
-		$crud->unset_columns('special_features','description','actors');
-
-		$crud->fields('title', 'description', 'actors' ,  'category' ,'release_year', 'rental_duration', 'rental_rate', 'length', 'replacement_cost', 'rating', 'special_features');
-
-		$output = $crud->render();
-
-		$this->_example_output($output);
-	}
-
-	public function film_management_twitter_bootstrap()
-	{
-		try{
-			$crud = new grocery_CRUD();
-
-			$crud->set_theme('twitter-bootstrap');
-			$crud->set_table('film');
-			$crud->set_relation_n_n('actors', 'film_actor', 'actor', 'film_id', 'actor_id', 'fullname','priority');
-			$crud->set_relation_n_n('category', 'film_category', 'category', 'film_id', 'category_id', 'name');
-			$crud->unset_columns('special_features','description','actors');
-
-			$crud->fields('title', 'description', 'actors' ,  'category' ,'release_year', 'rental_duration', 'rental_rate', 'length', 'replacement_cost', 'rating', 'special_features');
-
-			$output = $crud->render();
-			$this->_example_output($output);
-
-		}catch(Exception $e){
-			show_error($e->getMessage().' --- '.$e->getTraceAsString());
-		}
-	}
-
-	function multigrids()
-	{
-		$this->config->load('grocery_crud');
-		$this->config->set_item('grocery_crud_dialog_forms',true);
-		$this->config->set_item('grocery_crud_default_per_page',10);
-
-		$output1 = $this->offices_management2();
-
-		$output2 = $this->employees_management2();
-
-		$output3 = $this->customers_management2();
-
-		$js_files = $output1->js_files + $output2->js_files + $output3->js_files;
-		$css_files = $output1->css_files + $output2->css_files + $output3->css_files;
-		$output = "<h1>List 1</h1>".$output1->output."<h1>List 2</h1>".$output2->output."<h1>List 3</h1>".$output3->output;
-
-		$this->_example_output((object)array(
-				'js_files' => $js_files,
-				'css_files' => $css_files,
-				'output'	=> $output
-		));
-	}
-
-	public function offices_management2()
-	{
-		$crud = new grocery_CRUD();
-		$crud->set_table('offices');
-		$crud->set_subject('Office');
-
-		$crud->set_crud_url_path(site_url(strtolower(__CLASS__."/".__FUNCTION__)),site_url(strtolower(__CLASS__."/multigrids")));
-
-		$output = $crud->render();
-
-		if($crud->getState() != 'list') {
-			$this->_example_output($output);
-		} else {
-			return $output;
-		}
-	}
-
-	public function employees_management2()
-	{
-		$crud = new grocery_CRUD();
-
-		$crud->set_theme('datatables');
-		$crud->set_table('employees');
-		$crud->set_relation('officeCode','offices','city');
-		$crud->display_as('officeCode','Office City');
-		$crud->set_subject('Employee');
-
-		$crud->required_fields('lastName');
-
-		$crud->set_field_upload('file_url','assets/uploads/files');
-
-		$crud->set_crud_url_path(site_url(strtolower(__CLASS__."/".__FUNCTION__)),site_url(strtolower(__CLASS__."/multigrids")));
-
-		$output = $crud->render();
-
-		if($crud->getState() != 'list') {
-			$this->_example_output($output);
-		} else {
-			return $output;
-		}
-	}
-
-	public function customers_management2()
-	{
-		$crud = new grocery_CRUD();
-
-		$crud->set_table('customers');
-		$crud->columns('customerName','contactLastName','phone','city','country','salesRepEmployeeNumber','creditLimit');
-		$crud->display_as('salesRepEmployeeNumber','from Employeer')
-			 ->display_as('customerName','Name')
-			 ->display_as('contactLastName','Last Name');
-		$crud->set_subject('Customer');
-		$crud->set_relation('salesRepEmployeeNumber','employees','lastName');
-
-		$crud->set_crud_url_path(site_url(strtolower(__CLASS__."/".__FUNCTION__)),site_url(strtolower(__CLASS__."/multigrids")));
-
-		$output = $crud->render();
-
-		if($crud->getState() != 'list') {
-			$this->_example_output($output);
-		} else {
-			return $output;
-		}
-	}
-
-
-*/
 
     public function sesion_activa(){
 

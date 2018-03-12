@@ -23,7 +23,9 @@ class Asignacion_solicitud_trabajador extends CI_Controller {
     {
 
         $this->load->model('Asignacion_solicitud_tmrh_model');
-        $this->load->model('Solicitud_trabajo_model');
+        $this->load->model('Asignacion_solicitud_estado_model');
+
+        $cod_user = $_SESSION['sesion_id_usuario'];
 
         $rpta = $this->Asignacion_solicitud_tmrh_model->obtener_asignacion_por_solicitud($cod_solicitud_trabajo);
 
@@ -33,15 +35,15 @@ class Asignacion_solicitud_trabajador extends CI_Controller {
             
             if(isset($id)){
 
-                $ok=$this->Solicitud_trabajo_model->cambiar_estado_solicitud_por_administrativo($cod_solicitud_trabajo);
+                $ok = $this->Asignacion_solicitud_estado_model->cambiar_estado_solicitud_por_administrativo($cod_solicitud_trabajo,$cod_user);
 
                 if(isset($ok)){
-                   echo "Se reasignó a un trabajador correctamente con el número de transacción. ".$id;  
+                   echo "Se reasignó a un trabajador correctamente con el número de transacción: #".$id;  
                 }else{
-                    echo "Se reasignó a nuevo trabajador, pero no se cambio el estado de la solicitud. ".$id;                    
+                    echo "Se reasignó a un trabajador, pero no se cambio el estado de la solicitud: #".$id;                    
                 }
                 return;
-                //echo "Se reasignó correctamente al trabajador con el número de transacción.".$id;                
+          
 
             }else{
                 echo "No se pudo reasignar al trabajador. Por favor, vuelva intentarlo.";                
@@ -51,23 +53,30 @@ class Asignacion_solicitud_trabajador extends CI_Controller {
 
         }else{
 
-            $data = array(
+            $data1 = array(
                                 'cod_tmrh' => $cod_tmrh,
                                 'cod_solicitud_trabajo' => $cod_solicitud_trabajo,
-                                'cod_user_registro' =>  $_SESSION['sesion_id_usuario'],
+                                'cod_user_registro' =>  $cod_user,
                                 
                          );
 
-            $id=$this->Asignacion_solicitud_tmrh_model->insertar_Asignacion_solicitud_tmrh($data);
+            $data2 = array(
+                                'cod_estado' => 2,
+                                'cod_solicitud_trabajo' => $cod_solicitud_trabajo,
+                                'cod_user_registro' =>  $cod_user,
+                                
+                         );
+
+            $id=$this->Asignacion_solicitud_tmrh_model->insertar_Asignacion_solicitud_tmrh($data1);
 
             if(isset($id)){
 
-                $ok = $this->Solicitud_trabajo_model->cambiar_estado_solicitud_por_administrativo($cod_solicitud_trabajo);
-                
+                $ok=$this->Asignacion_solicitud_estado_model->insertar_Asignacion_solicitud_estado($data2);
+
                 if(isset($ok) ){
-                   echo "Se asignó a un trabajador correctamente con el número de transacción. ".$id;  
+                   echo "N° de transacción <strong>#".$id."</strong>: Se asignó a un trabajador.";  
                 }else{
-                    echo "Se asignó a nuevo trabajador, pero no se cambio el estado de la solicitud. ".$id;                    
+                    echo "N° de transacción <strong>#".$id."</strong>: Se asignó a un trabajador, pero no se cambio el estado.";               
                 }
                 return;
                 
@@ -77,17 +86,21 @@ class Asignacion_solicitud_trabajador extends CI_Controller {
                 return;
             }
 
-            
-
-
         }
 
     }
 
+
+    public function solicitud_trabajo()
+    {
+        redirect(base_url()."Administrar/solicitud_trabajo");
+    }
+
+
     public function index()
     {
 
-        $this->load->view('example');
+        $this->load->view('admin_panel');
 
     }
 
