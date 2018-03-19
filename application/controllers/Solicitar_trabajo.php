@@ -130,6 +130,8 @@ class Solicitar_trabajo extends CI_Controller {
                 $data_insert['TITULO'] = ''; 					
                 //$data_insert['FOTO'] = base64_encode( addslashes(file_get_contents($_FILES['foto']['tmp_name'])));                 
                 $data_insert['FOTO'] = null;
+                $data_insert['ESTADO'] = 1;
+                $data_insert['COD_TIPO_REGISTRO'] = 1;
                 
                 $data['file'] = file_get_contents($_FILES['foto']['tmp_name']);
                 $data['guardado']=$this->solicitud_trabajo_model->insertar_Solicitud_Trabajo($data_insert);

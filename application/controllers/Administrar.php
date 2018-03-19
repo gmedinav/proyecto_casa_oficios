@@ -6,7 +6,6 @@ class Administrar extends CI_Controller {
 	{
 		parent::__construct();
 
-
 		$this->load->database();
 		$this->load->helper('url');
 
@@ -25,13 +24,11 @@ class Administrar extends CI_Controller {
 
 	}
 
-
 	public function _example_output($output = null)
 	{
 		$this->load->view('admin_panel.php',(array)$output);
 		//$this->load->view('example.php',(array)$output);
 	}
-
 
 
 	public function index()
@@ -45,6 +42,11 @@ class Administrar extends CI_Controller {
 	{
 		try{
 			$crud = new grocery_CRUD();
+
+			$crud->unset_add();
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_read();
 
 			#$crud->set_theme('datatables');
 			$crud->set_table('tb_cliente');
@@ -168,46 +170,10 @@ class Administrar extends CI_Controller {
 		}
 	}
 
-/*
-	public function asignacion_trabajo()
-	{
-		try{
-			$crud = new grocery_CRUD();
 
-			#$crud->set_theme('datatables');
-			$crud->set_table('tb_asignacion_tmrh');
-			$crud->set_subject('Asignación de Trabajo');
-			//$crud->required_fields('DES_TIPO_MAESTRO','COD_TIPO_MAESTRO');
-			$crud->columns(
-
-			'cod_tmrh',
-			'cod_solicitud_trabajo'
-
-				);
-
-			$crud->set_relation('cod_tmrh','tb_tmrh','{NUM_DOCUMENTO} - {NOM_TMRH} {APE_PATERNO} {APE_MATERNO}');
-			$crud->set_relation('cod_solicitud_trabajo','tb_solicitud_trabajo','{COD_SOLICITUD} - {TITULO}', null,'COD_SOLICITUD ASC');
-
-			$crud->fields('cod_tmrh', 'cod_solicitud_trabajo');
-
-			$crud->display_as('cod_tmrh','Código TMRH');
-			$crud->display_as('cod_solicitud_trabajo','Código Solicitud de Trabajo');
-
-
-			$output = $crud->render();
-
-			$this->_example_output($output);
-
-		}catch(Exception $e){
-			show_error($e->getMessage().' --- '.$e->getTraceAsString());
-		}
-	}
-*/
 
 
 	public function asignacion_trabajo($codigo_solicitud, $codigo_trabajador){
-
-
 
 
 		$this->solicitud_trabajo();
@@ -216,18 +182,12 @@ class Administrar extends CI_Controller {
 	}
 
 
-
+/*
 	public function asignacion_estado()
 	{
 		try{
 			$crud = new grocery_CRUD();
-
-			#$crud->set_theme('datatables');
-
-
-
 			$output = $crud->render();
-
 			$this->_example_output($output);
 
 		}catch(Exception $e){
@@ -235,7 +195,7 @@ class Administrar extends CI_Controller {
 		}
 	}
 
-
+*/
 
 
 
@@ -354,8 +314,8 @@ class Administrar extends CI_Controller {
 		try{
 			$crud = new grocery_CRUD();
 
-		    $crud->or_where('cod_estado',1);
-		    $crud->or_where('cod_estado',5);
+		    $crud->or_where('ESTADO',1);
+		    $crud->or_where('ESTADO',5);
 
 
 			#$crud->set_theme('datatables');
@@ -370,13 +330,18 @@ class Administrar extends CI_Controller {
 			'COD_UBIGEO',			
 			'DIRECCION',		
 			'COD_TIPO_AVERIA',
-			'asig_estado',
+			'ESTADO',
 			'FEC_REGISTRO'
 
 				);
 
 
-			$crud->add_action('Asignar Trabajador', site_url('assets/grocery_crud/themes/flexigrid/css/images/worker.png'), 'Administrar/trabajador_por_asignar');
+			//$crud->add_action('Asignar Trabajador', site_url('assets/grocery_crud/themes/flexigrid/css/images/worker.png'), 'Administrar/trabajador_por_asignar');
+
+			$crud->add_action('Asignar Trabajador', site_url('assets/grocery_crud/themes/flexigrid/css/images/worker.png'),'','',array($this,'target_trabajador'));
+
+
+
 
 			$crud->fields('NOMBRE', 'EMAIL', 'TELEFONO','TITULO','DESCRIPCION','FEC_REGISTRO','COD_UBIGEO','COD_OFICIO');	
 
@@ -384,9 +349,6 @@ class Administrar extends CI_Controller {
 			$crud->set_relation('COD_TIPO_AVERIA','tb_tipo_averia','DES_TIPO_AVERIA');
 			$crud->set_relation('ESTADO','tb_estado_solicitud_trabajo','descripcion');
 
-
-			$crud->set_relation_n_n('asig_estado', 'tb_asignacion_estado', 'tb_estado_solicitud_trabajo', 'cod_solicitud_trabajo', 'cod_estado', 'descripcion','priority');
-			$crud->set_relation_n_n('cod_estado', 'tb_asignacion_estado', 'tb_estado_solicitud_trabajo', 'cod_solicitud_trabajo', 'cod_estado', 'cod_estado','priority');
 
 
 			$crud->set_relation('COD_UBIGEO','tb_ubigeo','DES_UBIGEO',array('COD_PAIS' => '001','COD_DEPARTAMENTO' => '15','COD_PROVINCIA'=>'01','COD_DISTRITO <>'=>'00'),'COD_UBIGEO ASC');
@@ -400,8 +362,8 @@ class Administrar extends CI_Controller {
 			$crud->display_as('DESCRIPCION','Descripción de Avería');
 			$crud->display_as('FEC_REGISTRO','Fecha Registro');
 			$crud->display_as('DIRECCION','Dirección');
-			//$crud->display_as('ESTADO','Estado');
-			$crud->display_as('asig_estado','Estado');
+			$crud->display_as('ESTADO','Estado');
+			//$crud->display_as('asig_estado','Estado');
 			$crud->display_as('COD_UBIGEO','Distrito');
 			$crud->display_as('COD_OFICIO','Oficio');
 
@@ -426,19 +388,11 @@ class Administrar extends CI_Controller {
 		}
 	}
 
-/*
-	function _just_a_test2($primary_key , $row)
-	{
-		return '<a href="Administrar/trabajador_por_asignar/'.$row->id.'"><img src="http://www.grocerycrud.com/assets/uploads/general/smiley.png"></a>';
-	}
 
-	function vincular_tmrh($primary_key , $row)
+	public function target_trabajador($primary_key , $row)
 	{
-	return site_url('Administrar/trabajador_por_asignar/').$row->country;
+		return site_url('Administrar/trabajador_por_asignar').'/'.$row->COD_TIPO_AVERIA.'/'.$row->COD_SOLICITUD;
 	}
- 
-*/
-
 
 
 
@@ -446,6 +400,11 @@ class Administrar extends CI_Controller {
 	{
 		try{
 			$crud = new grocery_CRUD();
+
+			$crud->unset_add();
+			$crud->unset_delete();
+			$crud->unset_edit();
+			$crud->unset_read();
 
 			#$crud->set_theme('datatables');
 			$crud->set_table('tb_tmrh');
@@ -566,47 +525,39 @@ class Administrar extends CI_Controller {
 	public function busca_edad($primary_key, $row){
 
 		$fecha_nacimiento = $row->FEC_NACIMIENTO;
-
 		$dia=date("d");
 		$mes=date("m");
 		$ano=date("Y");
-
-
 		$dianaz=date("d",strtotime($fecha_nacimiento));
 		$mesnaz=date("m",strtotime($fecha_nacimiento));
 		$anonaz=date("Y",strtotime($fecha_nacimiento));
-
-
 		//si el mes es el mismo pero el día inferior aun no ha cumplido años, le quitaremos un año al actual
-
 		if (($mesnaz == $mes) && ($dianaz > $dia)) {
 		$ano=($ano-1); }
-
 		//si el mes es superior al actual tampoco habrá cumplido años, por eso le quitamos un año al actual
-
 		if ($mesnaz > $mes) {
 		$ano=($ano-1);}
-
 		 //ya no habría mas condiciones, ahora simplemente restamos los años y mostramos el resultado como su edad
-
 		$edad=($ano-$anonaz);
-
-
 		return $edad;
-
-
 	}
 
 
 
-	public function trabajador_por_asignar($id_solicitud)
+	public function trabajador_por_asignar($id_oficio, $id_solicitud)
 	{
 		try{
 			$crud = new grocery_CRUD();
 
+			//$id_oficio = ;
+
 			#$crud->set_theme('datatables');
 			$crud->set_table('tb_tmrh');
 			$crud->set_subject('Trabajador (TMRH)');
+
+			$crud->where('COD_ESTADO_DISPO',1);
+			$crud->where('COD_OFICIO_PRINCIPAL', $id_oficio);
+
 			$crud->required_fields(
 
 				'COD_TMRH',
@@ -713,6 +664,10 @@ class Administrar extends CI_Controller {
 			$data['DESCRIPCION'] = $solicitud['DESCRIPCION'] ;
 			$data['DES_UBIGEO'] = $solicitud['DES_UBIGEO'] ;
 			$data['DIRECCION'] = $solicitud['DIRECCION'] ;
+			$data['COD_TIPO_AVERIA'] = $solicitud['COD_TIPO_AVERIA'] ;
+			$data['NOMBRE'] = $solicitud['NOMBRE'] ;
+			
+
 
 
 			$output->data = $data;
@@ -852,6 +807,11 @@ class Administrar extends CI_Controller {
 			//$crud->required_fields('cod_asig_estado','COD_TIPO_MAESTRO');
 
 		    //$crud->where('','5');
+
+		    $crud->or_where('ESTADO',2);
+		    $crud->or_where('ESTADO',3);
+		    $crud->or_where('ESTADO',4);			    
+		    $crud->or_where('ESTADO',5);		    
 
 
 		    $crud->fields(			

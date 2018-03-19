@@ -100,7 +100,7 @@ class Asignacion_solicitud_estado_model extends CI_Model {
         }
 
 
-        public function cambiar_estado_solicitud_por_administrativo($id_solicitud, $cod_user){
+        public function cambiar_estado_solicitud_por_administrativo($cod_solicitud_trabajo, $cod_user){
 
                $this->load->database();
 
@@ -111,7 +111,7 @@ class Asignacion_solicitud_estado_model extends CI_Model {
 
                 return $this->db->update('tb_asignacion_estado',
                                     $data, 
-                                    array('cod_solicitud_trabajo'=>$id_solicitud));
+                                    array('cod_solicitud_trabajo'=> $cod_solicitud_trabajo));
 
 
         }

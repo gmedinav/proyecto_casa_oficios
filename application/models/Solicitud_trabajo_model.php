@@ -41,6 +41,8 @@ class Solicitud_trabajo_model extends CI_Model {
                             t_st.DESCRIPCION,
                             t_st.DIRECCION,
                             t_st.COD_UBIGEO,
+                            t_st.COD_TIPO_AVERIA,
+                            t_st.NOMBRE,
                             t_u.DES_UBIGEO,
 
                             t_st.COD_TIPO_AVERIA,
