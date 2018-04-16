@@ -381,11 +381,11 @@ desired effect
           <a href="<?php echo site_url('Administrar/monitor_solicitudes')?>"><i class="fa fa-crosshairs"></i> <span>Monitoreo de Solicitudes</span></a>
         </li>
 
-        <li><a href="<?php echo site_url('Administrar/trabajador')?>">
+        <li><a href="<?php echo site_url('admin/tmrh')?>">
           <i class="glyphicon glyphicon-wrench"></i> <span>Trabajadores</span></a>
         </li>
 
-        <li><a href="<?php echo site_url('Administrar/Clientes')?>">
+        <li><a href="<?php echo site_url('admin/cliente')?>">
           <i class="fa fa-users"></i> <span>Clientes</span></a>
         </li>
     
@@ -519,16 +519,16 @@ desired effect
 
     <div>
     <div>
-    <?php 
+      <?php 
 
-    if(isset($output)){
+      if(isset($output)){
 
-      echo $output; 
+        echo $output; 
 
-    }
+      }
 
 
-    ?>
+      ?>
     </div>
 
 
