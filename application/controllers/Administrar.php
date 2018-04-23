@@ -15,7 +15,6 @@ class Administrar extends CI_Controller {
 		$this->load->library('grocery_CRUD');
 
 		if($this->sesion_activa()==false){
-
 			//$this->load->view('vw_login');
 			redirect(base_url()."Login/");
 			die();			
@@ -26,7 +25,15 @@ class Administrar extends CI_Controller {
 
 	public function _example_output($output = null)
 	{
-		$this->load->view('admin_panel.php',(array)$output);
+
+        $this->load->view('admin/_template/header');   
+        $this->load->view('admin/_template/menu');   
+		$this->load->view('admin/_template/content',(array)$output); 
+        $this->load->view('admin/_template/footer');       
+
+        		
+
+		//$this->load->view('admin_panel.php',(array)$output);
 		//$this->load->view('example.php',(array)$output);
 	}
 
@@ -838,8 +845,7 @@ class Administrar extends CI_Controller {
 			$crud->set_relation_n_n('asig_estado', 'tb_asignacion_estado', 'tb_estado_solicitud_trabajo', 'cod_solicitud_trabajo', 'cod_estado', 'descripcion','priority');
 			
 			$crud->set_relation_n_n('cod_asig_estado', 'tb_asignacion_estado', 'tb_estado_solicitud_trabajo', 'cod_solicitud_trabajo', 'cod_estado', 'cod_estado');
-			$crud->set_relation_n_n('cod_asig_tmrh', 'tb_asignacion_tmrh', 'tb_tmrh', 'cod_solicitud_trabajo', 'cod_tmrh', 'cod_tmrh','priority');
-			
+			$crud->set_relation_n_n('cod_asig_tmrh', 'tb_asignacion_tmrh', 'tb_tmrh', 'cod_solicitud_trabajo', 'cod_tmrh', 'cod_tmrh','priority');			
 
 			//$crud->set_relation('cod_solicitud_trabajo','tb_asignacion_estado','cod_estado');
 

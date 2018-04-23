@@ -32,7 +32,13 @@ class Solicitud_trabajo_model extends CI_Model {
                
         }
 
+        public function obtener_id_insertado(){
 
+              return $this->db->insert_id();
+
+        }
+
+        
         public function detalle_simple_solicitud($id_solicitud){
 
                $this->load->database();

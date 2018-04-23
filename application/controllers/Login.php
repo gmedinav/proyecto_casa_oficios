@@ -7,7 +7,6 @@ class Login extends CI_Controller {
         {
                 parent::__construct();
 
-
 				$this->load->helper('url');
 				$this->load->helper(array('form', 'url'));                
 
@@ -39,7 +38,7 @@ class Login extends CI_Controller {
             if ($this->form_validation->run() == FALSE)
             {
 
-				$this->load->view('vw_login');
+				$this->load->view('admin/login/vw_login');
 				return;
 
             }else{
@@ -56,6 +55,7 @@ class Login extends CI_Controller {
             		$_SESSION['sesion_usuario'] = $rpta->DES_USUARIO  ;
                     $_SESSION['sesion_id_usuario'] = $rpta->COD_USUARIO;
                     redirect(base_url()."Administrar");
+                    //redirect(base_url()."tmrh");
             		//$this->load->view('example');
             		return ;
 
@@ -67,7 +67,7 @@ class Login extends CI_Controller {
 
             	$data['resultado_proceso'] = $rpta;
 
-            	$this->load->view('vw_login',$data);
+            	$this->load->view('admin/login/vw_login',$data);
 				return;
 			}
 
@@ -79,7 +79,7 @@ class Login extends CI_Controller {
 	        $this->session->userdata('sesion_usuario');
 
             //redirect(base_url()."Administrar");
-	        $this->load->view('vw_login');
+	        $this->load->view('admin/login/vw_login');
             //redirect(base_url()."login");
 
         }

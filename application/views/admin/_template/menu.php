@@ -40,12 +40,34 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">NEGOCIO</li>
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="<?php echo site_url('Administrar/solicitud_trabajo')?>">
+        <!--li><a href="<?php echo site_url('Administrar/solicitud_trabajo')?>"-->
+        <li><a href="<?php echo site_url('admin/Asignacion_solicitudes/solicitudes_x_asignar')?>">
           <i class="fa fa-link"></i> <span>Solicitudes de Trabajo</span></a>
         </li>
-        <li>
-          <a href="<?php echo site_url('Administrar/monitor_solicitudes')?>"><i class="fa fa-crosshairs"></i> <span>Monitoreo de Solicitudes</span></a>
+
+
+
+        <li class="treeview">
+          <a href="#"><i class="fa fa-crosshairs"></i> <span>Monitoreo de Solicitudes</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+      
+            <li><a href="<?php echo site_url('admin/solicitudes_trabajo/pendientes')?>">Pendientes</a></li>
+            <li><a href="<?php echo site_url('admin/solicitudes_trabajo/canceladas')?>">Cancelados</a></li>
+            <li><a href="<?php echo site_url('admin/solicitudes_trabajo/asignadas')?>">Asignados</a></li>
+
+          </ul>
         </li>
+
+
+
+        <!--li>
+          <a href="<?php echo site_url('Administrar/monitor_solicitudes')?>"><i class="fa fa-crosshairs">
+          </i> <span>Monitoreo de Solicitudes</span></a>
+        </li-->
 
         <li><a href="<?php echo site_url('admin/tmrh')?>">
           <i class="glyphicon glyphicon-wrench"></i> <span>Trabajadores</span></a>

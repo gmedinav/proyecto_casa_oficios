@@ -93,8 +93,7 @@ class Solicitar_trabajo extends CI_Controller {
                 
             } else {
                 //$data['guardado']=TRUE;     
-                $this->load->model('solicitud_trabajo_model');
-                
+                $this->load->model('solicitud_trabajo_model');                
                 //$this->Solicitud_trabajo_model->insertar_Solicitud_Trabajo();  
                 
                 $cboTipAveria = $this->input->post('cboTipAveria');	                
@@ -133,11 +132,20 @@ class Solicitar_trabajo extends CI_Controller {
                 $data_insert['ESTADO'] = 1;
                 $data_insert['COD_TIPO_REGISTRO'] = 1;
                 
-                $data['file'] = file_get_contents($_FILES['foto']['tmp_name']);
+                $data['file'] = file_get_contents($_FILES['foto']['tmp_name']);                
                 $data['guardado']=$this->solicitud_trabajo_model->insertar_Solicitud_Trabajo($data_insert);
 
-                
-                //$this->load->view('inicio',$data);
+
+
+                $data2['cod_estado'] = 1;
+                $data2['cod_solicitud_trabajo'] = $this->solicitud_trabajo_model->obtener_id_insertado();
+                $data2['cod_user_registro'] = 1 ;  
+
+                $this->load->model('asignacion_solicitud_estado_model');
+                $this->asignacion_solicitud_estado_model->insertar_Asignacion_solicitud_estado($data2);   
+
+
+
                 redirect(base_url()."Solicitar_trabajo/atencion/".$data['guardado']);
             }
 

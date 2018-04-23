@@ -64,8 +64,6 @@ class Asignacion_solicitud_estado_model extends CI_Model {
         }
 
 
-
-
         public function listar_asignacion_solicitud_estado(){
 
                $this->load->database();

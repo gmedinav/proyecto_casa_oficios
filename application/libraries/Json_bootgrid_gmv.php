@@ -9,7 +9,7 @@ class Json_bootgrid_gmv {
         }
 
 
-       public function get_query_bootgrid($params, $array_campos, $vw_tbl, $campo_id) 
+       public function get_query_bootgrid($params, $array_campos, $vw_tbl, $campo_id, $where_extension) 
        {
           		
           $rp = isset($params['rowCount']) ? $params['rowCount'] : 10;
@@ -41,9 +41,17 @@ class Json_bootgrid_gmv {
           $sqlTot .= $sql;
           $sqlRec .= $sql;
           
-          if(isset($where) && $where != '') {       
-            $sqlTot .= $where;
-            $sqlRec .= $where;
+
+          if(isset($where) && $where != '') {  
+
+            $sqlTot .= $where." AND (". $where_extension .") ";
+            $sqlRec .= $where." AND (". $where_extension .") ";
+
+          }else{
+
+              $where = "WHERE (".$where_extension.") ";
+              $sqlTot .= $where;
+              $sqlRec .= $where;
           }
 
 
@@ -73,7 +81,9 @@ class Json_bootgrid_gmv {
 
           return $data;
 
-        }
+      }
+
+
 
 
 }

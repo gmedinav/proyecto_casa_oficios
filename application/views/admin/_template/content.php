@@ -1,4 +1,34 @@
   <!-- Content Wrapper. Contains page content -->
+
+<!---Grocery CRUD-->
+<?php
+if(isset($css_files)){
+?>
+
+<?php 
+foreach($css_files as $file): ?>
+  <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
+<?php endforeach; ?>
+
+<?php
+}
+?>    
+
+<?php
+if(isset($js_files)){
+?>
+
+<?php foreach($js_files as $file): ?>
+  <script src="<?php echo $file; ?>"></script>
+<?php endforeach; ?>
+
+<?php
+}
+?>   
+
+<!---Grocery CRUD-->
+
+
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -7,6 +37,11 @@
         if (isset($titulo))
         {
           echo $titulo;
+        }
+
+        if (isset($data['titulo']))
+        {
+          echo $data['titulo'];
         }
         ?>
         <small><!-- Optional description --></small>
@@ -30,8 +65,17 @@
 	      if(isset($vista_incluida)){
 	      		$this->load->view($vista_incluida);
 	      }
-
 	      ?>
+
+      <?php 
+
+      if(isset($output)){
+
+        echo $output; 
+
+      }
+
+      ?>        
 	   </div>
     </section>
     <!-- /.content -->

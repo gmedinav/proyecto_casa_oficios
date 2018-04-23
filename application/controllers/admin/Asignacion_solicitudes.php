@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cliente extends CI_Controller {
+class Asignacion_solicitudes extends CI_Controller {
     
 
     function __construct()
@@ -22,11 +22,22 @@ class Cliente extends CI_Controller {
 
     }     
 
-	public function index()
+
+	public function solicitudes_x_asignar()
 	{
 
-		$data['vista_incluida']= "admin/cliente/vw_cliente_listar";
-		$data['titulo']= "Clientes";
+		$this->load->model('tipo_averia_model');
+		$data['tipo_averias']= $this->tipo_averia_model->listTipAveria();         
+
+		$this->load->model('ubigeo_model');
+		$data['distritos']= $this->ubigeo_model->listDistritosLima(); 		
+
+		$this->load->model('tipo_estado_model');
+		$data['tipo_estados']= $this->tipo_estado_model->listTipoEstadosPendientes();	
+		
+
+		$data['vista_incluida']= "admin/asignacion_solicitudes/vw_solicitudes_pendientes";
+		$data['titulo']= "Solicitudes de Trabajo";
 
         $this->load->view('admin/_template/header');   
         $this->load->view('admin/_template/menu');   
@@ -36,33 +47,16 @@ class Cliente extends CI_Controller {
 	}
 
 
-	public function json_listar_clientes()
+
+	public function json_listar_solicitudes_x_asignar()
 	{
         //$data['guardado']=FALSE;              
-		$this->load->model('cliente/cliente_info');
+		$this->load->model('solicitudes_trabajo/Solicitudes_trabajo_info_model');
 
 		$params = $_REQUEST;
 		//$params = $this->input->get_post();
-
-		$array_campos[0]='COD_CLIENTE';
-		$array_campos[1]='NOM_CLIENTE';
-		$array_campos[2]='APE_PATERNO';
-		$array_campos[3]='APE_MATERNO';
-		$array_campos[4]='TIPO_DOCUMENTO';
-		$array_campos[5]='NUM_DOCUMENTO';
-		$array_campos[6]='GENERO';
-		$array_campos[7]='DISTRITO';
-		$array_campos[8]='DIRECCION';
-		$array_campos[9]='CEL_1';
-		$array_campos[10]='CEL_2';		
-		$array_campos[11]='ESTADO';		
-		$array_campos[12]='FEC_REGISTRO';
 	
-
-		$vw_tbl="VW_CLIENTE";
-		$campo_id="COD_CLIENTE";
-
-		$data['json']  = $this->cliente_info->json_listar_clientes($params, $array_campos, $vw_tbl, $campo_id);
+		$data['json']  = $this->Solicitudes_trabajo_info_model->json_listar_solicitudes_asignar($params);
 		$this->load->view('json_servicio',$data);
                
 	}	        

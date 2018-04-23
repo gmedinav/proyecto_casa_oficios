@@ -28,10 +28,10 @@ class Tmrh extends CI_Controller {
 		$data['vista_incluida']= "admin/tmrh/vw_tmrh_listar";
 		$data['titulo']= "Trabajadores (TMRH)";
 
-        $this->load->view('template_admin/header');   
-        $this->load->view('template_admin/menu');   
-        $this->load->view('template_admin/content',$data);     
-        $this->load->view('template_admin/footer');                     
+        $this->load->view('admin/_template/header');   
+        $this->load->view('admin/_template/menu');   
+        $this->load->view('admin/_template/content',$data);     
+        $this->load->view('admin/_template/footer');                     
 
 	}
 

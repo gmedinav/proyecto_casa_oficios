@@ -45,7 +45,14 @@ header ("Pragma: no-cache");
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.js"></script>
+<style type="text/css">
 
+.table { border: 0px solid #2980B9; }
+.table thead > tr > th { border-bottom: none; }
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 0px solid #2980B9; }
+
+
+</style>
 </head>
 <!--
 BODY TAG OPTIONS:

@@ -57,7 +57,8 @@ class Cliente_info extends CI_Model {
 
 
           $this->load->library('json_bootgrid_gmv');
-          $resultado = $this->json_bootgrid_gmv->get_query_bootgrid($params, $array_campos, $vw_tbl, $campo_id);
+          $where_extension = "1 =1 ";
+          $resultado = $this->json_bootgrid_gmv->get_query_bootgrid($params, $array_campos, $vw_tbl, $campo_id, $where_extension);
 
           $sqlTot = $resultado["query_total"];
           $sqlRec = $resultado["query_registros"];
