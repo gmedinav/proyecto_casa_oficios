@@ -42,7 +42,7 @@ class Json_bootgrid_gmv {
           $sqlRec .= $sql;
           
 
-          if(isset($where) && $where != '') {  
+          if(isset($where) && trim($where) != '') {  
 
             $sqlTot .= $where." AND (". $where_extension .") ";
             $sqlRec .= $where." AND (". $where_extension .") ";

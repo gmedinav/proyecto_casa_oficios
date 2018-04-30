@@ -70,8 +70,8 @@
     <thead>
         <tr>
 
-            <th data-column-id="COD_SOLICITUD" data-type="numeric" data-identifier="true">Código Cliente</th> 
-            <th align="center" data-column-id="COD_SOLICITUD" data-formatter="link_asignar">Asignar Trabajador</th>        
+            <th data-column-id="COD_SOLICITUD" data-type="numeric" data-identifier="true">Código Solicitud</th> 
+            <th align="center" data-column-id="COD_SOLICITUD" data-formatter="link_asignar">Buscar Trabajador</th>        
             <th data-column-id="DES_TIPO_AVERIA" data-formatter="link_detalle">Tipo Avería</th>
             <th data-column-id="ESTADO_ASIGNACION" >Estado Asignación</th>     
             <th data-column-id="NOMBRE_CLIENTE" >Nombre Cliente</th>            
@@ -127,7 +127,7 @@ $("#grid-data").bootgrid({
         },   
         "link_asignar": function(column, row)
         {
-            return "<a href=\"#\" onclick=\"detalle_averia('"+row.DES_TIPO_AVERIA+"','"+row.FONO_CLI+"','"+row.DISTRITO_CLI+"','"+row.FEC_REGISTRO+"','"+row.DURACION+"','"+row.NOMBRE_CLIENTE+"','"+row.DIR_CLI+"','"+ row.DESCRIP_CASO + "')\">"+ "<img align='middle' src='<?php echo site_url('assets/grocery_crud/themes/flexigrid/css/images/worker.png'); ?>'"+"</a>";
+            return "<a href=\"<?php echo base_url()."admin/Asignacion_solicitudes/tmrh_x_asignar/";?>"+row.COD_SOLICITUD+"\" >"+ "<img align='middle' src='<?php echo site_url('assets/grocery_crud/themes/flexigrid/css/images/worker.png'); ?>'"+"</a>";
         },                
     }
 }).on("selected.rs.jquery.bootgrid", function(e, rows)
