@@ -64,11 +64,6 @@
 
 
 
-        <!--li>
-          <a href="<?php echo site_url('Administrar/monitor_solicitudes')?>"><i class="fa fa-crosshairs">
-          </i> <span>Monitoreo de Solicitudes</span></a>
-        </li-->
-
         <li><a href="<?php echo site_url('admin/tmrh')?>">
           <i class="glyphicon glyphicon-wrench"></i> <span>Trabajadores</span></a>
         </li>
@@ -87,8 +82,8 @@
           </a>
           <ul class="treeview-menu">
       
-            <li><a href="<?php echo site_url('Administrar/tiempo_experiencia')?>">Tiempo Experiencia</a></li>
-            <li><a href="<?php echo site_url('Administrar/oficio_especialidades')?>">Oficios/Especialidades</a></li>
+            <li><a href="<?php echo site_url('admin/Entidades_negocio/tiempo_experiencia')?>">Tiempo Experiencia</a></li>
+            <li><a href="<?php echo site_url('admin/Entidades_negocio/oficio_especialidades')?>">Oficios/Especialidades</a></li>
 
           </ul>
         </li>
@@ -102,10 +97,10 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href='<?php echo site_url('Administrar/tipo_usuario')?>'>Tipo Usuario</a></li>
-            <li><a href='<?php echo site_url('Administrar/tipo_registro')?>'>Tipo Registro</a></li>
-            <li><a href='<?php echo site_url('Administrar/tipo_prioridad')?>'>Tipo Prioridad</a></li>     
-            <li><a href='<?php echo site_url('Administrar/tipo_canal_contacto')?>'>Tipo Canal Contacto</a></li>        
+            <li><a href='<?php echo site_url('admin/Entidades_negocio/tipo_usuario')?>'>Tipo Usuario</a></li>
+            <li><a href='<?php echo site_url('admin/Entidades_negocio/tipo_registro')?>'>Tipo Registro</a></li>
+            <li><a href='<?php echo site_url('admin/Entidades_negocio/tipo_prioridad')?>'>Tipo Prioridad</a></li>     
+            <li><a href='<?php echo site_url('admin/Entidades_negocio/tipo_canal_contacto')?>'>Tipo Canal Contacto</a></li>        
           </ul>
         </li>
 
@@ -117,14 +112,14 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href='<?php echo site_url('Administrar/sexo')?>'>Tipo de Sexo</a></li>  
-            <li><a href='<?php echo site_url('Administrar/tipo_operadora')?>'>Tipo Operadora</a></li>
-            <li><a href='<?php echo site_url('Administrar/tipo_documento')?>'>Tipo Documento</a></li>         
+            <li><a href='<?php echo site_url('admin/Entidades_negocio/sexo')?>'>Tipo de Sexo</a></li>  
+            <li><a href='<?php echo site_url('admin/Entidades_negocio/tipo_operadora')?>'>Tipo Operadora</a></li>
+            <li><a href='<?php echo site_url('admin/Entidades_negocio/tipo_documento')?>'>Tipo Documento</a></li>         
           </ul>
         </li>
 
 
-        <li class="active"><a href="<?php echo site_url('Login/cerrar_session')?>">
+        <li class="active"><a href="<?php echo site_url('admin/Login/cerrar_session')?>">
           <i class="fa fa-sign-out"></i> <span>Cerrar Sesión</span></a>
         </li>   
 

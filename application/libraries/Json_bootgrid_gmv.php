@@ -35,7 +35,7 @@ class Json_bootgrid_gmv {
               }
               //substr("abcdef", 0, -1);  // devuelve "abcde"
               $campos = substr($campos , 0, -1);              
-          	  $sql = "SELECT $campos FROM $vw_tbl  ";
+          	  $sql = "SELECT  DISTINCT  $campos FROM $vw_tbl  ";
            }
 
           $sqlTot .= $sql;

@@ -227,8 +227,8 @@ function confirmar_asignacion(cod_tmrh){
 
         $('#myModal').modal('show');
         cod_sol = <?php echo $row['COD_SOLICITUD']; ?>;
-        url= "<?php echo base_url()."Asignacion_solicitud_trabajador/asignacion"; ?>";
 
+        url = url_web + "asignacion";
 
         $.get(url+"/"+cod_sol+"/"+cod_tmrh, {}, 
             function(htmlexterno){

@@ -249,7 +249,7 @@ desired effect
                   <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="<?php echo site_url('Login/cerrar_session')?>" class="btn btn-default btn-flat">Cerrar Sesión</a>
+                  <a href="<?php echo site_url('admin/Login/cerrar_session')?>" class="btn btn-default btn-flat">Cerrar Sesión</a>
                 </div>
               </li>
             </ul>

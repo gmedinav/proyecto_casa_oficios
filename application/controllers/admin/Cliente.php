@@ -15,7 +15,7 @@ class Cliente extends CI_Controller {
 			if($this->sesion_activa()==false){
 
 				//$this->load->view('vw_login');
-				redirect(base_url()."Login/");
+				redirect(base_url()."admin/Login/");
 				die();			
 			}  
                    
@@ -39,7 +39,7 @@ class Cliente extends CI_Controller {
 	public function json_listar_clientes()
 	{
         //$data['guardado']=FALSE;              
-		$this->load->model('cliente/cliente_info');
+		$this->load->model('entidad_ajax/cliente_info_model');
 
 		$params = $_REQUEST;
 		//$params = $this->input->get_post();
@@ -62,8 +62,8 @@ class Cliente extends CI_Controller {
 		$vw_tbl="VW_CLIENTE";
 		$campo_id="COD_CLIENTE";
 
-		$data['json']  = $this->cliente_info->json_listar_clientes($params, $array_campos, $vw_tbl, $campo_id);
-		$this->load->view('json_servicio',$data);
+		$data['json']  = $this->cliente_info_model->json_listar_clientes($params, $array_campos, $vw_tbl, $campo_id);
+		$this->load->view('admin/_template/json_servicio',$data);
                
 	}	        
 

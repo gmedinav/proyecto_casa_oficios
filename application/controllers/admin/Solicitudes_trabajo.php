@@ -15,30 +15,14 @@ class Solicitudes_trabajo extends CI_Controller {
 			if($this->sesion_activa()==false){
 
 				//$this->load->view('vw_login');
-				redirect(base_url()."Login/");
+				redirect(base_url()."admin/Login/");
 				die();			
 			}  
-                   
-
     }     
 
-/*
-	public function index()
-	{
 
-		$data['vista_incluida']= "admin/solicitud_trabajo/vw_cliente_listar";
-		$data['titulo']= "Solicitudes Pendiente";
-
-        $this->load->view('template_admin/header');   
-        $this->load->view('template_admin/menu');   
-        $this->load->view('template_admin/content',$data);     
-        $this->load->view('template_admin/footer');                     
-
-	}
-*/
 	public function canceladas()
 	{
-
 		$data['vista_incluida']= "admin/solicitud_trabajo/vw_monitoreo_cancelado_listar";
 		$data['titulo']= "Solicitudes Canceladas";
 
@@ -46,13 +30,11 @@ class Solicitudes_trabajo extends CI_Controller {
         $this->load->view('admin/_template/menu');   
         $this->load->view('admin/_template/content',$data);     
         $this->load->view('admin/_template/footer');                     
-
 	}
 
 
 	public function pendientes()
 	{
-
 		$data['vista_incluida']= "admin/solicitud_trabajo/vw_monitoreo_pendiente_listar";
 		$data['titulo']= "Solicitudes Pendiente";
 
@@ -60,12 +42,11 @@ class Solicitudes_trabajo extends CI_Controller {
         $this->load->view('admin/_template/menu');   
         $this->load->view('admin/_template/content',$data);     
         $this->load->view('admin/_template/footer');                     
-
 	}
+
 
 	public function asignadas()
 	{
-
 		$data['vista_incluida']= "admin/solicitud_trabajo/vw_monitoreo_asignado_listar";
 		$data['titulo']= "Solicitudes Asignadas";
 
@@ -73,21 +54,17 @@ class Solicitudes_trabajo extends CI_Controller {
         $this->load->view('admin/_template/menu');   
         $this->load->view('admin/_template/content',$data);     
         $this->load->view('admin/_template/footer');                     
-
 	}		
 
 
 	public function json_listar_solicitudes($tipo_filtro)
-	{
-        //$data['guardado']=FALSE;              
-		$this->load->model('solicitudes_trabajo/Solicitudes_trabajo_info_model');
-
+	{          
+		$this->load->model('entidad_ajax/Solicitudes_trabajo_info_model');
 		$params = $_REQUEST;
 		//$params = $this->input->get_post();
 	
 		$data['json']  = $this->Solicitudes_trabajo_info_model->json_listar_solicitudes($params, $tipo_filtro);
-		$this->load->view('json_servicio',$data);
-               
+		$this->load->view('admin/_template/json_servicio',$data);              
 	}	        
 
 

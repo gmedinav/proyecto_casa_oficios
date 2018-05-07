@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tmrh extends CI_Controller {
     
-
     function __construct()
     {
             parent::__construct();
@@ -14,8 +13,7 @@ class Tmrh extends CI_Controller {
                
 			if($this->sesion_activa()==false){
 
-				//$this->load->view('vw_login');
-				redirect(base_url()."Login/");
+				redirect(base_url()."admin/Login/");
 				die();			
 			}  
 
@@ -24,7 +22,6 @@ class Tmrh extends CI_Controller {
 
 	public function index()
 	{
-
 		$data['vista_incluida']= "admin/tmrh/vw_tmrh_listar";
 		$data['titulo']= "Trabajadores (TMRH)";
 
@@ -32,15 +29,12 @@ class Tmrh extends CI_Controller {
         $this->load->view('admin/_template/menu');   
         $this->load->view('admin/_template/content',$data);     
         $this->load->view('admin/_template/footer');                     
-
 	}
 
 
 	public function json_nuevo_listar_tmrh()
-	{
-        //$data['guardado']=FALSE;              
-		$this->load->model('tmrh/tmrh_info_profile');
-
+	{          
+		$this->load->model('entidad_ajax/tmrh_info_model');
 		$params = $_REQUEST;
 		//$params = $this->input->get_post();
 
@@ -59,15 +53,15 @@ class Tmrh extends CI_Controller {
 		$vw_tbl="VW_TMRH_PERFIL";
 		$campo_id="COD_TMRH";
 
-		$data['json']  = $this->tmrh_info_profile->json_listar_tmrh_perfil($params, $array_campos, $vw_tbl, $campo_id);
-		$this->load->view('json_servicio',$data);
+		$data['json']  = $this->tmrh_info_model->json_listar_tmrh_perfil($params, $array_campos, $vw_tbl, $campo_id);
+		$this->load->view('admin/_template/json_servicio',$data);
                
 	}	        
 
 	public function ajax_vista_telefonos($id){
 
-		$this->load->model('tmrh/tmrh_info_profile');
-		$lista_contactos = $this->tmrh_info_profile->listar_contactos_x_tmrh($id);
+		$this->load->model('entidad_ajax/tmrh_info_model');
+		$lista_contactos = $this->tmrh_info_model->listar_contactos_x_tmrh($id);
 		$principal  ="";
 		$secundario ="";
 
@@ -100,8 +94,8 @@ class Tmrh extends CI_Controller {
 
 	public function ajax_vista_oficios($id){
 
-		$this->load->model('tmrh/tmrh_info_profile');
-		$lista_contactos = $this->tmrh_info_profile->listar_oficios_experiencia_x_tmrh($id);
+		$this->load->model('entidad_ajax/tmrh_info_model');
+		$lista_contactos = $this->tmrh_info_model->listar_oficios_experiencia_x_tmrh($id);
 		$principal  ="";
 		$secundario ="";
 
