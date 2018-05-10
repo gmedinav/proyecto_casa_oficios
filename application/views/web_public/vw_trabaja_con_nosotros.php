@@ -327,11 +327,6 @@
                 reader.readAsDataURL(fileInput.files[0]);
             
             
-   
-             
-             
-    
-             
             //document.getElementById('copyfoto').files = document.getElementById(nom_input_file).files;
             
             }

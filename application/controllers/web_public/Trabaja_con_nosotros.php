@@ -349,13 +349,17 @@ class Trabaja_con_nosotros extends CI_Controller {
             $insertar_tmrh['FEC_NACIMIENTO']        = $this->input->post('txtFecNaci'); 
             
             $lst_oficio_principal                   = $this->listarOficios();
+
             $i_telefono                             = $this->retornarTelefono($this->input->post('cboCompaniaPrincipal'));
+            $i_oficio                               = $this->retornarOficio($this->input->post('cboOficiosPreferencial'));
             
-            $insertar_tmrh['COD_OFICIO_PRINCIPAL']  = $lst_oficio_principal[$this->input->post('cboOficiosPreferencial')];
+            //$insertar_tmrh['COD_OFICIO_PRINCIPAL']      = $lst_oficio_principal[$this->input->post('cboOficiosPreferencial')];
+            
+            $insertar_tmrh['COD_OFICIO_PRINCIPAL']      = $i_oficio['id_oficio_experiencia'];
+            $insertar_tmrh['COD_TIEMPO_EXPERIENCIA']    = $i_oficio['id_periodo_experiencia'];
 
-            $insertar_tmrh['NUM_CELU']              = $i_telefono['telefono'];
-
-
+            $insertar_tmrh['NUM_CELU']                  = $i_telefono['telefono'];
+            $insertar_tmrh['COD_TIPO_OPERADORA']        = $i_telefono['id_proveedor'];
 
             $this->db->trans_begin();
             
@@ -421,8 +425,6 @@ class Trabaja_con_nosotros extends CI_Controller {
                                                                
                     $instancia['COD_TMRH'] = $ultimo_id;
                     $instancia['COD_OFICIO']= $value;
-                    #$instancia['FEC_REGISTRO']
-                    #$instancia['FEC_MODIFICACION']
                     #$instancia['COD_USUARIO_REGISTRO']                    
                     $instancia['COD_TIEMPO_EXPERIENCIA'] = $array_id_experiencia[$key];
                     
@@ -555,12 +557,11 @@ class Trabaja_con_nosotros extends CI_Controller {
         foreach ($mails as $key => $value) {            
             $this->form_validation->set_message('validar_existencia_email', 'Este correo electrónico ya está registrado.');
             return false;
-
         }
         return true;
-
     }    
     
+
     public function validar_telefono_check($telefono)
     {        
        if(is_numeric($telefono)== true)
@@ -912,7 +913,6 @@ class Trabaja_con_nosotros extends CI_Controller {
     
     public function listarTelefono()
     {
-
         if(empty($_SESSION['matriz_telefonico'])==false || isset($_SESSION['matriz_telefonico'])){
             return $_SESSION['matriz_telefonico'];
         }
@@ -931,7 +931,8 @@ class Trabaja_con_nosotros extends CI_Controller {
 
     }
 
-    
+   
+
     #public function listarProveedorTelefonico()
     #{
     #    $arreglo=array();
@@ -943,7 +944,6 @@ class Trabaja_con_nosotros extends CI_Controller {
     
     //verificar si existe telefono a agregar: retornará el indice si encuentra
     public function existeItemTelefono($telefono){ 
-
 
         $arreglo = array();        
         if(empty($this->listarTelefono())==false){            
@@ -959,13 +959,11 @@ class Trabaja_con_nosotros extends CI_Controller {
             }                        
         }
         return -1;
-
     }
     
     
    public function validatExistenciaTelefono_check($telefono){
   
-     
         if(empty($this->listarTelefono())== false){            
            #$arreglo=$this->listarTelefono();
            foreach($this->listarTelefono() as $item_telefono=>$value_telefono)
@@ -979,7 +977,6 @@ class Trabaja_con_nosotros extends CI_Controller {
            }                        
         }
         return 0;
-
     }    
     
     //Borrar telefono del temporal
@@ -1012,12 +1009,34 @@ class Trabaja_con_nosotros extends CI_Controller {
       
       $temp1= $this->tipo_experiencia_model->instanciaPeriodoExperiencia($id_periodo) ;
       $_SESSION['descrip_periodo_experiencia'][] = $temp1["DES_TIPO_MAESTRO"];
+
       $temp2= $this->oficio_model->instanciaOficios($id_Oficio);
       #echo "temp2:".$temp2["DES_OFICIO"];
       $_SESSION['descrip_oficio_experiencia'][] = $temp2["DES_OFICIO"];
       return true;
       
     }
+
+
+    public function retornarOficio($x)
+    {
+
+        if( (empty($_SESSION['oficio_experiencia'])==false || isset($_SESSION['oficio_experiencia'])) ||
+            (empty($_SESSION['id_periodo_experiencia'])==false || isset($_SESSION['id_periodo_experiencia'])) 
+           ){
+
+            $arreglo['id_oficio_experiencia'] = $_SESSION['oficio_experiencia'][$x] ;
+            $arreglo['id_periodo_experiencia'] =$_SESSION['id_periodo_experiencia'][$x] ;
+
+            return $arreglo;
+
+
+        }
+        return false;
+
+    } 
+
+
     public function borrarItemOficios($x){
      
         if(empty($_SESSION['oficio_experiencia'][$x])==false){ 
@@ -1039,10 +1058,10 @@ class Trabaja_con_nosotros extends CI_Controller {
         }    
         return false;
     }     
+
     public function resetListaOficiosExperimentados(){
         $this->session->sess_destroy();
-        return $this->session->userdata('oficio_experiencia');
-        
+        return $this->session->userdata('oficio_experiencia');    
     }    
     
     public function listarOficios()

@@ -68,7 +68,6 @@ class Solicitar_trabajo extends CI_Controller {
                                                         )
                 );*/
             
-
             $this->form_validation->set_message('required','El campo %s es obligatorio.'); 
             $this->form_validation->set_message('alpha','El campo %s debe estar compuesto solo por letras.');
             $this->form_validation->set_message('valid_email','El campo %s debe ser un email correcto.');     
