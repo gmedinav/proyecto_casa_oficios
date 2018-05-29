@@ -1161,7 +1161,7 @@
 <body onload="cargar_page()">
     
 <?php //echo form_open('formulario/procesar'); ?>
-<?php echo form_open_multipart('web_public/trabaja_con_nosotros/formulario', array('onsubmit' => 'return validar_submit();')); ?>    
+<?php echo form_open_multipart(base_url().'web_public/trabaja_con_nosotros/formulario', array('onsubmit' => 'return validar_submit();')); ?>    
     
     <?php 
         #echo validation_errors(); 

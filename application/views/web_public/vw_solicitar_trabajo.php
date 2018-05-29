@@ -758,7 +758,7 @@ uploadTask.on('state_changed',
 
 
 
-                        <?php echo form_open_multipart('web_public/solicitar_trabajo/formulario', array('onsubmit' => 'return submit_form();')); ?>
+                        <?php echo form_open_multipart(base_url().'web_public/solicitar_trabajo/formulario', array('onsubmit' => 'return submit_form();')); ?>
 
                         <!-- Form Name -->
                         <div class="form-group" >

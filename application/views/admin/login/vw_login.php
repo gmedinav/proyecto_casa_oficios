@@ -228,7 +228,7 @@ fieldset{
 
         ?>
 
-        <?php echo form_open('admin/login/acceder'); ?>
+        <?php echo form_open(base_url().'admin/login/acceder'); ?>
 
           <fieldset class="clearfix">
 
