@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'dectersoluciones.com',
-	'username' => 'eaizizak_jaguila',
-	'password' => '%%BjqG%(8Ccs',
-	'database' => 'eaizizak_bd_casa_oficios',
+	'hostname' => 'casaoficios.com',
+	'username' => 'casaofic_gestor',
+	'password' => '*Ca$a_0f1c1o$*',
+	'database' => 'casaofic_bd_casa_oficios',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
