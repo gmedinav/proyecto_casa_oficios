@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 class Login_model extends CI_Model {
 
         public function __construct()
@@ -61,7 +60,7 @@ class Login_model extends CI_Model {
 											t.COD_TIPO_USUARIO
 											FROM tb_usuario t
 											WHERE
-											t.COD_USUARIO='$id'  "
+											t.COD_USUARIO='$id'"
 
 										)->row();     
 		 	 return $usuario_sesion;
@@ -75,6 +74,4 @@ class Login_model extends CI_Model {
         }                 
 
 
-}
-
-?>	
+}?>

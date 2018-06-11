@@ -55,7 +55,30 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-$route['index'] = 'web_public/solicitar_trabajo/index';
+//$route['web_public/(:any)'] = "web_public/solicitar_trabajo/index";
+
+$route['index'] = "web_public/solicitar_trabajo";
+$route['solicitar_trabajo'] = "web_public/solicitar_trabajo";
+$route['trabaja_con_nosotros'] = "web_public/trabaja_con_nosotros";
+
+$route['oficio_albanil'] = "web_public/oficio_albanil";
+$route['oficio_carpintero'] = "web_public/oficio_carpintero";
+$route['oficio_gasfitero'] = "web_public/oficio_gasfitero";
+$route['oficio_jardinero'] = "web_public/oficio_jardinero";
+
+
+
+$route['contactenos'] = "web_public/contactenos";
+$route['faq'] = "web_public/faq";
+//$route['admin'] = "admin/login";
+
+
+
+
+//$route['web_public/solicitar_trabajo#feature'] = "solicitar_trabajo";
+
+
+//$route['index'] = 'web_public/solicitar_trabajo/index'; --demo
 
 /*Validar Login*/
 

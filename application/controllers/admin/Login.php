@@ -1,4 +1,4 @@
-<?php
+<?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
@@ -54,7 +54,9 @@ class Login extends CI_Controller {
 
             		$_SESSION['sesion_usuario'] = $rpta->DES_USUARIO  ;
                     $_SESSION['sesion_id_usuario'] = $rpta->COD_USUARIO;
+
                     redirect(base_url()."admin/Entidades_negocio");
+
                     //redirect(base_url()."tmrh");
             		//$this->load->view('example');
             		return ;
@@ -98,4 +100,4 @@ class Login extends CI_Controller {
         }
 
 
-}
+}?>

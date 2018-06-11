@@ -59,7 +59,7 @@ header ("Pragma: no-cache");
     
     function conexionfirebase(){
         
-          var config = {
+    var config = {
     apiKey: "AIzaSyCzzJ2mLmdxaC7EH6rwTUj5EdIYDd9VfDY",
     authDomain: "proyectocasaoficios.firebaseapp.com",
     databaseURL: "https://proyectocasaoficios.firebaseio.com",
@@ -578,26 +578,26 @@ uploadTask.on('state_changed',
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo base_url('web_public/solicitar_trabajo'); ?>"><img src="<?php echo base_url("assets/images/logo.png"); ?>" alt="logo"></a>
+                    <a class="navbar-brand" href="<?php echo base_url('solicitar_trabajo'); ?>"><img src="<?php echo base_url("assets/images/logo.png"); ?>" alt="logo"></a>
                 </div>
                 
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo base_url('web_public/solicitar_trabajo'); ?>">Inicio</a></li>
-                       <li><a href="<?php echo base_url('web_public/trabaja_con_nosotros'); ?>">Trabaja con Nosotros</a></li>
+                        <li class="active"><a href="<?php echo base_url('solicitar_trabajo'); ?>">Inicio</a></li>
+                       <li><a href="<?php echo base_url('trabaja_con_nosotros'); ?>">Trabaja con Nosotros</a></li>
                         <!--li><a href="#feature">Servicios</a></li-->                        
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Servicios <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
                                 
-                                <li><a href="<?php echo base_url('web_public/oficio_albanil'); ?>">Albañilería</a></li>
-                                <li><a href="<?php echo base_url('web_public/oficio_carpintero'); ?>">Carpintería</a></li>
-                                <li><a href="<?php echo base_url('web_public/oficio_gasfitero'); ?>">Gasfitería</a></li>
-                                <li><a href="<?php echo base_url('web_public/oficio_jardinero'); ?>">Jardinería</a></li>
-                                <li><a href="<?php echo base_url('web_public/solicitar_trabajo#feature'); ?>">Otros</a></li>
+                                <li><a href="<?php echo base_url('oficio_albanil'); ?>">Albañilería</a></li>
+                                <li><a href="<?php echo base_url('oficio_carpintero'); ?>">Carpintería</a></li>
+                                <li><a href="<?php echo base_url('oficio_gasfitero'); ?>">Gasfitería</a></li>
+                                <li><a href="<?php echo base_url('oficio_jardinero'); ?>">Jardinería</a></li>
+                                <li><a href="<?php echo base_url('solicitar_trabajo#feature'); ?>">Otros</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo base_url('web_public/contactenos'); ?>">Contactenos</a></li>                        
+                        <li><a href="<?php echo base_url('contactenos'); ?>">Contactenos</a></li>                        
                     </ul>
                 </div><!--/.container-->
         </nav><!--/nav-->
@@ -626,7 +626,7 @@ uploadTask.on('state_changed',
                                     <h1 class="animation animated-item-1" style="color:Black">Gasfiteros</h1>
                                     <h2 class="animation animated-item-2" style="color:Black">
                                     Atentos para solucionar la fuga de agua en la tuberías, griferías averiadas, problemas con el desagüe, etc.</h2>
-                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('web_public/oficio_gasfitero'); ?>">Leer Más</a>
+                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('oficio_gasfitero'); ?>">Leer Más</a>
                                 </div>
                             </div>
 
@@ -649,7 +649,7 @@ uploadTask.on('state_changed',
                                     <h2 class="animation animated-item-2">
                                     Dispuestos para remover la maleza, podar las ramas del árbol, plantar un nuevo césped, fertilizar la tierra, etc.
                                     </h2>
-                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('web_public/oficio_jardinero'); ?>">Leer Más</a>
+                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('oficio_jardinero'); ?>">Leer Más</a>
                                 </div>
                             </div>
 
@@ -672,7 +672,7 @@ uploadTask.on('state_changed',
                                     <h2 class="animation animated-item-2" style="color:Black">
                                     Desea renovar las puertas de sus habitaciones, reparar la mesa o las sillas del comedor, construir un nuevo estante para su cocina, etc.
                                     </h2>
-                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('web_public/oficio_carpintero'); ?>">Leer más</a>
+                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('oficio_carpintero'); ?>">Leer más</a>
                                 </div>
                             </div>
                             <div class="col-sm-6 hidden-xs animation animated-item-4">
@@ -694,7 +694,7 @@ uploadTask.on('state_changed',
                                     <h2 class="animation animated-item-2">
                                     Desea refaccionar la grieta del muro, tarrajear el muro del exterior de su casa, etc.
                                     </h2>
-                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('web_public/oficio_albanil'); ?>">Leer más</a>
+                                    <a class="btn-slide animation animated-item-3" href="<?php echo base_url('oficio_albanil'); ?>">Leer más</a>
                                 </div>
                             </div>
                             <div class="col-sm-6 hidden-xs animation animated-item-4">
@@ -758,7 +758,7 @@ uploadTask.on('state_changed',
 
 
 
-                        <?php echo form_open_multipart(base_url().'web_public/solicitar_trabajo/formulario', array('onsubmit' => 'return submit_form();')); ?>
+                        <?php echo form_open_multipart(base_url().'solicitar_trabajo/formulario', array('onsubmit' => 'return submit_form();')); ?>
 
                         <!-- Form Name -->
                         <div class="form-group" >
@@ -1141,12 +1141,12 @@ uploadTask.on('state_changed',
                     <div class="widget">
                         <h3>Compañía</h3>
                         <ul>
-                            <li><a href="<?php echo base_url('web_public/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
+                            <li><a href="<?php echo base_url('acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
                             <!--li><a href="#">We are hiring</a></li-->
                             <!--li><a href="#">Conozca el equipo</a></li-->                            
-                            <li><a href="<?php echo base_url('web_public/terminos_uso'); ?>">Términos de uso</a></li>
+                            <li><a href="<?php echo base_url('terminos_uso'); ?>">Términos de uso</a></li>
                             <!--li><a href="#">Privacy policy</a></li-->
-                            <li><a href="<?php echo base_url('web_public/contactenos'); ?>">Contactenos</a></li>
+                            <li><a href="<?php echo base_url('contactenos'); ?>">Contactenos</a></li>
                             <li><a href="#">Copyright</a></li>
                         </ul>
                     </div>    
@@ -1156,7 +1156,7 @@ uploadTask.on('state_changed',
                     <div class="widget">
                         <h3>Soporte</h3>
                         <ul>
-                            <li><a href="<?php echo base_url('web_public/faq'); ?>">Faq</a></li>
+                            <li><a href="<?php echo base_url('faq'); ?>">Faq</a></li>
                             <!--li><a href="#">Documentación</a></li-->
                             <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
 
@@ -1168,11 +1168,11 @@ uploadTask.on('state_changed',
                     <div class="widget">
                         <h3>Servicios</h3>
                         <ul>
-                            <li><a href="<?php echo base_url('web_public/oficio_albanil'); ?>">Albañilería</a></li>
-                            <li><a href="<?php echo base_url('web_public/oficio_carpintero'); ?>">Carpintería</a></li>                            
-                            <li><a href="<?php echo base_url('web_public/oficio_jardinero'); ?>">Jardinería</a></li>
-                            <li><a href="<?php echo base_url('web_public/oficio_gasfitero'); ?>">Gasfitería</a></li>
-                            <li><a href="<?php echo base_url('web_public/solicitar_trabajo#feature'); ?>">Otros</a></li>                            
+                            <li><a href="<?php echo base_url('oficio_albanil'); ?>">Albañilería</a></li>
+                            <li><a href="<?php echo base_url('oficio_carpintero'); ?>">Carpintería</a></li>                            
+                            <li><a href="<?php echo base_url('oficio_jardinero'); ?>">Jardinería</a></li>
+                            <li><a href="<?php echo base_url('oficio_gasfitero'); ?>">Gasfitería</a></li>
+                            <li><a href="<?php echo base_url('solicitar_trabajo#feature'); ?>">Otros</a></li>                            
 
                         </ul>
                     </div>    
@@ -1183,7 +1183,7 @@ uploadTask.on('state_changed',
                         <h3>Nuestro Equipo</h3>
                         <ul>
                             <li><a href="http://www.dectersoluciones.com/">Decter Soluciones</a></li>
-                            <li><a href="<?php echo base_url('web_public/solicitar_trabajo'); ?>">Casa Oficios Corp</a></li>
+                            <li><a href="<?php echo base_url('solicitar_trabajo'); ?>">Casa Oficios Corp</a></li>
 
                         </ul>
                     </div>    
@@ -1200,9 +1200,9 @@ uploadTask.on('state_changed',
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="<?php echo base_url('web_public/solicitar_trabajo'); ?>">Inicio</a></li>
-                        <li><a href="<?php echo base_url('web_public/acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
-                        <li><a href="<?php echo base_url('web_public/contactenos'); ?>">Contactenos</a></li>
+                        <li><a href="<?php echo base_url('solicitar_trabajo'); ?>">Inicio</a></li>
+                        <li><a href="<?php echo base_url('acerca_nosotros'); ?>">Acerca de Nosotros</a></li>
+                        <li><a href="<?php echo base_url('contactenos'); ?>">Contactenos</a></li>
                     </ul>
                 </div>
             </div>
