@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'casaoficios.com',
-	'username' => 'casaofic_gestor',
-	'password' => '*Ca$a_0f1c1o$*',
-	'database' => 'casaofic_bd_casa_oficios',
+	'hostname' => 'xxxxx.com',
+	'username' => 'user',
+	'password' => 'pass',
+	'database' => 'name_bd',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
