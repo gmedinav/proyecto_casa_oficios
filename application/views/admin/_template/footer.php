@@ -1,4 +1,3 @@
-
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- To the right -->
@@ -122,7 +121,5 @@
     </div>
   </div>
   <strong><div id="resultado"></div></strong>
-
-
 </body>
 </html>
